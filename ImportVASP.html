@@ -11796,7 +11796,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pypif.pif</span> <span class="k">import</span> <span class="n">dumps</span>
@@ -11814,29 +11814,30 @@ div#notebook {
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>{
-  &#34;chemicalSystem&#34;: &#34;Fe2Li4O8Si2&#34;,
+  &#34;category&#34;: &#34;system.chemical&#34;,
   &#34;properties&#34;: [
     {
+      &#34;dataType&#34;: &#34;COMPUTATIONAL&#34;,
+      &#34;scalars&#34;: [
+        {
+          &#34;value&#34;: 3.783
+        }
+      ],
+      &#34;name&#34;: &#34;Band Gap Energy&#34;,
+      &#34;units&#34;: &#34;eV&#34;,
+      &#34;method&#34;: {
+        &#34;name&#34;: &#34;Density Functional Theory&#34;,
+        &#34;software&#34;: {
+          &#34;name&#34;: &#34;VASP&#34;,
+          &#34;version&#34;: &#34;5.4.1&#34;
+        }
+      },
       &#34;conditions&#34;: [
         {
-          &#34;name&#34;: &#34;XC Functional&#34;,
-          &#34;scalars&#34;: &#34;PAW_PBE&#34;
-        },
-        {
           &#34;name&#34;: &#34;k-Points per Reciprocal Atom&#34;,
-          &#34;scalars&#34;: 256.0
-        },
-        {
-          &#34;units&#34;: &#34;eV&#34;,
-          &#34;name&#34;: &#34;Cutoff Energy&#34;,
-          &#34;scalars&#34;: 500.0
-        },
-        {
-          &#34;name&#34;: &#34;Psuedopotentials&#34;,
           &#34;scalars&#34;: [
-            &#34;Li_sv&#34;,
-            &#34;Fe_sv&#34;,
-           
+            {
+ 
 </pre>
 </div>
 </div>
@@ -11861,7 +11862,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The band gap is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="nb">next</span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pif</span><span class="o">.</span><span class="n">properties</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Band Gap Energy&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">scalars</span><span class="p">)</span>
+        <span class="nb">next</span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pif</span><span class="o">.</span><span class="n">properties</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Band Gap Energy&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">scalars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
      <span class="p">)</span>
 </pre></div>
 
@@ -11911,7 +11912,7 @@ div#notebook {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pypif.util.read_view</span> <span class="k">import</span> <span class="n">ReadView</span>
 <span class="n">rv</span> <span class="o">=</span> <span class="n">ReadView</span><span class="p">(</span><span class="n">pif</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The band gap is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rv</span><span class="p">[</span><span class="s2">&quot;Band Gap Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">scalars</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The band gap is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rv</span><span class="p">[</span><span class="s2">&quot;Band Gap Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">scalars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -11949,7 +11950,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The band gap is </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">rv</span><span class="p">[</span><span class="s2">&quot;Band Gap Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">scalars</span><span class="p">,</span>
+        <span class="n">rv</span><span class="p">[</span><span class="s2">&quot;Band Gap Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">scalars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
         <span class="n">rv</span><span class="p">[</span><span class="s2">&quot;Band Gap Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
      <span class="p">)</span>
 </pre></div>
