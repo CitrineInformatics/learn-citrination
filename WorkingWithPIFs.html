@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>ImportVASP</title>
+<title>WorkingWithPIFs</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -11746,49 +11746,6 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Importing-data-from-VASP-calculation-into-Citrination">Importing data from VASP calculation into Citrination<a class="anchor-link" href="#Importing-data-from-VASP-calculation-into-Citrination">&#182;</a></h1><p>Citrination is a public, un-siloed repository of materials data coupled to analysis and modeling tools.</p>
-<p>By putting data on Citrination, you can:</p>
-<ol>
-<li>Share incremental results within your group</li>
-<li>Supplement your data with similar published data</li>
-<li>Release your data to the public as you publish associated papers</li>
-<li>Recieve feedback on the quality of your DFT calculations</li>
-<li>View statistical analyses of the data as it comes in</li>
-<li>Build machine learning models on the data that update as data comes in</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>There are two steps for getting data from any format onto Citrination:</p>
-<ol>
-<li>formatting the data as a PIF</li>
-<li>uploading to Citrination</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Formatting-VASP-outputs-as-PIFs">Formatting VASP outputs as PIFs<a class="anchor-link" href="#Formatting-VASP-outputs-as-PIFs">&#182;</a></h2><p>We provide scripts to extract common conditions and properties from VASP calculations.  You just pass in a path to the calculation and it returns a PIF!</p>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
@@ -11824,7 +11781,7 @@ div#notebook {
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>dict_keys([&#39;Converged&#39;, &#39;Cutoff Energy&#39;, &#39;k-Points per Reciprocal Atom&#39;, &#39;Relaxed&#39;, &#39;VASP&#39;, &#39;Total Energy&#39;, &#39;Pressure&#39;, &#39;Psuedopotentials&#39;, &#39;XC Functional&#39;, &#39;Density Functional Theory&#39;])
+<pre>dict_keys([&#39;Converged&#39;, &#39;Density Functional Theory&#39;, &#39;XC Functional&#39;, &#39;Pressure&#39;, &#39;VASP&#39;, &#39;Cutoff Energy&#39;, &#39;Relaxed&#39;, &#39;k-Points per Reciprocal Atom&#39;, &#39;Total Energy&#39;, &#39;Psuedopotentials&#39;])
 B12
 </pre>
 </div>
@@ -11839,7 +11796,35 @@ B12
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The PIF is a lightweight schema on top of the JSON format:</p>
+<h1 id="Working-with-PIFs">Working with PIFs<a class="anchor-link" href="#Working-with-PIFs">&#182;</a></h1><p>Writing analysis and post-processing on top of PIFs lets us:</p>
+<ol>
+<li>Pull in data from collaborators and published sources</li>
+<li>Share our methodology with other researchers with data in PIFs</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="pypif-package"><code>pypif</code> package<a class="anchor-link" href="#pypif-package">&#182;</a></h2><p>The <code>pypif</code> package provides two APIs:</p>
+<ol>
+<li>Low level read/write API</li>
+<li>High[er] leve read-only API</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Low-level-API">Low level API<a class="anchor-link" href="#Low-level-API">&#182;</a></h3><p>The low level API closely mirrors the PIF schema definition</p>
 
 </div>
 </div>
@@ -11849,8 +11834,10 @@ B12
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pypif.pif</span> <span class="k">import</span> <span class="n">dumps</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dumps</span><span class="p">(</span><span class="n">pif</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)[:</span><span class="mi">500</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The total energy is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="nb">next</span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pif</span><span class="o">.</span><span class="n">properties</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Total Energy&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">scalars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+     <span class="p">))</span>
 </pre></div>
 
 </div>
@@ -11863,33 +11850,7 @@ B12
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{
-  &#34;chemicalFormula&#34;: &#34;B12&#34;,
-  &#34;properties&#34;: [
-    {
-      &#34;method&#34;: {
-        &#34;software&#34;: {
-          &#34;name&#34;: &#34;VASP&#34;,
-          &#34;version&#34;: &#34;5.2.12&#34;
-        },
-        &#34;name&#34;: &#34;Density Functional Theory&#34;
-      },
-      &#34;units&#34;: &#34;eV&#34;,
-      &#34;scalars&#34;: [
-        {
-          &#34;value&#34;: -80.346476
-        }
-      ],
-      &#34;dataType&#34;: &#34;COMPUTATIONAL&#34;,
-      &#34;conditions&#34;: [
-        {
-          &#34;units&#34;: &#34;eV&#34;,
-          &#34;scalars&#34;: [
-            {
-              &#34;value&#34;: 318.6
-            }
-          ],
-  
+<pre>The total energy is -80.346476
 </pre>
 </div>
 </div>
@@ -11903,7 +11864,7 @@ B12
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Uploading-files-to-Citrination">Uploading files to Citrination<a class="anchor-link" href="#Uploading-files-to-Citrination">&#182;</a></h2><p>PIFs and other files can be uploaded to Citrination via the <code>citrination_client</code> package.</p>
+<p>Note that the <code>name</code> is a field in a properties object, so we are searching for the first property with the <code>name</code> "Total Energy".</p>
 
 </div>
 </div>
@@ -11913,7 +11874,7 @@ B12
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Setting-up-the-client">Setting up the client<a class="anchor-link" href="#Setting-up-the-client">&#182;</a></h3><p>The client authenticates with your API key, which is located on the "Account" page on Citrination.  Please keep these keys out of your source code.  Environmnet variables are a best practice.</p>
+<h3 id="High[er]-level-API:-ReadView">High[er] level API: ReadView<a class="anchor-link" href="#High[er]-level-API:-ReadView">&#182;</a></h3><p>It might be more natural to index the property by its name.  We provide a <code>ReadView</code> that wraps the PIF and provides such an index:</p>
 
 </div>
 </div>
@@ -11923,46 +11884,38 @@ B12
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">CitrinationClient</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">environ</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">CitrinationClient</span><span class="p">(</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CITRINATION_API_KEY&#39;</span><span class="p">],</span> <span class="s1">&#39;https://stage.citrination.com&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pypif.util.read_view</span> <span class="k">import</span> <span class="n">ReadView</span>
+<span class="n">rv</span> <span class="o">=</span> <span class="n">ReadView</span><span class="p">(</span><span class="n">pif</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The total energy is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">rv</span><span class="p">[</span><span class="s2">&quot;Total Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">scalars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+    <span class="p">))</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The total energy is -80.346476
+</pre>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We'll use the same client to query and download from Citrination later.</p>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Creating-a-dataset">Creating a dataset<a class="anchor-link" href="#Creating-a-dataset">&#182;</a></h3><p>To upload data, we'll need to specify a dataset for it to live in.</p>
-<p>It is easiest to create a dataset via the website.</p>
-<p>You can share datasets via the groups tab.</p>
-<p>You'll only need to do this once.</p>
 
 </div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Uploading-a-pif-to-a-dataset">Uploading a pif to a dataset<a class="anchor-link" href="#Uploading-a-pif-to-a-dataset">&#182;</a></h3><p>The client uploads files, so we create a temporary file to store the pif in.</p>
-<p>We may also want to add a tag to the pif, which will make it easier to search and filter pifs later.</p>
+<p>The <code>scalars</code> member of the property contains the value of the property.  We also have access to metadata associated with that value, e.g. units:</p>
 
 </div>
 </div>
@@ -11972,36 +11925,30 @@ B12
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">TemporaryDirectory</span>
-<span class="kn">from</span> <span class="nn">pypif.pif</span> <span class="k">import</span> <span class="n">dump</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
-
-<span class="n">dataset_id</span> <span class="o">=</span> <span class="mi">758</span>
-<span class="n">pif</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;my_first_upload&quot;</span><span class="p">,]</span>
-<span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
-    <span class="n">tempname</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s2">&quot;pif.json&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tempname</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-        <span class="n">dump</span><span class="p">(</span><span class="n">pif</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">tempname</span><span class="p">,</span> <span class="n">dataset_id</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The total energy is </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">rv</span><span class="p">[</span><span class="s2">&quot;Total Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">scalars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+        <span class="n">rv</span><span class="p">[</span><span class="s2">&quot;Total Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+     <span class="p">)</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The total energy is -80.346476 eV
+</pre>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Why-are-we-doing-this-again?">Why are we doing this again?<a class="anchor-link" href="#Why-are-we-doing-this-again?">&#182;</a></h2><ol>
-<li>Putting data on Citrination makes sharing easy, both privately during the study and publicly after publication</li>
-<li>Citrination will analyze and model your data as it comes in</li>
-</ol>
 
 </div>
 </div>
+
 </div>
     </div>
   </div>
