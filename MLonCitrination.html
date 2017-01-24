@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">CitrinationClient</span>
@@ -11816,7 +11816,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">system_query</span> <span class="o">=</span> <span class="n">SystemQuery</span><span class="p">(</span>
@@ -11851,10 +11851,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simple_query</span> <span class="o">=</span> <span class="n">PifQuery</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_query</span> <span class="o">=</span> <span class="n">PifQuery</span><span class="p">(</span>
     <span class="n">include_datasets</span><span class="o">=</span><span class="p">[</span><span class="mi">150675</span><span class="p">],</span>
     <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
     <span class="n">random_results</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -11879,10 +11879,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">search_result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">simple_query</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">search_result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">test_query</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;We found </span><span class="si">{}</span><span class="s2"> records&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">search_result</span><span class="o">.</span><span class="n">total_num_hits</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">extracted</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">search_result</span><span class="o">.</span><span class="n">hits</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]])</span>
 </pre></div>
@@ -11898,7 +11898,7 @@ div#notebook {
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>We found 52265 records
-[{&#39;density&#39;: &#39;1.8998152107659778&#39;, &#39;formula&#39;: &#39;Cs&#39;}, {&#39;density&#39;: &#39;1.8998152107659778&#39;, &#39;formula&#39;: &#39;Cs&#39;}]
+[{&#39;formula&#39;: &#39;Cs&#39;, &#39;density&#39;: &#39;1.8998152107659778&#39;}, {&#39;formula&#39;: &#39;Cs&#39;, &#39;density&#39;: &#39;1.8998152107659778&#39;}]
 </pre>
 </div>
 </div>
@@ -11919,14 +11919,15 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">extracted</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">search_result</span><span class="o">.</span><span class="n">hits</span><span class="p">]</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;density.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;INPUT:CHEMICAL_FORMULA,OUTPUT:Density-g/cm3</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{formula:s}</span><span class="s2">, </span><span class="si">{density:s}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">row</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">write_csv</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;INPUT:CHEMICAL_FORMULA,OUTPUT:Density-g/cm3</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{formula:s}</span><span class="s2">, </span><span class="si">{density:s}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">row</span><span class="p">))</span>
+<span class="n">write_csv</span><span class="p">(</span><span class="s1">&#39;density.csv&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">extracted</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">search_result</span><span class="o">.</span><span class="n">hits</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -11943,6 +11944,117 @@ div#notebook {
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">candidates</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;CHEMICAL_FORMULA&quot;</span><span class="p">:</span> <span class="s2">&quot;Fe&quot;</span><span class="p">},]</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="s2">&quot;densitydemo&quot;</span><span class="p">,</span> <span class="n">candidates</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Posting to https://citrination.com/api/csv_to_models/densitydemo/predict with data={&#34;usePrior&#34;: true, &#34;candidates&#34;: [{&#34;CHEMICAL_FORMULA&#34;: &#34;Fe&#34;}], &#34;predictionSource&#34;: &#34;scalar&#34;}
+b&#39;Prediction failed: null&#39;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-science">Data science<a class="anchor-link" href="#Data-science">&#182;</a></h2><p>We can do better than that!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stable_query</span> <span class="o">=</span> <span class="n">system_query</span> <span class="o">=</span> <span class="n">SystemQuery</span><span class="p">(</span>
+    <span class="n">chemical_formula</span><span class="o">=</span><span class="n">ChemicalFieldOperation</span><span class="p">(</span>
+        <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;formula&quot;</span>
+    <span class="p">),</span>
+    <span class="n">properties</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">PropertyQuery</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">FieldOperation</span><span class="p">(</span>
+                <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="n">Filter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">)]</span>
+            <span class="p">),</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">FieldOperation</span><span class="p">(</span>
+                <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;density&quot;</span>
+            <span class="p">),</span>
+            <span class="n">logic</span><span class="o">=</span><span class="s2">&quot;MUST&quot;</span>
+        <span class="p">),</span>
+        <span class="n">PropertyQuery</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">FieldOperation</span><span class="p">(</span>
+                <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="n">Filter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s2">&quot;Energy above convex hull&quot;</span><span class="p">)]</span>
+            <span class="p">),</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">FieldOperation</span><span class="p">(</span>
+                <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="n">Filter</span><span class="p">(</span><span class="nb">max</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)]</span>
+            <span class="p">),</span>
+            <span class="n">logic</span><span class="o">=</span><span class="s2">&quot;MUST&quot;</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">better_query</span> <span class="o">=</span> <span class="n">PifQuery</span><span class="p">(</span>
+    <span class="n">include_datasets</span><span class="o">=</span><span class="p">[</span><span class="mi">150675</span><span class="p">],</span>
+    <span class="n">random_results</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">system</span><span class="o">=</span><span class="n">stable_query</span>
+<span class="p">)</span>
+<span class="n">better_result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">better_query</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;We found </span><span class="si">{}</span><span class="s2"> records&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">better_result</span><span class="o">.</span><span class="n">total_num_hits</span><span class="p">))</span>
+<span class="n">write_csv</span><span class="p">(</span><span class="s1">&#39;better_density.csv&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">extracted</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">better_result</span><span class="o">.</span><span class="n">hits</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>We found 52265 records
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     </div>
   </div>
