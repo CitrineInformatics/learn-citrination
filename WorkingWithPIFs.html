@@ -11752,7 +11752,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">dfttopif</span> <span class="k">import</span> <span class="n">directory_to_pif</span>
-<span class="n">pif</span> <span class="o">=</span> <span class="n">directory_to_pif</span><span class="p">(</span><span class="s2">&quot;/home/maxhutch/science/alloy.pbe/B/B.hR12&quot;</span><span class="p">)</span>
+<span class="n">pif</span> <span class="o">=</span> <span class="n">directory_to_pif</span><span class="p">(</span><span class="s2">&quot;./example_data/Al.cF4&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11781,8 +11781,8 @@ div#notebook {
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>dict_keys([&#39;Cutoff Energy&#39;, &#39;Converged&#39;, &#39;Density Functional Theory&#39;, &#39;VASP&#39;, &#39;Psuedopotentials&#39;, &#39;Relaxed&#39;, &#39;XC Functional&#39;, &#39;Total Energy&#39;, &#39;k-Points per Reciprocal Atom&#39;, &#39;Pressure&#39;])
-B12
+<pre>dict_keys([&#39;Positions&#39;, &#39;k-Points per Reciprocal Atom&#39;, &#39;Pressure&#39;, &#39;Psuedopotentials&#39;, &#39;positions&#39;, &#39;Cutoff Energy&#39;, &#39;Forces&#39;, &#39;VASP&#39;, &#39;OUTCAR&#39;, &#39;Relaxed&#39;, &#39;XC Functional&#39;, &#39;Converged&#39;, &#39;Total Energy&#39;, &#39;Density Functional Theory&#39;])
+Al4
 </pre>
 </div>
 </div>
@@ -11797,10 +11797,9 @@ B12
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">os.path</span>
-<span class="n">Cu_pif</span> <span class="o">=</span> <span class="n">directory_to_pif</span><span class="p">(</span><span class="s2">&quot;/home/maxhutch/science/alloy.pbe/Cu/Cu.cF4&quot;</span><span class="p">)</span>
-<span class="n">Al_pif</span> <span class="o">=</span> <span class="n">directory_to_pif</span><span class="p">(</span><span class="s2">&quot;/home/maxhutch/science/alloy.pbe/Al/Al.cF4&quot;</span><span class="p">)</span>
-<span class="n">AlCu_pifs</span> <span class="o">=</span> <span class="p">[</span><span class="n">directory_to_pif</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;/home/maxhutch/science/alloy.pbe/AlCu/&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;/home/maxhutch/science/alloy.pbe/AlCu/&quot;</span><span class="p">)]</span>
+<span class="n">Cu_pif</span> <span class="o">=</span> <span class="n">directory_to_pif</span><span class="p">(</span><span class="s2">&quot;./example_data/Cu.cF4&quot;</span><span class="p">)</span>
+<span class="n">Al_pif</span> <span class="o">=</span> <span class="n">directory_to_pif</span><span class="p">(</span><span class="s2">&quot;./example_data/Al.cF4&quot;</span><span class="p">)</span>
+<span class="n">AlCu_pifs</span> <span class="o">=</span> <span class="p">[</span><span class="n">directory_to_pif</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;./example_data/&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;./example_data/&quot;</span><span class="p">)]</span>
 </pre></div>
 
 </div>
@@ -11819,6 +11818,15 @@ B12
 <li>Share our methodology with other researchers with data in PIFs</li>
 </ol>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-is-a-PIF?">What is a PIF?<a class="anchor-link" href="#What-is-a-PIF?">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11867,7 +11875,7 @@ B12
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>The total energy is -80.346476
+<pre>The total energy is -14.952228
 </pre>
 </div>
 </div>
@@ -11918,7 +11926,7 @@ B12
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>The total energy is -80.346476
+<pre>The total energy is -14.952228
 </pre>
 </div>
 </div>
@@ -11958,7 +11966,7 @@ B12
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>The total energy is -80.346476 eV
+<pre>The total energy is -14.952228 eV
 </pre>
 </div>
 </div>
@@ -12019,6 +12027,8 @@ B12
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
 <span class="k">def</span> <span class="nf">get_stoich</span><span class="p">(</span><span class="n">AlCu_formula</span><span class="p">):</span>
     <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">r&quot;Al([0-9]*)Cu([0-9]*)&quot;</span><span class="p">,</span> <span class="n">AlCu_formula</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">n_Al</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
     <span class="n">n_Cu</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">n_Al</span><span class="p">,</span> <span class="n">n_Cu</span><span class="p">)</span>
@@ -12041,7 +12051,7 @@ B12
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">energy_Al</span> <span class="o">=</span> <span class="n">ReadView</span><span class="p">(</span><span class="n">Al_pif</span><span class="p">)[</span><span class="s2">&quot;Total Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">scalars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">/</span> <span class="mi">4</span>
@@ -12052,6 +12062,7 @@ B12
     <span class="n">rv</span> <span class="o">=</span> <span class="n">ReadView</span><span class="p">(</span><span class="n">pif</span><span class="p">)</span>
     <span class="n">energy</span> <span class="o">=</span> <span class="n">rv</span><span class="p">[</span><span class="s2">&quot;Total Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">scalars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
     <span class="n">n_Al</span><span class="p">,</span> <span class="n">n_Cu</span> <span class="o">=</span> <span class="n">get_stoich</span><span class="p">(</span><span class="n">rv</span><span class="o">.</span><span class="n">chemical_formula</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_Al</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">n_Cu</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">continue</span>
     <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">((</span>
             <span class="n">n_Cu</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_Cu</span> <span class="o">+</span> <span class="n">n_Al</span><span class="p">),</span>
             <span class="n">enthalpy_of_formation</span><span class="p">(</span><span class="n">energy</span><span class="p">,</span> <span class="n">n_Al</span><span class="p">,</span> <span class="n">n_Cu</span><span class="p">,</span> <span class="n">energy_Al</span><span class="p">,</span> <span class="n">energy_Cu</span><span class="p">)</span>
@@ -12075,7 +12086,7 @@ B12
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
@@ -12094,11 +12105,11 @@ B12
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.text.Text at 0x2b40e1b10a58&gt;</pre>
+<pre>&lt;matplotlib.text.Text at 0x2ab97036a9b0&gt;</pre>
 </div>
 
 </div>
