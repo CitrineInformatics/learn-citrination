@@ -20,3 +20,9 @@ Most of these tutorials are jupyter notebooks backed by a python3 kernel.  You'l
    You can add this command to your `.bashrc` file to automatically set the API key in each new session.
    
    The API key functions as the password for the client, so its important to keep it private.  Its a good practice to put it in your environment instead of in the source code to help avoid unintentional sharing or publication of your API key.
+
+## References
+
+The example data used in these tutorials is drawn from:
+
+ * [Alloy Database](http://alloy.phys.cmu.edu/) by Mihalkovic, Widom, and coworkers

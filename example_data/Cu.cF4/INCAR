@@ -1,0 +1,25 @@
+SYSTEM = Cu1
+
+ Startparameter for this Run:
+   ISTART =      1    job   : 0-new  1-cont  2-samecut
+
+ Electronic Relaxation
+   PREC   = Normal
+   NELM   =     40;   
+   EDIFF  =   1E-06   stopping-criterion for ELM
+
+ Ionic Relaxation
+   ALGO = Normal
+LREAL = F
+   NSW    =      10    number of steps for IOM
+   ISIF=3
+   IBRION = 2
+   POTIM = 0.25
+
+ DOS related values:
+   ISMEAR =     1;   
+   SIGMA  =    0.2;  broadening in eV -4-tet -1-fermi 0-gaus
+
+LWAVE = F
+LCHARG = F
+
