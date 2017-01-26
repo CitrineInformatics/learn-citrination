@@ -8,7 +8,7 @@ Most of these tutorials are jupyter notebooks backed by a python3 kernel.  You'l
  - python3 with Jupyter.  [Anaconda](https://www.continuum.io/downloads) is highly recommended.
  - `pypif` and `citrination_client` packages:
  
- ```pip install pypif citrination_client```
+ ```pip install pypif citrination_client dfttopif```
 
  - A valid citrination client API key set in your environment variables:
    0. [Create an account](https://citrination.com/users/sign_up) on Citrination (if you don't already have one)
