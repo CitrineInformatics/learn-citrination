@@ -1,6 +1,6 @@
 # learn-citrination
 
-Demos and tutorials for API access to Citrination.com
+Demos and tutorials for API access to Citrination.com  For support, see the [citrination user group](https://groups.google.com/forum/#!forum/citrination-users).
 
 ## Requirements
 
