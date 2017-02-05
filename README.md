@@ -2,6 +2,17 @@
 
 Demos and tutorials for API access to Citrination.com  For support, see the [citrination user group](https://groups.google.com/forum/#!forum/citrination-users).
 
+## Contents
+Four of the tutorials are organized as a sequence demonstrating the import and usage of DFT data:
+ 1. [Importing VASP calculations](https://github.com/CitrineInformatics/learn-citrination/blob/master/ImportVASP.ipynb)
+ 1. [Working with PIFs](https://github.com/CitrineInformatics/learn-citrination/blob/master/WorkingWithPIFs.ipynb)
+ 1. [Introduction to queries](https://github.com/CitrineInformatics/learn-citrination/blob/master/IntroQueries.ipynb)
+ 1. [Machine learning on Citrination](https://github.com/CitrineInformatics/learn-citrination/blob/master/MLonCitrination.ipynb)
+ 
+There are also advanced topics tutorials:
+ * [Advanced PIFs](https://github.com/CitrineInformatics/learn-citrination/blob/master/AdvancedPif.ipynb)
+ * [Advanced queries](https://github.com/CitrineInformatics/learn-citrination/blob/master/AdvancedQueries.ipynb)
+
 ## Requirements
 
 Most of these tutorials are jupyter notebooks backed by a python3 kernel.  You'll need:
