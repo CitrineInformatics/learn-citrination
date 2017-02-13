@@ -23,7 +23,7 @@ Most of these tutorials are jupyter notebooks backed by a python3 kernel.  You'l
 
  - A valid citrination client API key set in your environment variables:
    0. [Create an account](https://citrination.com/users/sign_up) on Citrination (if you don't already have one)
-   1. Go to your [account page](https://stage.citrination.com/users/edit) and look for "API Key"
+   1. Go to your [account page](https://citrination.com/users/edit) and look for "API Key"
    2. Add the key to your environment.  If you use a bash shell, the command is:
    
    ```export CITRINATION_API_KEY=<your key copied from the website>```
