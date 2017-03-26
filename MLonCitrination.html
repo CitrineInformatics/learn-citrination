@@ -11748,12 +11748,12 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">CitrinationClient</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">environ</span>
-<span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">PifQuery</span><span class="p">,</span> <span class="n">SystemQuery</span><span class="p">,</span> <span class="n">PropertyQuery</span><span class="p">,</span> <span class="n">ChemicalFieldOperation</span><span class="p">,</span> <span class="n">FieldOperation</span><span class="p">,</span> <span class="n">Filter</span>
+<span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">PifQuery</span><span class="p">,</span> <span class="n">SystemQuery</span><span class="p">,</span> <span class="n">PropertyQuery</span><span class="p">,</span> <span class="n">ChemicalFieldQuery</span><span class="p">,</span> <span class="n">FieldQuery</span><span class="p">,</span> <span class="n">Filter</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">CitrinationClient</span><span class="p">(</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CITRINATION_API_KEY&#39;</span><span class="p">],</span> <span class="s1">&#39;https://citrination.com&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -11782,14 +11782,15 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="CSV-to-Models">CSV to Models<a class="anchor-link" href="#CSV-to-Models">&#182;</a></h2><p>User-defined machine learning is exposed via the "csv2models" tool:</p>
+<h2 id="CSV-to-Models">CSV to Models<a class="anchor-link" href="#CSV-to-Models">&#182;</a></h2><p>User-defined machine learning is exposed via "data views":</p>
 <ol>
-<li>Put data in rows</li>
-<li>Label columns</li>
+<li>Put data into a CSV</li>
+<li>Upload as a dataset</li>
+<li>Include in a view</li>
 <li>...</li>
 <li>Models!</li>
 </ol>
-<p>In this tutorial, we'll generate a valid CSV from a query.  You can also use any CSV you might have by setting the column names.</p>
+<p>In this tutorial, we'll generate a valid CSV from a query.  You can also use any CSV you might have laying around.</p>
 
 </div>
 </div>
@@ -11816,18 +11817,18 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">system_query</span> <span class="o">=</span> <span class="n">SystemQuery</span><span class="p">(</span>
-    <span class="n">chemical_formula</span><span class="o">=</span><span class="n">ChemicalFieldOperation</span><span class="p">(</span>
+    <span class="n">chemical_formula</span><span class="o">=</span><span class="n">ChemicalFieldQuery</span><span class="p">(</span>
         <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;formula&quot;</span>
     <span class="p">),</span>
     <span class="n">properties</span><span class="o">=</span><span class="n">PropertyQuery</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="n">FieldOperation</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">FieldQuery</span><span class="p">(</span>
             <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="n">Filter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">)]</span>
         <span class="p">),</span>
-        <span class="n">value</span><span class="o">=</span><span class="n">FieldOperation</span><span class="p">(</span>
+        <span class="n">value</span><span class="o">=</span><span class="n">FieldQuery</span><span class="p">(</span>
             <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;density&quot;</span>
         <span class="p">)</span>
     <span class="p">)</span>
@@ -11844,14 +11845,14 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Material's project is big, so we'll just pull out 100 records for now.  If we don't draw them randomly, they'll all be <code>Al</code> and <code>As</code> and <code>Cs</code>.</p>
+<p>Material's project is big, so we'll just pull out 500 records for now.  If we don't draw them randomly, they'll all be <code>Al</code> and <code>As</code> and <code>Cs</code>.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_query</span> <span class="o">=</span> <span class="n">PifQuery</span><span class="p">(</span>
@@ -11879,7 +11880,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">search_result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">test_query</span><span class="p">)</span>
@@ -11898,7 +11899,7 @@ div#notebook {
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>We found 52265 records
-[{&#39;density&#39;: &#39;9.22358850564565&#39;, &#39;formula&#39;: &#39;ErTaO4&#39;}, {&#39;density&#39;: &#39;3.066336970791813&#39;, &#39;formula&#39;: &#39;KAs2F7&#39;}]
+[{&#39;density&#39;: &#39;5.890237329220885&#39;, &#39;formula&#39;: &#39;U(MoO4)2&#39;}, {&#39;density&#39;: &#39;8.294056387615417&#39;, &#39;formula&#39;: &#39;CaTa2Bi2O9&#39;}]
 </pre>
 </div>
 </div>
@@ -11912,19 +11913,19 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now we just need to format in a CSV with <code>INPUT:&lt;name&gt;</code> and <code>OUPUT:&lt;name&gt;</code> headers.  Note: don't use any spaces (sorry!).</p>
+<p>Now we just need to format in a CSV.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">write_csv</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">rows</span><span class="p">):</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;INPUT:CHEMICAL_FORMULA,OUTPUT:Density-g/cm3</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Chemical formula,Density</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{formula:s}</span><span class="s2">, </span><span class="si">{density:s}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">row</span><span class="p">))</span>
 <span class="n">write_csv</span><span class="p">(</span><span class="s1">&#39;density.csv&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">extracted</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">search_result</span><span class="o">.</span><span class="n">hits</span><span class="p">])</span>
@@ -11940,7 +11941,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Upload that csv to the <a href="https://citrination.com/models/">models page</a>.</p>
+<p>Upload that csv to the <a href="https://citrination.com/datasets/new">new dataset page</a>, which will create a dataset of records with the chemical formula and density taken from the CSV.</p>
 
 </div>
 </div>
@@ -11950,35 +11951,63 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Data-science">Data science<a class="anchor-link" href="#Data-science">&#182;</a></h2><p>We can do better than that!</p>
+<p>To train the models, we create a <em>data view</em> based on the dataset we just created.  To create a data view:</p>
+<ol>
+<li>Go to the <a href="https://citrination.com/data_views">data views page</a> and click "Create new dataset"</li>
+<li>Search for the property name "Density" and select the dataset you created before.  Advance with the "NEXT &gt;" button in the top right corner</li>
+<li>Select the "Chemical formula" and "Density" properties (or "Include all")</li>
+<li>The Chemical formula should be recognized as an "Inorganic Chemical Formula" and "Input"; click the right arrow to advance to the next property</li>
+<li>The density should be recognized as a "Real" and "Output".  Enter "Infinity" for the Max value</li>
+<li>Review the annotations, click "Next &gt;", name your data view, and click "Save"</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>When the models are done training, you'll have access to predictions, model reports, and other analysis via the new data view.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-science">Data science<a class="anchor-link" href="#Data-science">&#182;</a></h2><p>We can do better than that!  Many of the DFT records are unstable or meta-stable.  What we really want are densities of stable phases, so let's filter on the energy above the convex hull.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">stable_query</span> <span class="o">=</span> <span class="n">system_query</span> <span class="o">=</span> <span class="n">SystemQuery</span><span class="p">(</span>
-    <span class="n">chemical_formula</span><span class="o">=</span><span class="n">ChemicalFieldOperation</span><span class="p">(</span>
+    <span class="n">chemical_formula</span><span class="o">=</span><span class="n">ChemicalFieldQuery</span><span class="p">(</span>
         <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;formula&quot;</span>
     <span class="p">),</span>
     <span class="n">properties</span><span class="o">=</span><span class="p">[</span>
         <span class="n">PropertyQuery</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">FieldOperation</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">FieldQuery</span><span class="p">(</span>
                 <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="n">Filter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">)]</span>
             <span class="p">),</span>
-            <span class="n">value</span><span class="o">=</span><span class="n">FieldOperation</span><span class="p">(</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">FieldQuery</span><span class="p">(</span>
                 <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;density&quot;</span>
             <span class="p">),</span>
             <span class="n">logic</span><span class="o">=</span><span class="s2">&quot;MUST&quot;</span>
         <span class="p">),</span>
         <span class="n">PropertyQuery</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">FieldOperation</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">FieldQuery</span><span class="p">(</span>
                 <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="n">Filter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s2">&quot;Energy above convex hull&quot;</span><span class="p">)]</span>
             <span class="p">),</span>
-            <span class="n">value</span><span class="o">=</span><span class="n">FieldOperation</span><span class="p">(</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">FieldQuery</span><span class="p">(</span>
                 <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="n">Filter</span><span class="p">(</span><span class="nb">max</span><span class="o">=</span><span class="mf">1.0e-9</span><span class="p">)]</span>
             <span class="p">),</span>
             <span class="n">logic</span><span class="o">=</span><span class="s2">&quot;MUST&quot;</span>
@@ -11992,9 +12021,19 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's re-run with this new query, saving to <code>better_density.csv</code>.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">better_query</span> <span class="o">=</span> <span class="n">PifQuery</span><span class="p">(</span>
@@ -12032,7 +12071,17 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Applying-the-model">Applying the model<a class="anchor-link" href="#Applying-the-model">&#182;</a></h2><p>We can use the model to make predictions through the client.  The <code>predict</code> method expects the name of the model and a list of inputs, where each input is a map from property names to property values.</p>
+<p>That returned many fewer records, indicating that our filter was effective.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Applying-the-model">Applying the model<a class="anchor-link" href="#Applying-the-model">&#182;</a></h2><p>We can use the model to make predictions through the client.  The <code>predict</code> method expects the ID number of the data view and a list of inputs, where each input is a map from property names to property values.</p>
 <p>The result is a dictionary with a <code>candidates</code> member that is a list of maps from property names to values.  However, the values here are pairs of the form <code>(expected value, uncertainty)</code>.</p>
 
 </div>
@@ -12040,13 +12089,13 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;CHEMICAL_FORMULA&quot;</span><span class="p">:</span> <span class="s2">&quot;AlCu&quot;</span><span class="p">},]</span>
-<span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="s2">&quot;betterdensitydemo&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;Chemical formula&quot;</span><span class="p">:</span> <span class="s2">&quot;AlCu&quot;</span><span class="p">},]</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="s2">&quot;27&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
 <span class="n">prediction</span> <span class="o">=</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;candidates&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Density&#39;</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;We predict the density of </span><span class="si">{}</span><span class="s2"> to be </span><span class="si">{}</span><span class="s2"> +/- </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;CHEMICAL_FORMULA&#39;</span><span class="p">],</span> <span class="o">*</span><span class="n">prediction</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;We predict the density of </span><span class="si">{}</span><span class="s2"> to be </span><span class="si">{}</span><span class="s2"> +/- </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Chemical formula&#39;</span><span class="p">],</span> <span class="o">*</span><span class="n">prediction</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -12059,7 +12108,7 @@ div#notebook {
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>We predict the density of AlCu to be 5.786268548675726 +/- 1.264895144698526
+<pre>We predict the density of AlCu to be 6.173320173514542 +/- 0.8814189355337096
 </pre>
 </div>
 </div>
@@ -12080,7 +12129,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">resp</span><span class="p">[</span><span class="s1">&#39;candidates&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">())[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
@@ -12096,7 +12145,7 @@ div#notebook {
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[(&#39;CHEMICAL_FORMULA_FusionEnthalpy_l1&#39;, [12.155000000000001, 0.0]), (&#39;CHEMICAL_FORMULA_BoilingT_l1&#39;, [2996.0, 0.0]), (&#39;CHEMICAL_FORMULA_ElectronAffinity_l1&#39;, [80.45, 0.0]), (&#39;CHEMICAL_FORMULA_BulkModulus_l1&#39;, [108.0, 0.0]), (&#39;CHEMICAL_FORMULA_NdUnfilled_l1&#39;, [0.0, 0.0])]
+<pre>[(&#39;Chemical formula_Elemental electron density_l1&#39;, [1.43, 0.0]), (&#39;dopant_Chemical formula_Elemental melting temperature_l1&#39;, [0.0, 0.0]), (&#39;dopant_Chemical formula_Elemental magnetic moment_l1&#39;, [0.0, 0.0]), (&#39;dopant_Chemical formula_Elemental bulk modulus_l1&#39;, [0.0, 0.0]), (&#39;Chemical formula_Number of unfilled s valence electrons_l1&#39;, [0.5, 0.0])]
 </pre>
 </div>
 </div>
@@ -12110,9 +12159,44 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Design">Design<a class="anchor-link" href="#Design">&#182;</a></h2>
+<h2 id="Design">Design<a class="anchor-link" href="#Design">&#182;</a></h2><p>Now that we have a model, we can optimize it over the space of materials.  Creating a good sampler is generally hard, so here we'll just screen our model over the compounds in ICSD.</p>
+
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./example_data/icsd.dat&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">compounds</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()]</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;Chemical formula&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">}</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">compounds</span><span class="p">[:</span><span class="mi">10000</span><span class="p">]]</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="s2">&quot;27&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)[</span><span class="s1">&#39;candidates&#39;</span><span class="p">]</span>
+<span class="n">best</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Density&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Highest density compound is </span><span class="si">{}</span><span class="s2"> with rho=</span><span class="si">{}</span><span class="s2"> +/- </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="n">best</span><span class="p">[</span><span class="s1">&#39;Chemical formula&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">best</span><span class="p">[</span><span class="s1">&#39;Density&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">best</span><span class="p">[</span><span class="s1">&#39;Density&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Highest density compound is HfPt3 with rho=15.439872688799241 +/- 1.098196433317057
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     </div>
   </div>
