@@ -11822,7 +11822,7 @@ where $\sigma$ is the electrical conductivity, $S$ is the Seebeck coefficient, $
         <span class="p">)</span>
     <span class="p">)</span>
 <span class="p">)</span>
-<span class="n">thermoelectric_query</span> <span class="o">=</span> <span class="n">PifQuery</span><span class="p">(</span><span class="n">include_datasets</span><span class="o">=</span><span class="p">[</span><span class="mi">150888</span><span class="p">],</span> <span class="n">system</span><span class="o">=</span><span class="n">system_query</span><span class="p">)</span>
+<span class="n">thermoelectric_query</span> <span class="o">=</span> <span class="n">PifQuery</span><span class="p">(</span><span class="n">include_datasets</span><span class="o">=</span><span class="p">[</span><span class="mi">150888</span><span class="p">],</span> <span class="n">system</span><span class="o">=</span><span class="n">system_query</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11885,7 +11885,8 @@ where $\sigma$ is the electrical conductivity, $S$ is the Seebeck coefficient, $
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">shuffle</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">shuffle</span><span class="p">,</span> <span class="n">seed</span>
+<span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">full_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">extracted</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">search_result</span><span class="o">.</span><span class="n">hits</span><span class="p">]</span>
 <span class="n">shuffle</span><span class="p">(</span><span class="n">full_data</span><span class="p">)</span>
 <span class="n">known_subset</span> <span class="o">=</span> <span class="n">full_data</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span>
@@ -11996,7 +11997,7 @@ where $\sigma$ is the electrical conductivity, $S$ is the Seebeck coefficient, $
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">view_id</span> <span class="o">=</span> <span class="mi">80</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">view_id</span> <span class="o">=</span> <span class="mi">98</span>
 <span class="n">inputs</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;Chemical formula&quot;</span><span class="p">:</span> <span class="s2">&quot;PbTe&quot;</span><span class="p">},]</span>
 <span class="n">resp</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">view_id</span><span class="p">),</span> <span class="n">inputs</span><span class="p">)</span>
 <span class="n">prediction</span> <span class="o">=</span> <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;candidates&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;ZT&#39;</span><span class="p">]</span>
@@ -12013,7 +12014,7 @@ where $\sigma$ is the electrical conductivity, $S$ is the Seebeck coefficient, $
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>We predict the ZT of PbTe (@ 300K) to be 0.1092344663 +/- 0.04134446022951313
+<pre>We predict the ZT of PbTe (@ 300K) to be 0.20151646244999996 +/- 0.16437832666086158
 </pre>
 </div>
 </div>
@@ -12078,7 +12079,7 @@ where $\sigma$ is the electrical conductivity, $S$ is the Seebeck coefficient, $
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>The highest ZT value in the known subset is 0.485042171
+<pre>The highest ZT value in the known subset is 0.424000225
 </pre>
 </div>
 </div>
@@ -12124,7 +12125,7 @@ where $\sigma$ is the electrical conductivity, $S$ is the Seebeck coefficient, $
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -12133,7 +12134,7 @@ where $\sigma$ is the electrical conductivity, $S$ is the Seebeck coefficient, $
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ZT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ZT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:5.2f}</span><span class="s2"> +/- </span><span class="si">{:5.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;LI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;LI&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:5.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 
-<span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;LI&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;LI&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -12144,7 +12145,7 @@ where $\sigma$ is the electrical conductivity, $S$ is the Seebeck coefficient, $
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -12159,374 +12160,37 @@ where $\sigma$ is the electrical conductivity, $S$ is the Seebeck coefficient, $
   </thead>
   <tbody>
     <tr>
-      <th>3</th>
-      <td>In0.3Co4Sb12</td>
-      <td>0.13 +/-  0.11</td>
-      <td>0.001</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>Na0.02PbTe0.85Se0.15</td>
-      <td>0.11 +/-  0.04</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>100</th>
-      <td>Ca0.7Ho0.3MnO3</td>
-      <td>0.02 +/-  0.01</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>93</th>
-      <td>Ba8Ga16Ge30</td>
-      <td>0.10 +/-  0.09</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>94</th>
-      <td>In2O3</td>
-      <td>0.08 +/-  0.04</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>95</th>
+      <th>123</th>
       <td>In0.1Co4Sb12</td>
-      <td>0.12 +/-  0.10</td>
-      <td>0.000</td>
+      <td>0.31 +/-  0.22</td>
+      <td>0.302</td>
     </tr>
     <tr>
-      <th>96</th>
-      <td>Sr0.61Ba0.39Nb2O6</td>
-      <td>0.02 +/-  0.03</td>
-      <td>0.000</td>
+      <th>141</th>
+      <td>In0.2Co4Sb12</td>
+      <td>0.30 +/-  0.21</td>
+      <td>0.274</td>
+    </tr>
+    <tr>
+      <th>114</th>
+      <td>In0.3Co4Sb12</td>
+      <td>0.30 +/-  0.21</td>
+      <td>0.274</td>
     </tr>
     <tr>
       <th>97</th>
-      <td>ZrNiSn</td>
-      <td>0.11 +/-  0.05</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>98</th>
-      <td>Mg2Si0.994Bi0.006</td>
-      <td>0.01 +/-  0.03</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>99</th>
-      <td>Si0.7956Ge0.1989P0.0055</td>
-      <td>0.09 +/-  0.02</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>101</th>
-      <td>CeFe3.5Co0.5Sb12</td>
-      <td>0.11 +/-  0.09</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>91</th>
-      <td>Mg2Si0.999Bi0.001</td>
-      <td>0.01 +/-  0.03</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>102</th>
-      <td>Tl2GeTe5</td>
-      <td>0.11 +/-  0.04</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>103</th>
-      <td>Pb1.8S1.8Ti2S4</td>
-      <td>0.05 +/-  0.06</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>104</th>
-      <td>ZrNiSn0.98Sb0.02</td>
-      <td>0.11 +/-  0.04</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>105</th>
-      <td>Zr0.99Nb0.01NiSn</td>
-      <td>0.11 +/-  0.04</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>106</th>
-      <td>CeFe3CoSb12</td>
-      <td>0.11 +/-  0.09</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>107</th>
-      <td>Ba0.4Sr0.6PbO3</td>
-      <td>0.04 +/-  0.06</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>92</th>
-      <td>CaMnO3</td>
-      <td>0.02 +/-  0.00</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>90</th>
-      <td>SrNd0.2Ti0.8O3</td>
-      <td>0.01 +/-  0.01</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>109</th>
-      <td>Mg2Si</td>
-      <td>0.01 +/-  0.03</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>81</th>
-      <td>Sr0.147Ga0.298Ge0.555</td>
-      <td>0.10 +/-  0.09</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>75</th>
-      <td>CaYb0.15Mn0.85O3</td>
-      <td>0.01 +/-  0.00</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>76</th>
-      <td>Ca2.4Na0.3Bi0.3Co4O9</td>
-      <td>0.03 +/-  0.01</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>77</th>
-      <td>Ca0.9Tb0.1MnO3</td>
-      <td>0.02 +/-  0.00</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>78</th>
-      <td>Sr0.146Ga0.285Ge0.569</td>
-      <td>0.10 +/-  0.09</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>79</th>
-      <td>Na0.02PbTe0.75Se0.25</td>
-      <td>0.11 +/-  0.04</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>80</th>
-      <td>Ba0.3Sr0.6La0.1TiO3</td>
-      <td>0.01 +/-  0.01</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>82</th>
-      <td>Tl9BiTe6</td>
-      <td>0.11 +/-  0.04</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>89</th>
-      <td>La0.95Sr0.05CoO3</td>
-      <td>0.03 +/-  0.03</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
+      <td>In0.25Co4Sb12</td>
+      <td>0.30 +/-  0.21</td>
+      <td>0.274</td>
     </tr>
     <tr>
       <th>60</th>
-      <td>Ca5Al2Sb6</td>
-      <td>0.05 +/-  0.04</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>61</th>
-      <td>Mg2Si0.995Bi0.005</td>
-      <td>0.01 +/-  0.03</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>62</th>
-      <td>Fe1.94Ti0.06O3</td>
-      <td>0.03 +/-  0.07</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>64</th>
-      <td>La3Te3.35Bi0.65</td>
-      <td>0.04 +/-  0.05</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>55</th>
-      <td>Mg2Si0.6Ge0.4Bi0.02</td>
-      <td>0.01 +/-  0.03</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>65</th>
-      <td>Sr2Ti0.8Nb0.2O4</td>
-      <td>0.01 +/-  0.02</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>66</th>
-      <td>CuCr0.99Mg0.01O2</td>
-      <td>0.10 +/-  0.08</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>67</th>
-      <td>Zr0.25Hf0.25Ti0.5NiSn</td>
-      <td>0.16 +/-  0.07</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>68</th>
-      <td>La3Te3.35Sb0.65</td>
-      <td>0.04 +/-  0.05</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>69</th>
-      <td>Ti0.95Nb0.05NiSn</td>
-      <td>0.12 +/-  0.03</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>70</th>
-      <td>WO2.722</td>
-      <td>0.06 +/-  0.09</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>56</th>
-      <td>Ca0.7Y0.3MnO3</td>
-      <td>0.01 +/-  0.01</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>54</th>
-      <td>Zr0.98Nb0.02NiSn</td>
-      <td>0.11 +/-  0.05</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>38</th>
-      <td>Ca2.94Na0.06AlSb3</td>
-      <td>0.03 +/-  0.03</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>45</th>
       <td>Tl2Cu2SnTe4</td>
-      <td>0.12 +/-  0.03</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>39</th>
-      <td>Mg2Si0.98Ag0.02</td>
-      <td>0.01 +/-  0.01</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>40</th>
-      <td>TlTiPS5</td>
-      <td>0.06 +/-  0.05</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>41</th>
-      <td>Mg2Si0.6Ge0.4Ag0.02</td>
-      <td>0.01 +/-  0.01</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>42</th>
-      <td>Mg2Si0.997Bi0.003</td>
-      <td>0.01 +/-  0.03</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>43</th>
-      <td>Zr0.5Hf0.5NiSn</td>
-      <td>0.12 +/-  0.08</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>44</th>
-      <td>Ca0.9Y0.1MnO3</td>
-      <td>0.01 +/-  0.01</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>46</th>
-      <td>Ca2.7Na0.3Co4O9</td>
-      <td>0.02 +/-  0.01</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>53</th>
-      <td>Ba8Au5.14Si39.51</td>
-      <td>0.05 +/-  0.02</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>47</th>
-      <td>La0.99Sr0.01CoO3</td>
-      <td>0.03 +/-  0.03</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>48</th>
-      <td>Sm0.5Ca0.5MnO3</td>
-      <td>0.02 +/-  0.01</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>49</th>
-      <td>TiNiSn</td>
-      <td>0.12 +/-  0.04</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>50</th>
-      <td>La0.98Sr0.02CoO3</td>
-      <td>0.03 +/-  0.03</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>51</th>
-      <td>In1.8Ge0.2O3</td>
-      <td>0.08 +/-  0.04</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>52</th>
-      <td>In1.998Ge0.002O3</td>
-      <td>0.08 +/-  0.04</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>144</th>
-      <td>Ca0.9Ho0.1MnO3</td>
-      <td>0.02 +/-  0.00</td>
-      <td>0.000</td>
+      <td>0.22 +/-  0.16</td>
+      <td>0.094</td>
     </tr>
   </tbody>
 </table>
-<p>145 rows × 3 columns</p>
 </div>
 </div>
 
@@ -12535,6 +12199,16 @@ where $\sigma$ is the electrical conductivity, $S$ is the Seebeck coefficient, $
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>These materials have a likelihood of improvement below 50%, i.e. their expected ZT value is below the highest value in the dataset.  Therefore, they are biased towards materials with high model uncertainty as well.</p>
+
+</div>
+</div>
 </div>
     </div>
   </div>
