@@ -1,5 +1,5 @@
 
-pypif>=2.0.0
-citrination_client>=3.0.0
-pypif-sdk>=2.0.0
-toolz==0.8.2
+pypif>=2.1.0,<3
+citrination_client>=3,<4
+pypif-sdk>2,<3
+pif-dft<1
