@@ -28,4 +28,9 @@ install:
   - pip install -r requirements.txt
 
 script: 
-  - ./ci/test_notebooks.sh
+  - ./ci/test_notebooks.sh "AdvancedPif"
+  - ./ci/test_notebooks.sh "AdvancedQueries"
+  - ./ci/test_notebooks.sh "ImportVASP"
+  - ./ci/test_notebooks.sh "IntroQueries"
+  - ./ci/test_notebooks.sh "MLonCitrination"
+  - ./ci/test_notebooks.sh "WorkingWithPIFs"
