@@ -1,0 +1,5 @@
+
+pypif>=2.1.0,<3
+citrination_client>=3,<4
+pypif-sdk>2,<3
+pif-dft<1
