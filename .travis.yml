@@ -28,4 +28,4 @@ install:
   - pip install -r requirements.txt
 
 script: 
-  - ./ci/test_all.sh
+  - ./ci/test_notebooks.sh
