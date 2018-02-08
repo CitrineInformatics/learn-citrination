@@ -1,0 +1,33 @@
+language: python
+
+python:
+- '3.4'
+- '3.5'
+- '3.6'
+
+install:
+- sudo apt-get update
+- if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+  -O miniconda.sh; else wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+  -O miniconda.sh; fi
+- bash miniconda.sh -b -p $HOME/miniconda
+- export PATH="$HOME/miniconda/bin:$PATH"
+- hash -r
+- conda config --set always_yes yes --set changeps1 no
+- conda update -q conda
+- conda info -a
+- conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy jupyter
+- source activate test-environment
+- pip install -r requirements.txt
+
+script:
+- ./ci/test_notebooks.sh "AdvancedPif"
+- ./ci/test_notebooks.sh "AdvancedQueries"
+- ./ci/test_notebooks.sh "ImportVASP"
+- ./ci/test_notebooks.sh "IntroQueries"
+- ./ci/test_notebooks.sh "MLonCitrination"
+- ./ci/test_notebooks.sh "WorkingWithPIFs"
+
+env:
+  matrix:
+    secure: SLAgh3ssV2L1xEGJwH2Ccsbkkro/QKo5wci6tmxJiUV8x4iS1l74UPCJe/OzFKeQj1B50VAkczfNZFQ51FSt0hvFPJ5IHevHMZyJZujYEJB8brv+734HPTXbDby25TIqu17szDfUwCOMbxSuoORJB1GkCMmAcWU3L0rgtN5WlAdmw4tliazUmU0Dya0ZniV23ZckwxNLu4nM9se2+4BMAR6b8DpSDzWFoRpcwIRa6+iG8Te3JgGNFSqnb4dcslhuz2W8MCxosODJGBZufGr0v7QtzKpOjLRs2R83A5694ytyCBJvte3eaUzIGqBiAARUSTi012MDBKwYnN3AZE6WhJtH8Rv8Sy/4hzAzotOLp5ALyCM8aUEp0vBqsMkqiBEd6cKBu2yWdP1nTnfq95uELYdRGQyxHLkUaPLoKBkXQaoCmfdXu5fN1+KJEWZOSiXGqIZ7k/VstPHO+G4AaGMkMGmRhXaBHisb75xPBUtZiMtW8sZCeMRd7qPYMihjcF0+XbGOxfICEkho7kBgpwQmPtBwgrRXqHYZY05qoio5j5hsaXEv6O6K5041GQTRqfZ2gvk0e7uyRd8f4x7fHJG2TS8mKPdd8/Hv00ULjImroFBAZhssNCKCDvcsERtKznC0yA7lwh/SB37pfeBm0vUNGz8m+P05LOrlqja+XwBigFc=
