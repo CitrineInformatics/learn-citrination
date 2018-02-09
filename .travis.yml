@@ -1,6 +1,7 @@
 language: python
 
 python:
+- '2.7'
 - '3.4'
 - '3.5'
 - '3.6'
@@ -21,12 +22,13 @@ install:
 - pip install -r requirements.txt
 
 script:
-- ./ci/test_notebooks.sh "AdvancedPif"
-- ./ci/test_notebooks.sh "AdvancedQueries"
-- ./ci/test_notebooks.sh "ImportVASP"
-- ./ci/test_notebooks.sh "IntroQueries"
-- ./ci/test_notebooks.sh "MLonCitrination"
-- ./ci/test_notebooks.sh "WorkingWithPIFs"
+- if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then export NOTEBOOK_KERNEL="python2"; else export NOTEBOOK_KERNEL="python3"; fi
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "AdvancedPif"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "AdvancedQueries"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "ImportVASP"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "IntroQueries"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "MLonCitrination"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "WorkingWithPIFs"
 
 env:
   matrix:
