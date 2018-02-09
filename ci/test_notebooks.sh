@@ -1,7 +1,11 @@
 #!/bin/bash
 
+kernel=$1
+shift 1
+
 for notebook in "$@"; do
-  ./ci/swap_kernel.py ${notebook}.ipynb ${notebook}-swap.ipynb python3
+  echo "Evaluating ${notebook} with ${kernel} kernel"
+  ./ci/swap_kernel.py ${notebook}.ipynb ${notebook}-swap.ipynb $kernel
   jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=300 --output tmp.ipynb ${notebook}-swap.ipynb
   if [ $? -ne 0 ]
   then
@@ -10,4 +14,5 @@ for notebook in "$@"; do
     exit 1
   fi
   rm -f tmp.ipynb ${notebook}-swap.ipynb
+  echo "${notebook} was evaluated successfully"
 done
