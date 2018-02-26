@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>DemoTest</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>DemoTest</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -13,8 +11,8 @@
 *
 */
 /*!
- * Bootstrap v3.3.6 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1109,7 +1107,6 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2538,7 +2535,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3029,7 +3025,6 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8760,6 +8755,9 @@ body > #header .header-bar {
     margin-left: 10px;
   }
 }
+[dir="rtl"] #ipython_notebook {
+  float: right !important;
+}
 #noscript {
   width: auto;
   padding-top: 16px;
@@ -8962,8 +8960,14 @@ span#login_widget > .button .badge,
  *
  * Author: Jupyter Development Team
  */
+[dir="rtl"] #tabs li {
+  float: right;
+}
 ul#tabs {
   margin-bottom: 4px;
+}
+[dir="rtl"] ul#tabs {
+  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
@@ -8986,6 +8990,16 @@ ul.breadcrumb span {
 }
 .list_toolbar .tree-buttons {
   padding-top: 1px;
+}
+[dir="rtl"] .list_toolbar .tree-buttons {
+  float: left !important;
+}
+[dir="rtl"] .list_toolbar .pull-right {
+  padding-top: 1px;
+  float: left !important;
+}
+[dir="rtl"] .list_toolbar .pull-left {
+  float: right !important;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9122,6 +9136,9 @@ ul.breadcrumb span {
 #tree-selector {
   padding-right: 0px;
 }
+[dir="rtl"] #tree-selector a {
+  float: right;
+}
 #button-select-all {
   min-width: 50px;
 }
@@ -9211,6 +9228,9 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
+[dir="rtl"] #new-menu {
+  text-align: right;
+}
 .kernel-menu-icon {
   padding-right: 12px;
   width: 24px;
@@ -9255,6 +9275,9 @@ ul#new-menu {
 }
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
+}
+[dir="rtl"] #running .col-sm-8 {
+  float: right !important;
 }
 .delete-button {
   display: none;
@@ -9551,6 +9574,7 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
+  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -9571,11 +9595,6 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
-}
-@-moz-document url-prefix() {
-  div.inner_cell {
-    overflow-x: hidden;
-  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -11246,7 +11265,7 @@ div#pager .ui-resizable-handle::after {
 }
 .shortcut_key {
   display: inline-block;
-  width: 20ex;
+  width: 21ex;
   text-align: right;
   font-family: monospace;
 }
@@ -11558,6 +11577,7 @@ ul.typeahead-list > li > a {
   box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
 }
 .terminal-app .terminal {
+  width: 100%;
   float: left;
   font-family: monospace;
   color: white;
@@ -11571,6 +11591,9 @@ ul.typeahead-list > li > a {
 .terminal-app .terminal dummy-screen {
   line-height: 1em;
   font-size: 14px;
+}
+.terminal-app .terminal .xterm-rows {
+  padding: 10px;
 }
 .terminal-app .terminal-cursor {
   color: black;
@@ -11631,8 +11654,10 @@ ul.typeahead-list > li > a {
 .highlight .mh { color: #666666 } /* Literal.Number.Hex */
 .highlight .mi { color: #666666 } /* Literal.Number.Integer */
 .highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
 .highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
 .highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .highlight .s2 { color: #BA2121 } /* Literal.String.Double */
 .highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
@@ -11643,9 +11668,11 @@ ul.typeahead-list > li > a {
 .highlight .s1 { color: #BA2121 } /* Literal.String.Single */
 .highlight .ss { color: #19177C } /* Literal.String.Symbol */
 .highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
 .highlight .vc { color: #19177C } /* Name.Variable.Class */
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
 <style type="text/css">
@@ -11699,9 +11726,7 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}
-
-@media print {
+}@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11722,7 +11747,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11753,7 +11778,6 @@ div#notebook {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">CitrinationClient</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">environ</span>
-<span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">PifQuery</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">CitrinationClient</span><span class="p">(</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CITRINATION_API_KEY&#39;</span><span class="p">],</span> <span class="s1">&#39;https://citrination.com&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -11783,12 +11807,12 @@ div#notebook {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
 <span class="k">def</span> <span class="nf">get_stoich</span><span class="p">(</span><span class="n">AlCu_formula</span><span class="p">):</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">r&quot;Al([0-9]*)Cu([0-9]*)&quot;</span><span class="p">,</span> <span class="n">AlCu_formula</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Al([0-9]*)Cu([0-9]*)&quot;</span><span class="p">,</span> <span class="n">AlCu_formula</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">n_Al</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
         <span class="n">n_Cu</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">n_Al</span><span class="p">,</span> <span class="n">n_Cu</span><span class="p">)</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">r&quot;Cu([0-9]*)Al([0-9]*)&quot;</span><span class="p">,</span> <span class="n">AlCu_formula</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Cu([0-9]*)Al([0-9]*)&quot;</span><span class="p">,</span> <span class="n">AlCu_formula</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">n_Cu</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
         <span class="n">n_Al</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
@@ -11801,8 +11825,7 @@ div#notebook {
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11815,8 +11838,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11825,8 +11847,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11841,8 +11862,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11855,8 +11875,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11865,8 +11884,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11879,9 +11897,23 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">PifQuery</span><span class="p">,</span> <span class="n">SystemQuery</span><span class="p">,</span> <span class="n">ChemicalFieldOperation</span><span class="p">,</span> <span class="n">ChemicalFilter</span>
-<span class="n">query</span> <span class="o">=</span> <span class="n">PifQuery</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">SystemQuery</span><span class="p">(</span><span class="n">chemical_formula</span><span class="o">=</span><span class="n">ChemicalFieldOperation</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;AlxCuy&#39;</span><span class="p">))))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">PifSystemReturningQuery</span><span class="p">,</span> <span class="n">PifSystemQuery</span><span class="p">,</span> <span class="n">FieldQuery</span><span class="p">,</span> <span class="n">ValueQuery</span>
+<span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">PropertyQuery</span><span class="p">,</span> <span class="n">DataQuery</span><span class="p">,</span> <span class="n">DatasetQuery</span><span class="p">,</span> <span class="n">ChemicalFieldQuery</span><span class="p">,</span> <span class="n">ChemicalFilter</span><span class="p">,</span> <span class="n">Filter</span>
+
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">PifSystemReturningQuery</span><span class="p">(</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+            <span class="n">query</span><span class="o">=</span><span class="n">DataQuery</span><span class="p">(</span>
+                <span class="n">system</span><span class="o">=</span><span class="n">PifSystemQuery</span><span class="p">(</span>
+                    <span class="n">chemical_formula</span><span class="o">=</span><span class="n">ChemicalFieldQuery</span><span class="p">(</span>
+                        <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;formula&quot;</span><span class="p">,</span>
+                        <span class="nb">filter</span><span class="o">=</span><span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;AlxCuy&#39;</span><span class="p">),</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">))</span>
+
 <span class="n">query_result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found </span><span class="si">{}</span><span class="s2"> PIFs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query_result</span><span class="o">.</span><span class="n">total_num_hits</span><span class="p">))</span>
 </pre></div>
 
@@ -11893,9 +11925,13 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Found 81 PIFs
+<pre>Found 133 PIFs
 </pre>
 </div>
 </div>
@@ -11904,8 +11940,7 @@ div#notebook {
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11918,11 +11953,23 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">PropertyQuery</span><span class="p">,</span> <span class="n">FieldOperation</span><span class="p">,</span> <span class="n">Filter</span>
-<span class="n">query</span> <span class="o">=</span> <span class="n">PifQuery</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">SystemQuery</span><span class="p">(</span>
-        <span class="n">chemical_formula</span><span class="o">=</span><span class="n">ChemicalFieldOperation</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;AlxCuy&#39;</span><span class="p">)),</span>
-        <span class="n">properties</span><span class="o">=</span><span class="n">PropertyQuery</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">FieldOperation</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="n">Filter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s2">&quot;Formation energy&quot;</span><span class="p">)))</span>
-    <span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="n">PifSystemReturningQuery</span><span class="p">(</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+            <span class="n">query</span><span class="o">=</span><span class="n">DataQuery</span><span class="p">(</span>
+                <span class="n">system</span><span class="o">=</span><span class="n">PifSystemQuery</span><span class="p">(</span>
+                    <span class="n">chemical_formula</span><span class="o">=</span><span class="n">ChemicalFieldQuery</span><span class="p">(</span>
+                        <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;formula&quot;</span><span class="p">,</span>
+                        <span class="nb">filter</span><span class="o">=</span><span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;AlxCuy&#39;</span><span class="p">),</span>
+                    <span class="p">),</span>
+                    <span class="n">properties</span><span class="o">=</span><span class="n">PropertyQuery</span><span class="p">(</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">FieldQuery</span><span class="p">(</span>
+                            <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="n">Filter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s2">&quot;Formation energy&quot;</span><span class="p">),</span> <span class="n">Filter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s2">&quot;Enthalpy of Formation&quot;</span><span class="p">)]),</span>
+                        <span class="n">value</span><span class="o">=</span><span class="n">FieldQuery</span><span class="p">(</span>
+                            <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;formation_enthalpy&quot;</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">))</span>
+
 <span class="n">query_result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found </span><span class="si">{}</span><span class="s2"> PIFs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query_result</span><span class="o">.</span><span class="n">total_num_hits</span><span class="p">))</span>
 </pre></div>
@@ -11935,9 +11982,13 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Found 8 PIFs
+<pre>Found 16 PIFs
 </pre>
 </div>
 </div>
@@ -11963,42 +12014,44 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>{
+  &#34;category&#34;: &#34;system.chemical&#34;,
   &#34;references&#34;: [
     {
-      &#34;citation&#34;: &#34;10.1016/j.commatsci.2012.02.002&#34;,
       &#34;doi&#34;: &#34;10.1016/j.commatsci.2012.02.002&#34;
     },
     {
-      &#34;citation&#34;: &#34;10.1016/j.commatsci.2012.02.005&#34;,
       &#34;doi&#34;: &#34;10.1016/j.commatsci.2012.02.005&#34;
     }
   ],
+  &#34;uid&#34;: &#34;5CA6B3488E258DB2E0A73ADDA2F97C4D&#34;,
   &#34;properties&#34;: [
     {
+      &#34;name&#34;: &#34;Structure designation&#34;,
       &#34;scalars&#34;: [
         {
-          &#34;value&#34;: &#34;Hf[5]Sc*-h51&#34;
+          &#34;value&#34;: &#34;CaF[2]&#34;
         }
-      ],
-      &#34;name&#34;: &#34;Structure designation&#34;
+      ]
     },
     {
-      &#34;dataType&#34;: &#34;COMPUTATIONAL&#34;,
+      &#34;name&#34;: &#34;Formation energy&#34;,
       &#34;scalars&#34;: [
         {
-          &#34;value&#34;: &#34;-0.1288&#34;
+          &#34;value&#34;: &#34;-0.1799&#34;
         }
       ],
       &#34;units&#34;: &#34;eV/atom&#34;,
-      &#34;name&#34;: &#34;Formation energy&#34;
+      &#34;dataType&#34;: &#34;COMPUTATIONAL&#34;
     }
   ],
-  &#34;chemicalFormula&#34;: &#34;Cu5Al&#34;,
-  &#34;uid&#34;: &#34;45EE4836D26FB942587B4CD8CE4A9C20&#34;,
-  &#34;category&#34;: &#34;system.chemical&#34;
+  &#34;chemicalFormula&#34;: &#34;CuAl2&#34;
 }
 </pre>
 </div>
@@ -12008,8 +12061,7 @@ div#notebook {
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12018,8 +12070,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12032,23 +12083,28 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="n">PifQuery</span><span class="p">(</span><span class="n">system</span><span class="o">=</span><span class="n">SystemQuery</span><span class="p">(</span>
-        <span class="n">chemical_formula</span><span class="o">=</span><span class="n">ChemicalFieldOperation</span><span class="p">(</span>
-            <span class="nb">filter</span><span class="o">=</span><span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;AlxCuy&#39;</span><span class="p">),</span>
-            <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;formula&quot;</span>
-        <span class="p">),</span>
-        <span class="n">properties</span><span class="o">=</span><span class="n">PropertyQuery</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">FieldOperation</span><span class="p">(</span>
-                <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="n">Filter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s2">&quot;Formation energy&quot;</span><span class="p">),</span> <span class="n">Filter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s2">&quot;Enthalpy of Formation&quot;</span><span class="p">)]</span>
-            <span class="p">),</span>
-            <span class="n">value</span><span class="o">=</span><span class="n">FieldOperation</span><span class="p">(</span>
-                <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="n">Filter</span><span class="p">(</span><span class="nb">min</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">),</span> <span class="p">],</span>
-                <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;formation_enthalpy&quot;</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-    <span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="n">PifSystemReturningQuery</span><span class="p">(</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+            <span class="n">query</span><span class="o">=</span><span class="n">DataQuery</span><span class="p">(</span>
+                <span class="n">system</span><span class="o">=</span><span class="n">PifSystemQuery</span><span class="p">(</span>
+                    <span class="n">chemical_formula</span><span class="o">=</span><span class="n">ChemicalFieldQuery</span><span class="p">(</span>
+                        <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;formula&quot;</span><span class="p">,</span>
+                        <span class="nb">filter</span><span class="o">=</span><span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;AlxCuy&#39;</span><span class="p">),</span>
+                    <span class="p">),</span>
+                    <span class="n">properties</span><span class="o">=</span><span class="n">PropertyQuery</span><span class="p">(</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">FieldQuery</span><span class="p">(</span>
+                            <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="n">Filter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s2">&quot;Formation energy&quot;</span><span class="p">),</span> <span class="n">Filter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s2">&quot;Enthalpy of Formation&quot;</span><span class="p">)]),</span>
+                        <span class="n">value</span><span class="o">=</span><span class="n">FieldQuery</span><span class="p">(</span>
+                            <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="n">Filter</span><span class="p">(</span><span class="nb">min</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">),</span> <span class="p">],</span>
+                            <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;formation_enthalpy&quot;</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">))</span>
+
 <span class="n">query_result</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">extracted</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">query_result</span><span class="o">.</span><span class="n">hits</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Found </span><span class="si">{}</span><span class="s2"> PIFs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query_result</span><span class="o">.</span><span class="n">total_num_hits</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">extracted</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">query_result</span><span class="o">.</span><span class="n">hits</span><span class="p">[:</span><span class="mi">3</span><span class="p">]])</span>
 </pre></div>
 
 </div>
@@ -12059,9 +12115,14 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[{&#39;formation_enthalpy&#39;: &#39;-0.1978&#39;, &#39;formula&#39;: &#39;CuAl&#39;}, {&#39;formation_enthalpy&#39;: &#39;-0.1288&#39;, &#39;formula&#39;: &#39;Cu5Al&#39;}]
+<pre>Found 16 PIFs
+[{&#39;formation_enthalpy&#39;: &#39;-0.1889&#39;, &#39;formula&#39;: &#39;Cu3Al&#39;}, {&#39;formation_enthalpy&#39;: &#39;-0.1799&#39;, &#39;formula&#39;: &#39;CuAl2&#39;}, {&#39;formation_enthalpy&#39;: &#39;-0.1288&#39;, &#39;formula&#39;: &#39;Cu5Al&#39;}]
 </pre>
 </div>
 </div>
@@ -12070,8 +12131,7 @@ div#notebook {
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12084,8 +12144,7 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12104,7 +12163,7 @@ div#notebook {
     <span class="n">n_Al</span><span class="p">,</span> <span class="n">n_Cu</span> <span class="o">=</span> <span class="n">get_stoich</span><span class="p">(</span><span class="n">hit</span><span class="o">.</span><span class="n">extracted</span><span class="p">[</span><span class="s2">&quot;formula&quot;</span><span class="p">])</span>
     <span class="n">new_points</span><span class="o">.</span><span class="n">append</span><span class="p">((</span>
             <span class="n">n_Cu</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_Cu</span> <span class="o">+</span> <span class="n">n_Al</span><span class="p">),</span>
-            <span class="n">hit</span><span class="o">.</span><span class="n">extracted</span><span class="p">[</span><span class="s2">&quot;formation_enthalpy&quot;</span><span class="p">]</span>
+            <span class="nb">float</span><span class="p">(</span><span class="n">hit</span><span class="o">.</span><span class="n">extracted</span><span class="p">[</span><span class="s2">&quot;formation_enthalpy&quot;</span><span class="p">])</span>
         <span class="p">))</span>
 </pre></div>
 
@@ -12120,6 +12179,7 @@ div#notebook {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">new_points</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Cu fraction&quot;</span><span class="p">)</span>
@@ -12134,204 +12194,144 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[9]:</div>
+
+
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.text.Text at 0x2aac8351bf98&gt;</pre>
+<pre>Text(0,0.5,&#39;$\\Delta H (eV/atom)$&#39;)</pre>
 </div>
 
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjgAAAF5CAYAAACSmVCiAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
-AAAPYQAAD2EBqD+naQAAIABJREFUeJzt3XucXXV97//Xm0kCiCVcPAIeb2BV0FYkibd6qggqRasi
-1aNBW6Wt2nqpjfrT8zs1sSZ4wwvejxe8cI6QWpVWBU+p4LWK0iRYLw1qBVTKRYQQRCHRyef8sdaQ
-nWEmk9mzZyZ75fV8PPZjz/6u7/ru71qPJPPOd32/a6WqkCRJ6pK95rsDkiRJg2bAkSRJnWPAkSRJ
-nWPAkSRJnWPAkSRJnWPAkSRJnWPAkSRJnWPAkSRJnWPAkSRJnWPAkSRJndOJgJPkRUmuSHJrkm8k
-ecgU9Y9Nsj7JbUl+kOQ5E9R5epKNbZv/luTE2TsCSZI0SEMfcJI8A3gr8BrgGODfgAuS3GWS+vcG
-zgMuAo4G3gGcmeRxPXV+DzgH+CDwYODTwD8mecCsHYgkSRqYDPvDNpN8A/hmVb20/Rzgp8A7q+r0
-Ceq/CTixqh7UU7YWWFxVT2g//x1wp6p6ck+di4FLq+qFs3pAkiRpxoZ6BCfJQmApzWgMANUktguB
-R0yy28Pb7b0uGFf/EbtQR5Ik7aaGOuAAdwFGgOvGlV8HHDrJPodOUn//JHtPUWeyNiVJ0m5kwXx3
-oCuSHAycAFwJ3Da/vZEkaajsA9wbuKCqbhhEg8MecH4OjAKHjCs/BLh2kn2unaT+zVW1ZYo6k7UJ
-Tbg5e6oOS5KkST2LZpHPjA11wKmqXydZDxwPfAZun2R8PPDOSXa7GBi/5PvxbXlvnfFtPG5cnfGu
-BPjYxz7GUUcdtYtHoJlasWIFZ5xxxnx3Y4/iOZ97nvO55zmfWxs3buTZz342tL9LB2GoA07rbcBH
-26BzCbACuBPwUYAkbwDuVlVj97p5H/CidjXVh2mCzNOAJ/S0+Q7gS0leBpwPLKeZzPy8nfTjNoCj
-jjqKJUuWDObINKXFixd7vueY53zuec7nnud83gxsisfQB5yq+vv2njeraS4jfQs4oaqub6scCtyj
-p/6VSZ4InAH8FXAV8GdVdWFPnYuTnAK8rn39EHhKVf37XByTJEmamaEPOABV9V7gvZNsO3WCsq/Q
-jMjsrM1PAZ8aSAclSdKcGvZl4pIkSXdgwNFQW758+Xx3YY/jOZ97nvO55zkffkP/qIbdRZIlwPr1
-69c7MU2SpGnYsGEDS5cuBVhaVRsG0aYjOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIk
-qXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMM
-OJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMONKwGB2dXrkk7cEMONIwGB2Fk0+GNWt2LF+z
-pik35EjSDgw40jAYGYFly2DVqu0hZ82a5vOyZc12SdLtFsx3ByTtopUrm/dVq+C002DrVli9enu5
-JOl2juBIw2TlSli0qAk3ixYZbiRpEgYcaZisWbM93Gzdesc5OZIkwIAjDY+xOTerV8OWLc1775wc
-SdLtnIMjDYPRUVi3bsc5N2Pv69Y1251oLEm3M+BIw2BkBM49944hZuVKw40kTcBLVNKwmCzEGG4k
-6Q4MOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMM
-OJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXMMOJIkqXOGOuAk
-OTDJ2Uk2J9mU5Mwk++3CfquTXJ3kV0k+n+S3x23/UpJtPa/RJO+dvSORJEmDNNQBBzgHOAo4Hngi
-8Cjg/TvbIcmrgBcDzwceCvwSuCDJop5qBXwAOAQ4FDgMeOWgOy9JkmbHgvnuQL+SHAmcACytqkvb
-spcA5yd5RVVdO8muLwXWVNV57T5/AlwHnAT8fU+9X1XV9bN2AJIkadYM8wjOI4BNY+GmdSHN6MvD
-JtohyeE0IzIXjZVV1c3AN9v2ej0ryfVJvpPk9Un2HWjvJUnSrBnaERyaoPKz3oKqGk1yY7ttsn2K
-ZsSm13Xj9jkb+DFwNfAg4HTgfsDTZt5tSZI023a7gJPkDcCrdlKlaObdzJqqOrPn4/eSXANclOTw
-qrpiZ/uuWLGCxYsX71C2fPlyli9fPgs9lSRpuKxdu5a1a9fuULZ58+aBf0+qauCNzkSSg4GDp6h2
-OfDHwFuq6va6SUaA24CnVdWnJ2j7cOBHwIOr6ts95V8CLq2qFZP06U7ALcAJVfX5SeosAdavX7+e
-JUuWTNF9SZI0ZsOGDSxduhSaebUbBtHmbjeCU1U3ADdMVS/JxcABSY7pmYdzPBCaOTUTtX1Fkmvb
-et9u29mfZs7Oe3bydcfQjBxds6vHIUmS5s/QTjKuqsuAC4APJnlIkkcC7wLW9q6gSnJZkqf07Pp2
-4NVJnpTkd4H/DVwFfLqtf0SSVydZkuReSZ4MnAV8uaq+O0eHJ0mSZmC3G8GZplOAd9OsntoGfJJm
-GXiv+wK3T4qpqtPbS07vBw4AvgqcWFVb2ypbgce27ewH/BT4BPC62TsMSZI0SEMdcKrqJuDZU9QZ
-maDsb4G/naT+VcCxM++dJEmaL0N7iUqSJGkyBhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5
-BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJ
-ktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5
-BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJ
-ktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5BhxJktQ5
-BhxJktQ5BhxJktQ5BhxJktQ5C/rdMclBwKnAE4D7ANuA3wC/AL4A/F1VrR9EJyVJkqajr4CT5IXA
-Q4DPAv+9qm7o2bag3XZSkj8HXt27XZIkabZNO+AkeTnwlap670Tbq+o3wMXAxUl+C1iR5L1V9fOZ
-dVWSJGnX9DOCc9auhpWq+gWwOsnBfXyPJElSX6Y9yXhn4SbJAUleluR+4/aZlUtUSQ5McnaSzUk2
-JTkzyX5T7PPUJBck+XmSbUkeNEGdvZO8p63ziySfTHLX2TgGSZI0eDNeRdUGmu8m+STwWODdwH+b
-cc92zTnAUcDxwBOBRwHvn2Kf/YCvAq8EapI6b2/b+6O2zbsBnxpAfyVJ0hzoexVVj4OBpwPLgD8D
-Pgh8E/jwANqeVJIjgROApVV1aVv2EuD8JK+oqmsn2q+qPtbWvReQCdrdH/hT4JlV9eW27FRgY5KH
-VtUls3JAkiRpYAZxH5zvV9XGqvo/VXUicDhw0gDancojgE1j4aZ1Ic2ozMNm0O5SmuB30VhBVX0f
-+En7nZIkaTc3iIBzVZLbf/FX1U1VddsA2p3KocDPeguqahS4sd02k3a3VtXN48qvm2G7kiRpjgzi
-EtWTgL9M8q80ox4XARe3y8WnLckbgFftpErRzLvZLa1YsYLFixfvULZ8+XKWL18+Tz2SJGn3sXbt
-WtauXbtD2ebNmwf+PYMIOFcBBwJH00wyXgPcBfidPtt7C/CRKepcDlwL7LCyKckIcFC7rV/XAouS
-7D9uFOeQXWn3jDPOYMmSJTP4ekmSumui//Rv2LCBpUuXDvR7BhFwflFVtwLfaF+nzaSxdkn5lMvK
-k1wMHJDkmJ55OMfTTBz+5q5+3QRl62keOXE88A/td90fuCfNDQwlSdJubhBzcP4tybMH0M60VNVl
-wAXAB5M8JMkjgXcBa3tXUCW5LMlTej4fmORo4IE0YejIJEcnOaRt92bgQ8DbkhybZCnNirCvuYJK
-kqThMIiA8/8Df5Pkp0nOSvInY2FhDpwCXEazeuo84CvAC8bVuS/QOynmycClNM/RKmAtsGHcfiva
-9j4JfAm4muaeOJIkaQgM4hLVV2jug3MQzRycxwJ/TnODvFlVVTcBOx09qqqRcZ/PAs6aYp8twEva
-lyRJGjKDCDgfohlJObeqzgbOHkCbkiRJfZvxJaqq2gz8Cnh+O7dFkiRpXg3iWVSnA0+gef7URUne
-OuNeSZIkzcAgJhlvrKpTq+qpwN2BG5L8xQDalSRJ6ssgAs4BYz9U1W1V9Xpg7wG0K0mS1JdBBByS
-vKy9i/CYXw6iXUmSpH4MYhXV24H30Tx088s04WYmj0qQJEmakRkHnKoq4AVJzqS59801NDfPkyRJ
-mhczDjhJfq+qvl5V/5rkR8DCNvRIkiTNi77m4CR5RJLnJrkbcGzPppuAE5McN4jOSZIk9aPfScY/
-Bx4JfI3mBn/vTvJHwIFV9VGaJ29LkiTNi74CTlX9sKqeV1WHA+fTPKzyScAlSf4dOGGAfZQkSZqW
-Qayi+r9VdR7wYYAkBwObBtCuJElSXwZxH5x/Gfshyf40Txb/bwNoV5IkqS+DCDgfT3JtknNows1F
-wEMH0K4kSVJfBhFwzgd+H/gUsAT4PHDwANqVJEnqyyACzm3tpONPVdWLgGOAjQNoV5IkqS+DCDj3
-SPKXSRYCVNUmYMsA2pUkSerLIALOa2nm3Fyf5LwkHwIeP4B2JUmS+jKIZ1H9Bjg1yTuAx9Dczdhn
-UUmSpHkzrYCTZJ+qum2ibVX1LeBbA+mVJEnSDEx3BOd3kpwKXA2cXVVXDr5LkiRJMzOtgFNV64B1
-SQ4DnpXkcGAd8ImqumU2OihJkjRdfc3BqaprgLcAJFkKvDrJ3sD5VXXhAPsnSZI0bYOYZLweWN8u
-E39ikncDNwLnVNVlM21fkiRpuvpaJp7kKePLqurXVfWPVfVi4B3A45L8ryTPn2knJUmSpqPfEZxX
-JvlsVW2baGNV3QC8C6CdpyNJUneNjsLIyK6Xa9b1e6O/vWnm3fyXqSpW1RV9fockSbu/0VE4+WRY
-s2bH8jVrmvLR0fnp1x6u34DzTOA04I8mulwlSdIeY2QEli2DVau2h5w1a5rPy5Y5gjNP+l1F9R/t
-j+9L8uAkfwO8t30OlSRJe5aVK5v3VavgtNNg61ZYvXp7uebcjJ9F1d7B+M3AnyZ5wsy7JEnSEFq5
-EhYtasLNokWGm3nW7yqqR/R+rqqtVfVW4OYkb0yy/0B6J0nSsFizZnu42br1jnNyNKf6XUX110l+
-C7gP8Nvt+32AI4B9gacARw2kh5Ik7e7G5tyMXZYa+wyO5MyTfgPO04ETgMuBHwGXAee3P/8I+OlA
-eidJ0u5udBTWrdtxzs3Y+7p1LhWfJ/0GnHdV1UsH2hNJkobRyAice+4dQ8zKlYabedTvJOPVA+2F
-JEnDbLIQY7iZN30FnPZOxQAk+bMkr06yT/v5uUnuOqgOSpIkTdeMl4m33gk8A6CqPgqcNKB2JUmS
-pm0QAWffqroZ6L0X9a8G0K4kSVJfBhFw7pzkJUD1lB04gHYlSZL6MoiA82ZgKfCBJN9M8pUBtStJ
-ktSXfpeJ366qRoHnJnkj8CDgB+3jGyRJkubFtAJOkiOB26rqyvHbquoymhv+jd/nD6rqn/ruoSRJ
-0jRN61JSG2KenGR5kuysbpK7JlkNXDeTDkqSJE3XtC9RVdU7kzwO+EySnwL/CvwMuJVmcvE9gd9v
-y9ZU1X8OsL+SJElT6msOTlV9Hvh8kt8FjgceCNwZuJ7mMtXzem8GKEmSNJf6CjhJ7lpVP6uq7wDf
-GXCfJEmSZqTf5dwvGGgvJEmSBqjfZeLPS/Ib4AvAJVVVU+0gSZI0V/odwbkOeBTweeDGJP+Q5MVJ
-7g+Q5JWD6qAkSdJ09Rtw3lVVJ9KsmjoR2Bd4OvDtJFcBLxxQ/yRJkqatr4BTVf+7fR+tqm8AX6yq
-RwMHAy9iju59k+TAJGcn2ZxkU5Izk+w3xT5PTXJBkp8n2ZbkQRPU+VK7bew1muS9s3ckkiRpkPoK
-OElOHVdUAFV1S1V9Gjhvph3bRecAR9EsVX8izWWz90+xz37AV4FXsuMDQnsV8AHgEOBQ4LC2viRJ
-GgL9TjJ+UpILqurqSba/od8O7ar2sREnAEur6tK27CXA+UleUVXXTrRfVX2srXsvYGd3Y/5VVV0/
-4G5LkqQ50O8cnCcBP03ywyQfBB6c5OCe7Y+eedem9Ahg01i4aV1IM/rysAG0/6wk1yf5TpLXJ9l3
-AG1KkqQ50O8Izhrgo8DjaC4PHQdcl+RS4ALgAcBFg+jgThxK8ziI21XVaJIb220zcTbwY+Bqmiek
-nw7cD3jaDNuVJElzoN+A8572UQwfal+0k3WP73n1JckbgFftpErRzLuZNVV1Zs/H7yW5BrgoyeFV
-dcVsfrckSZq5fp9FdYfnTFXVt4FvA2e0IaVfbwE+MkWdy4Frgbv2FiYZAQ5qtw3SJTTzdX4b2GnA
-WbFiBYsXL96hbPny5SxfvnzAXZIkafisXbuWtWvX7lC2efPmgX9PZuMmxEmWVtX6gTe843ccCXwP
-WNYzyfjxwOeAu082ybhn/3vRBKVj2nC2s7qPBL4CHF1V352kzhJg/fr161myZMm0j0eSpD3Vhg0b
-WLp0KTQLhzYMos1+JxlPKslRwMpBtzteVV1GM9/ng0ke0oaQdwFre8NNksuSPKXn84FJjqZ5AnqA
-I5McneSQdvsRSV6dZEmSeyV5MnAW8OXJwo00Jyb7H84s/M9HkobdwAJOksPaFVXfplllNRdOAS6j
-WT11Hs0oy/gHgd4X6L1m9GTgUuCzNPN51gIbevbbCjyWJjxtBN4MfKLdT5ofmzfDAQfAvuMW8+27
-b1NuyJGkHfQ7yfh2Se5MMyl4BfDvwHLg4zNtd1dU1U3As6eoMzLu81k0IzKT1b8KOHYQ/ZMGZvFi
-2GcfuO22JtTcemvzftttTfm4eV+StKfrO+C0E3pfAKwCbgWeX1XnjLsfjqRB6Q01ae9Ruc8+Tfls
-Gx2FkZFdL5ekedbvoxpOopng+zrgbcCRVXXOIDsmaQLjw8xchZuTT4Y1a3YsX7OmKR8dnf0+SNI0
-9TsH56XAT4H7VNXpVbVlgH2SNJmJ5uDMtpERWLYMVq3aHnLWrGk+L1vmCI6k3VK/98F5TLsy6a+T
-fLSqLh9wvySN1zvnpvdy1dicnNm0sl0YuWoVnHYabN0Kq1dvL5ek3Uzfq6jap4a/Fjg2yauSHDC4
-bknawebNO4YbaN7HJh7PxSqqlSth0aIm3CxaZLiRtFub0TLxqhqtqg8D7waem+QFwN4D6Zmk7RYv
-hptumngOzk03zc0qqjVrtoebrVvvOCdHknYjA7kPTlX9sqreDnwaeD6wbRDtSuoxWYiZq3CzalVz
-WWrLlua9d06OJO1mZnwfnF7tHYT/NokrqqSuGB2Fdet2nHMz9r5unUvFJe2WBhpwxlTVD2ajXUnz
-YGQEzj33jiFm5UrDjaTd1sCfRSWpgyYLMYYbzbXJ7rvk/Zg0jgFHkjQcvOmkpsGAI0kaDt50UtMw
-K3NwJEmaFd50UrvIERxJ0nDxppPaBQYcSdJw8aaT2gUGHEnS8PCmk9pFzsGRJA0HbzqpaTDgSJKG
-gzed1DR4iUqSNDy86aR2kQFHkiR1jgFHkiR1jgFHkiR1jgFHkiR1jgFHkiR1jgFHkiR1jgFHkiR1
-jgFHkiR1jgFHkiR1jgFHGhajo9Mrl6Q9mAFHGgajo3DyyXd8YvKaNU25IUeSdmDAkYbByAgsWwar
-Vm0POWvWNJ+XLfM5PJI0jk8Tl4bFypXN+6pVcNppsHUrrF69vVySdDtHcKRhsnIlLFrUhJtFiww3
-kjQJA440TNas2R5utm6945wcSRJgwJGGx9icm9WrYcuW5r13To4k6XbOwZGGwegorFu345ybsfd1
-65rtTjSWpNsZcKRhMDIC5557xxCzcqXhRpIm4CUqaVhMFmIMN5J0BwYcSZLUOQYcSdLw8JEl2kUG
-HEnScBgdhZNOmviRJSedZMjRDpxkLEkaDqOj8KUvwXnnNZ9Xrtx++4Q739kJ99qBIziSpOGwaBE8
-9KHNz6tWwd57N+/QlC9aNH99027HgCNJGh4XXQTHHdf8vHVr837ccU251MOAI0kaLsceu/PPEgYc
-SdIwGZtz08tHlmgCBhxJ0nAYHYV3vKP5+bjjoGr75ap3vMNVVNqBAUeSNBxGR2HBgh3n3IzNyVmw
-wICjHbhMXJI0HBYtgp/85I6rpS66qJlw7Coq9XAER5I0PCYLMYYbjWPAkdRd3tZf2mMNdcBJcmCS
-s5NsTrIpyZlJ9ttJ/QVJ3pTk20luSfKfSc5Kcti4ensneU+Snyf5RZJPJrnr7B+RpIEZHYWTT574
-tv4nn2zIkTpuqAMOcA5wFHA88ETgUcD7d1L/TsCDgdcCxwBPBe4PfHpcvbe37f1R2+bdgE8NsuOS
-ZtnICCxbtuMS4rElxsuWeUt/qeOGdpJxkiOBE4ClVXVpW/YS4Pwkr6iqa8fvU1U3t/v0tvNi4JtJ
-7l5VVyXZH/hT4JlV9eW2zqnAxiQPrapLZvfIJA3MypXN+6pVcNppzUTU1au3l0vqrGEewXkEsGks
-3LQuBAp42DTaOaDd56b281Ka4Hf7fb+r6vvAT9rvlDRMVq5sJqCOrbIx3Eh7hGEOOIcCP+stqKpR
-4MZ225SS7A28ETinqm7paXdrO9rT67pdbVfSbmTNmu3hZutW73gr7SF2u4CT5A1Jtu3kNZrkfgP4
-ngXAJ2hGb144445L2v2MzblZvRq2bGneva2/tEfYHefgvAX4yBR1LgeuBXZY2ZRkBDio3TapnnBz
-D+C4ntEb2n0XJdl/3CjOIVO1C7BixQoWL168Q9ny5ctZvnz5VLtKGqTRUVi3bsc5N2Pv69Y1251o
-LM25tWvXsnbt2h3KNm/ePPDvSVUNvNG50E4y/h6wrGeS8eOBzwF3n2iScVtnLNwcATymqm4ct31/
-4HqaScb/0JbdH9gIPHyyScZJlgDr169fz5IlSwZxiJJmarIQY7iRdisbNmxg6dKl0Cwc2jCINne7
-S1S7qqouAy4APpjkIUkeCbwLWNsbbpJcluQp7c8LaJZ7LwGeDSxMckj7Wti2ezPwIeBtSY5NshT4
-MPA1V1BJQ2ayEGO4kTpvd7xENR2nAO+mWT21Dfgk8NJxde4LjF0z+q/AH7Y/f6t9D808nMcAX2nL
-VgCjbXt7A/8EvGjw3ZckSbNhqANOVd1EMxKzszojPT//GJjyv25VtQV4SfuSJElDZmgvUUmSJE3G
-gCNJkjrHgCNJkjrHgCNJkjrHgCNJmpkbb5xeuTQHDDiSpP7deCMcfDAsXLhj+cKFTbkhR/PEgCNJ
-6t9BB8GCBfCb32wPOQsXNp8XLGi2S/PAgCOpu269dXrlmr7RUXjCE2CvvZpQkzTve+3VlI+OzncP
-tYcy4EjqpltvhQMPhCOO2LH8iCOackPOYIyMwLJlsG3bjuXbtjXlPhZD88SAI6mb9t0X7nY3uOKK
-7SHniCOaz3e7W7Ndg7FyZTNi02uvvbY/vV2aB0P9qAZJ2qnLL98eapKm7PDDm3INzsKFE4/gLFwI
-v/71/PRJezxHcCR12/gwY7gZrBtv3D7nBmDRouZ9bE6Oq6g0Tww4krptojk4GpyDDoJXvrIZsVm9
-GrZsad63bWvKXUWleeIlKkndNXZ5auyy1NjnI45wJGdQRkfhssuaUDM252bsfd26ZrsTjTUPDDiS
-uunWW+Hqq3ecczMWcq6+utnuROOZGxmBc8+9Y4hZudJwo3llwJHUTfvuC5s23THEXH654WbQJgsx
-hhvNI+fgSOquyUKM4UbqPAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnq
-HAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOO
-JEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnq
-HAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqHAOOJEnqnKEOOEkOTHJ2
-ks1JNiU5M8l+O6m/IMmbknw7yS1J/jPJWUkOG1fvS0m29bxGk7x39o9I07V27dr57sIex3M+9zzn
-c89zPvyGOuAA5wBHAccDTwQeBbx/J/XvBDwYeC1wDPBU4P7Ap8fVK+ADwCHAocBhwCsH2XENhv8I
-zT3P+dzznM89z/nwWzDfHehXkiOBE4ClVXVpW/YS4Pwkr6iqa8fvU1U3t/v0tvNi4JtJ7l5VV/Vs
-+lVVXT97RyBJkmbLMI/gPALYNBZuWhfSjL48bBrtHNDuc9O48mcluT7Jd5K8Psm+M+uuJEmaK0M7
-gkNz6ehnvQVVNZrkxnbblJLsDbwROKeqbunZdDbwY+Bq4EHA6cD9gKcNoN+SJGmW7XYBJ8kbgFft
-pErRzLuZ6fcsAD7RtvfCHb6g6syej99Lcg1wUZLDq+qKSZrcB2Djxo0z7ZqmYfPmzWzYsGG+u7FH
-8ZzPPc/53POcz62e3537DKrNVNWg2hqIJAcDB09R7XLgj4G3VNXtdZOMALcBT6uq8ROHe79jLNzc
-GziuqjZN0ac7AbcAJ1TV5yepcwrNyI8kSerPs6rqnEE0tNuN4FTVDcANU9VLcjFwQJJjeubhHA8E
-+OZO9hsLN0cAj5kq3LSOoRnpuWYndS4AngVcSROyJEnSrtmHZtDhgkE1uNuN4ExHks8BdwX+ElgE
-fBi4pKr+uKfOZcCrqurTbbj5FM1S8T9kxzk8N1bVr5McAZwCfI4maB0NvA34SVUdNweHJUmSZmi3
-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
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZsAAAEKCAYAAADEovgeAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
+AAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMS4wLCBo
+dHRwOi8vbWF0cGxvdGxpYi5vcmcvpW3flQAAGV9JREFUeJzt3X2UZHV95/H3Z0RRs8iACMwKE4jB
+R8KO2vHhnBhRQIlHxTUIGh/QY4IxJ9LgmiM57i4j2WRZzWaY8TH4EMFNAj6skVXEgwgRNbAOCiMY
+CKCoCCsYGNb1Gee7f9xbTnXbM10107equvr9OqdO1b11b/W370z3p3/3d+/vl6pCkqQurRp3AZKk
+6WfYSJI6Z9hIkjpn2EiSOmfYSJI6Z9hIkjpn2EiSOmfYSJI6Z9hIkjq3x7gLGJf99tuvDjnkkHGX
+IUnLytVXX/29qnrYsPut2LA55JBD2Lx587jLkKRlJck3d2U/T6NJkjpn2EiSOmfYSJI6Z9hIkjpn
+2EiSOmfYSJI6Z9hIkjpn2EiSOmfYSJI6Z9hIkjpn2EiSOmfYSJI6Z9hIkjpn2EiSOmfYSJI6Z9hI
+kjpn2EiSOmfYaPmo2vmypIll2Gh5WL8eTjtte8BUNcvr14+zKkkDMmw0+apg61bYuHF74Jx2WrO8
+dastHGkZ2GPcBUiLSmDDhub1xo3NA2B2tlmfjK82SQNJrdC/CmdmZmrz5s3jLkPDqIJVfY3xbdsM
+GmnEklxdVTPD7udpNC0PvVNn/fr7cCRNNMNGk6+/j2Z2tmnRzM7O7cORNNHss9HkS2D16rl9NL0+
+nNWrPZUmLQP22Wj5qJobLPOXJXXOPhtNv/nBYtBIy4ZhI0nqnGEjSeqcYSNJ6pxhI0nqnGEjSeqc
+YSNJ6pxhI0nqnGEjSeqcYSNJ6pxhI0nqnGEjSeqcYSNJ6tzYwybJvkkuSXJT+7zPDrY7qd3mpiQn
+9a2/PMmNSa5pH/uPrnpJ0iDGHjbA6cClVXUYcGm7PEeSfYEzgCcDTwLOmBdKL62qde3jzlEULUka
+3CSEzXHAue3rc4EXLLDNs4FLquruqroHuAQ4dkT1SZJ20ySEzQFVdQdA+7zQabCHA9/uW76tXdfz
+N+0ptP+UOMmJJE2akUwLneQzwIELvPWmQT9igXW9KUZfWlXfSbIX8FHg5cB5O6jjZOBkgLVr1w74
+pSVJu2skYVNVR+/ovSTfTbKmqu5IsgZYqM/lNuDIvuWDgMvbz/5O+/z9JH9H06ezYNhU1TnAOdBM
+Cz38dyJJ2hWTcBrtQqB3ddlJwMcX2ObTwLOS7NNeGPAs4NNJ9kiyH0CS+wPPBa4bQc2SpCFMQtic
+BRyT5CbgmHaZJDNJ3gtQVXcDfwZ8qX2c2a7bkyZ0tgDXAN8B3jP6b0GStDOpWplnk2ZmZmrz5s3j
+LkOSlpUkV1fVzLD7TULLRpI05QwbSVLnDBtJUucMG0lS5wwbSVLnDBtJUucMG0lS5wwbSVLnDBtJ
+UucMG0lS5wwbSVLnDBtJUucMG0lS5wwbSVLnDBtJUucMG0lS5wwbSVLnDBtJUucMG0lS5wwbSVLn
+DBtJUucMG0lS5wwbSVLnDBtJUucMG0lS5wwbSVLnDBtJUucMG0lS54YOmyS/kuR+XRQjSZpOi4ZN
+klVJfi/JJ5PcCdwA3JHk+iRvTXJY92VKkpazQVo2lwGPAP4UOLCqDq6q/YGnAVcCZyV5WYc1apJV
+7XxZkoA9Btjm6Kr62fyVVXU38FHgo0nuv+SVafKtXw9bt8KGDZA0QXPaabB6dfOeJLUWbdn0B82O
+QmWhMNKUq2qCZuPGJmB6QbNxY7PeFo6kPoO0bABI8l7ghUl+ANwObAG2VNXbuipOEyxpWjTQBMzG
+jc3r2dntLR1Jag1zNdrTgAOq6mDghcDHgF/ppCotD/2B02PQSFrAMGFzJbAPQFV9p6ouqqqzuilL
+y0Lv1Fm/3ik1SeozTNicA/xjkjckeVqSvbsqSstAfx/N7Cxs29Y89/fhSFJr4D4b4H8A57X7/BFw
+RJIHVtUjdqeAJPsCFwCHALcCJ1TVPQtsdzHwFODzVfXcvvWHAucD+wJfBl5eVT/dnZo0gKS56qy/
+j6Z3Sm31ak+lSZojNeBfoEmuqKqnzVu3Z1X9ZLcKSN4C3F1VZyU5Hdinqt64wHZHAQ8GXjMvbD4E
+/M+qOj/Ju4Frq+pdi33dmZmZ2rx58+6ULmhaMP3BMn9Z0lRJcnVVzQy73zCn0a5JMtu/YneDpnUc
+cG77+lzgBQttVFWXAt/vX5ckwDOBjyy2vzoyP1gMGkkLGCZsDgD+MMntST6R5M+TvGgJajigqu4A
+aJ/3H2LfhwJbq+q+dvk24OFLUJMkaQkN3GdTVSdAc+oMeBzwG8CTgQ8vtm+SzwAHLvDWmwb9+jv6
+6AXW7fC8YJKTgZMB1q5du5tfWpI0qGFu6twXOI2m5fE14LyqOnfnezWq6uidfO53k6ypqjuSrAHu
+HLQm4HvA6iR7tK2bg2huON1RHefQXFXHzMyMl0tJ0ogMcxrtfJo+k/9F01H/+SRPWoIaLgROal+f
+BHx80B2rubrhMuD4XdlfkjQaw4TNmqp6S1V9oqr+K/A8YNMS1HAWcEySm4Bj2mWSzLRD5NAuX0Fz
+yu6oJLcleXb71huB1ye5maYP531LUJMkaQkNc5/N3UmOqKotAFX19SQP3t0CqupfgaMWWL8Z+P2+
+5afN36ZXB7AULSxJUkeGCZvXAB9pWxhfBR4L3NJJVZKkqTLMabQfAU+g6SPZH7gWeEkXRUmSpssw
+LZuPVdUTgA/1ViR5Cs0AnZIk7dCiLZskJyQ5C9gryWOS3K/v7XO6K02SNC0Gadl8AXggTWf9XwGP
+SrKV5n6WH3VYmyRpSiwaNlX1HeC8JLdU1RfgFzd4Hgrc0HF9kqQpMEyfzQ1JXgv8GLge+GpV2bKR
+JC1qmKvRPgY8DPgL4K3AvUls2UiSFjVMy2avqjozyQur6ulJfhf49a4KkyRNj2FaNj9un3+S5EFV
+9VHgOR3UJEmaMsO0bP6ybwrn9yf5Is4dI0kawCD32Tw1Sarqo1V1d1X9FfAp4GCaWTYlSdqpQVo2
+JwHvSPIvwMXAxVV1XrdlSZKmySD32fwhQJJHA78DfCDJ3jRjpF0MfKGqft5plZKkZW2Q02iPBqiq
+G6pqQ1UdCzwT+DzwIuCqbkuUJC13g5xGuyjJ5cAZVfVtgPZmzovahyRJOzXIpc+PBr4CfC7J2Uke
+1nFNkqQps2jYVNVPq+ptwGOA24CrkpyZZK/Oq5Ok5aJq58sr3MA3dVbVj6vqL4HfoLnB88tJ3tBZ
+ZZK0XKxfD6edtj1gqprl9evHWdVEGThskhyS5FiaqQbWAt+nGSdNklauKti6FTZu3B44p53WLG/d
+aguntegFAkm2AAcB36KZUuCfgc8C7wBu7LQ6SZp0CWzY0LzeuLF5AMzONuuT8dU2QVKLpG6SRwBf
+r8U2XGZmZmZq8+bN4y5D0rSoglV9J4u2bZvKoElydVXNDLvfIBcI3FJVleSwJO9L8vZdK1GSplTv
+1Fm//j4cDTXq8weBjwC/DZDk8CQOWyNpZevvo5mdbVo0s7Nz+3A01KjPq6rqU0n+AqCqrktyeEd1
+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
+Z7XPH5+/QXuF2ceA86rqw731VVVJLqPpvzl/R/tLE8/J4TTlJqHP5izgmCQ3Ace0yySZSfLedpsT
+gN8GXpnkmvaxrn3vjcDrk9xM04fzvtGWLy2R+cFi0GiKjP1qtHHxajRJGt5yvhpNkjTlDBtJk2P+
+mZYVeuZlGhk2kibD+vVw6qlzx4c79VTHh5sSho00KVbyX/VVcPHFsGnT9sA59dRm+eKLV9axmFKG
+jTQJHPUZnvzk5nnTpmbYnk2b5q7XsmbYSOPmqM/NZd5nnw2nnDJ3/SmnNOu9DHzZm4SbOqWVrX/E
+gI0bmwc46rOmivfZSJNiJY/63N9HM5+tm4nifTbScuaoz3DVVc3zKac0Qds7pdZbr2XN02jSuM0f
+9XnDhu3LsDJOpSVw7LHNxQC9VszZZzfv7bPP9H//K4BhI42boz43FhqM1NNnU8M+G2lS9P+iXWhZ
+mgD22UjLnaM+a4oZNpKkzhk2kqTOGTaSpM4ZNpKkzhk2kqTOGTaSpM4ZNpKkzhk2kqTOGTaSpM4Z
+NpKkzhk2kqTOGTaSpM4ZNpKkzhk2kqTOGTaSpM4ZNpKkzhk2kqTOrdhpoZN8H7hx3HVMiP2A7427
+iAnhsdjOY7Gdx2K7R1XVXsPutEcXlSwTN+7KPNrTKMlmj0XDY7Gdx2I7j8V2STbvyn6eRpMkdc6w
+kSR1biWHzTnjLmCCeCy281hs57HYzmOx3S4dixV7gYAkaXRWcstGkjQiUx82SY5NcmOSm5OcvsD7
+eya5oH3/qiSHjL7K7g1wHF6f5GtJtiS5NMmvjqPOUVjsWPRtd3ySSjK1VyENciySnND+37g+yd+N
+usZRGeBnZG2Sy5J8pf05ec446hyFJO9PcmeS63bwfpJsao/VliRPWPRDq2pqH8D9gFuAXwMeAFwL
+PHbeNn8EvLt9/WLggnHXPabj8Azgwe3r107jcRj0WLTb7QV8DrgSmBl33WP8f3EY8BVgn3Z5/3HX
+PcZjcQ7w2vb1Y4Fbx113h8fjt4EnANft4P3nAJ8CAjwFuGqxz5z2ls2TgJur6utV9VPgfOC4edsc
+B5zbvv4IcFSSjLDGUVj0OFTVZVX1w3bxSuCgEdc4KoP8nwD4M+AtwI9HWdyIDXIs/gB4R1XdA1BV
+d464xlEZ5FgU8JD29d7A7SOsb6Sq6nPA3TvZ5DjgvGpcCaxOsmZnnzntYfNw4Nt9y7e16xbcpqru
+A+4FHjqS6kZnkOPQ79U0f7VMo0WPRZLHAwdX1SdGWdgYDPL/4pHAI5N8IcmVSY4dWXWjNcixWA+8
+LMltwEXA60ZT2kQa9nfK1I8gsFALZf7ld4Nss9wN/D0meRkwAzy904rGZ6fHIskqYAPwylEVNEaD
+/L/Yg+ZU2pE0rd0rkhxeVVs7rm3UBjkWLwE+UFX/PclTgQ+2x2Jb9+VNnKF/b057y+Y24OC+5YP4
+5abvL7ZJsgdN83hnzcflaJDjQJKjgTcBz6+qn4yotlFb7FjsBRwOXJ7kVprz0RdO6UUCg/58fLyq
+flZV36AZT/CwEdU3SoMci1cDHwKoqn8CHkgzZtpKNNDvlH7THjZfAg5LcmiSB9BcAHDhvG0uBE5q
+Xx8PfLbaHrApsuhxaE8d/TVN0EzreXlY5FhU1b1VtV9VHVJVh9D0Xz2/qnZpPKgJN8jPxz/QXDxC
+kv1oTqt9faRVjsYgx+JbwFEASR5DEzZ3jbTKyXEh8Ir2qrSnAPdW1R0722GqT6NV1X1J/hj4NM3V
+Ju+vquuTnAlsrqoLgffRNIdvpmnRvHh8FXdjwOPwVuDfAB9ur4/4VlU9f2xFd2TAY7EiDHgsPg08
+K8nXgJ8Df1JV/zq+qrsx4LH4D8B7kpxGc8rolVP4hykASf6e5tTpfm0f1RnA/QGq6t00fVbPAW4G
+fgi8atHPnNJjJUmaINN+Gk2SNAEMG0lS5wwbSVLnDBtJUucMG0lS5wwbaUBJDkxyfpJb2lGQL0ry
+yCH2f3SSa9pRgx+xm7Ws6x91OMnzdzaCtTRuXvosDaAdnPWLwLntfQYkWQfsVVVXDPgZpwMPqqoz
+FvjsDDPsSZJX0oxG/ceD7iONky0baTDPAH7WCxqAqrqmqq5IcmSSXwzameTtbRjQt+45wKnA77dz
+ohyS5J+TvBP4MnBwkncl2dzOG/Pmvn1/M8kXk1yb5H8n2Rs4EzixbSmdmOSVSd7ebv+raeYk6s1N
+tLZd/4F2DpIvJvl6kuO7O1zSXIaNNJjDgat3deequgh4N7Chqp7Rrn4UzTDtj6+qbwJvqqoZ4Ajg
+6UmOaIdOuQCYrap/BxwN/AD4zzRzDq2rqgvmfbm3t597BPC3wKa+99YAvwU8FzhrV78faVhTPVyN
+NOG+2c4F0nNCkpNpfi7X0EzQVcAdVfUlgKr6vwCLTLn0VOCF7esP0szL0/MP7em6ryU5YEm+C2kA
+tmykwVwPPHEH793H3J+lBw74mT/ovUhyKPAG4Ki2RfLJ9nPC7k950b9//2je0zZJoCaYYSMN5rPA
+nkn+oLei7Ut5OvBN4LFJ9mz7U47ahc9/CE343Nu2OH6nXX8D8G+T/Gb7Nfdqp8L4Ps10CAv5ItsH
+lH0p8PldqEdaUoaNNIB2dN9/DxzTXvp8Pc3MjbdX1bdp5jnZQtNH8pVd+Pxr2/2uB94PfKFd/1Pg
+ROBtSa4FLqFp8VxGE3DXJDlx3sedArwqyRbg5cDssPVIS81LnyVJnbNlI0nqnGEjSeqcYSNJ6pxh
+I0nqnGEjSeqcYSNJ6pxhI0nqnGEjSerc/wd2AHoHmKapYAAAAABJRU5ErkJggg==
 "
 >
 </div>
@@ -12345,4 +12345,8 @@ wJEkSZ1jwJEkSZ1jwJEkSZ1jwJEkSZ1jwJEkSZ3z/wBHtizDEdOiRgAAAABJRU5ErkJggg==
     </div>
   </div>
 </body>
+
+ 
+
+
 </html>
