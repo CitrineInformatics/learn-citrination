@@ -3,4 +3,4 @@ pypif>=2.1.0,<3
 citrination_client>=3,<4
 pypif-sdk>2,<3
 dfttopif<1
-pandas>0.16, <=0.23
+pandas>0.18, <=0.23

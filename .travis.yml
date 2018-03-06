@@ -27,9 +27,9 @@ script:
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "ImportInstron"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "ImportVASP"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "IntroQueries"
-- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "Journal Paper to Model Demo"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "JournalPaperToModel"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "MLonCitrination"
-- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "t-SNE API"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "tsneAPI"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "WorkingWithPIFs"
 env:
   global:
