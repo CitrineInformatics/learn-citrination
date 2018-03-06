@@ -25,9 +25,13 @@ script:
 - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then export NOTEBOOK_KERNEL="python2"; else export NOTEBOOK_KERNEL="python3"; fi
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "AdvancedPif"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "AdvancedQueries"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "ExperimentalDesign"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "ImportInstron"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "ImportVASP"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "IntroQueries"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "Journal Paper to Model Demo"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "MLonCitrination"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "t-SNE API"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "WorkingWithPIFs"
 
 env:
