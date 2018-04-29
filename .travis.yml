@@ -23,9 +23,13 @@ script:
   else export NOTEBOOK_KERNEL="python3"; fi
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "AdvancedPif"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "AdvancedQueries"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "ExperimentalDesign"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "ImportInstron"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "ImportVASP"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "IntroQueries"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "JournalPaperToModel"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "MLonCitrination"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "tsneDemo"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "WorkingWithPIFs"
 env:
   global:
