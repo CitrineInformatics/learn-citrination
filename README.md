@@ -32,8 +32,10 @@ Most of these tutorials are Jupyter notebooks backed by a python3 kernel.  You'l
    
    The API key functions as the password for the client, so it's important to keep it private.  It's a good practice to put it in your environment instead of in the source code to help avoid unintentional sharing or publication of your API key.
 
-## References
+## Additional Resources
 
 * The example data used in these tutorials is drawn from: [Alloy Database](http://alloy.phys.cmu.edu/) by Mihalkovic, Widom, and coworkers.
 
-* More API examples have also been developed by the Citrine [Community team](https://github.com/CitrineInformatics/community-tools/tree/master/api_examples).
+* [More API examples](https://github.com/CitrineInformatics/community-tools/tree/master/api_examples) have also been developed by the Citrine Community team.
+
+* If you're looking for tutorials for the Citrination web user interface, please see [this page](https://github.com/CitrineInformatics/community-tools/tree/master/web_ui_examples).
