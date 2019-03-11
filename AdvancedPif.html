@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>WorkingWithPIFs</title>
+<title>AdvancedPif</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13116,8 +13116,21 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Working-with-PIFs">Working with PIFs<a class="anchor-link" href="#Working-with-PIFs">&#182;</a></h1><p><em>Authors: Max Hutchinson, Carena Church, Enze Chen</em></p>
-<p>In this notebook, we introduce the Physical Information File, or <strong>PIF</strong>. We give a brief overview of the <code>pypif</code> Python package for interfacing with PIFs and motivate the topic with a real example of phase stability diagrams.</p>
+<h1 id="Advanced-PIF-tutorial">Advanced PIF tutorial<a class="anchor-link" href="#Advanced-PIF-tutorial">&#182;</a></h1><p><em>Authors: Max Hutchinson, Carena Church, Enze Chen</em></p>
+<p>In this notebook, we will explore the <strong>Physical Information File (PIF)</strong> structure and <a href="https://github.com/CitrineInformatics/pypif/tree/master/pypif"><code>pypif</code></a> package in greater detail. At the end, we will use the <a href="http://citrineinformatics.github.io/python-citrination-client/tutorial/tutorial.html">Python Citrination Client</a> to upload the PIFs to <a href="https://citrination.com/">Citrination</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Learning-outcomes">Learning outcomes<a class="anchor-link" href="#Learning-outcomes">&#182;</a></h2><p>By the end of this notebook, you should understand:</p>
+<ul>
+<li>The basic PIF structure and its advantages.</li>
+<li>How to use the <code>pypif</code> package to create and save PIFs.</li>
+<li>How the <code>DataClient</code> can upload data to Citrination.</li>
+</ul>
 
 </div>
 </div>
@@ -13135,15 +13148,15 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Standard packages</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">environ</span>
 
 <span class="c1"># Third-party packages</span>
 <span class="kn">from</span> <span class="nn">pypif</span> <span class="k">import</span> <span class="n">pif</span>
-<span class="kn">from</span> <span class="nn">dfttopif</span> <span class="k">import</span> <span class="n">directory_to_pif</span>
-<span class="kn">from</span> <span class="nn">pypif_sdk.readview</span> <span class="k">import</span> <span class="n">ReadView</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">from</span> <span class="nn">pypif.obj</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">CitrinationClient</span>
 </pre></div>
 
     </div>
@@ -13154,12 +13167,13 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="What-is-a-PIF?">What is a PIF?<a class="anchor-link" href="#What-is-a-PIF?">&#182;</a></h2><p>The PIF is a <strong>general</strong>, <strong>flexible</strong>, and <strong>hierachical</strong> schema, stored in JSON format, for representing infomation about physical devices and materials. This enables the PIF to store a wide range of information on many kinds of physical systems, but requires more careful thought on where to store information within the schema.</p>
-<p>Writing analysis and post-processing on top of PIFs lets us:</p>
-<ol>
-<li>Pull in data from collaborators and published sources.</li>
-<li>Share our methodology with other researchers with data in PIFs.</li>
-</ol>
+<h2 id="The-PIF-structure">The PIF structure<a class="anchor-link" href="#The-PIF-structure">&#182;</a></h2><p>The PIF is a <strong>general</strong>, <strong>flexible</strong>, and <strong>hierachical</strong> schema, stored as a JSON file, for representing infomation about physical devices and materials. This enables the PIF to store a wide range of information on many kinds of physical systems, but requires more careful thought on where to store information within the schema.</p>
+<ul>
+<li>The PIF focuses on information specific to physical systems, but is sufficiently <strong>general</strong> to handle a wide range of systems.</li>
+<li>The PIF does not impose a rigid schema, and instead is <strong>flexible</strong> in exactly where data is stored.</li>
+<li>The PIF has a <strong>hierarchical</strong> structure can store information on multiple levels.</li>
+</ul>
+<p>Full documentation on the PIF schema can be <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/index.html">found online</a>, and the <code>pypif</code> code base is <a href="https://github.com/CitrineInformatics/pypif/tree/master">public on GitHub</a>.</p>
 
 </div>
 </div>
@@ -13167,19 +13181,16 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="pypif-package"><a href="https://github.com/CitrineInformatics/pypif/tree/master/pypif"><code>pypif</code></a> package<a class="anchor-link" href="#pypif-package">&#182;</a></h2><p>The <code>pypif</code> package provides two APIs:</p>
-<ol>
-<li>Low level read/write API</li>
-<li>High[er] level read-only API</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Low-level-API">Low level API<a class="anchor-link" href="#Low-level-API">&#182;</a></h3><p>The low level API closely mirrors the <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/index.html">PIF schema definition</a>.</p>
+<h2 id="System">System<a class="anchor-link" href="#System">&#182;</a></h2><p>A <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/system/System.html">System</a> is the primary building block in a PIF record. Systems contain three general categories of information relevant to physical systems:</p>
+<ul>
+<li><p>Identifiers - What is this?</p>
+</li>
+<li><p>Preparation - How was this made?</p>
+</li>
+<li><p>Properties - How does this perform and what are its characteristics?</p>
+</li>
+</ul>
+<p>When appropriate, a System can be sub-classed to provide more specific information. For example, <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/system/chemical/ChemicalSystem.html">ChemicalSystem</a> contains all of the fields in System, but also adds fields for composition and chemical formula.</p>
 
 </div>
 </div>
@@ -13189,12 +13200,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Use helper method to import PIF object from JSON</span>
-<span class="n">pif</span> <span class="o">=</span> <span class="n">directory_to_pif</span><span class="p">(</span><span class="s2">&quot;./example_data/Al.cF4&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The total energy is </span><span class="si">{}</span><span class="s2"> eV.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="nb">next</span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pif</span><span class="o">.</span><span class="n">properties</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Total Energy&quot;</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">scalars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-     <span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_pif</span> <span class="o">=</span> <span class="n">ChemicalSystem</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pif</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_pif</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13211,7 +13218,9 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>The total energy is -14.952228 eV.
+<pre>{
+    &#34;category&#34;: &#34;system.chemical&#34;
+}
 </pre>
 </div>
 </div>
@@ -13223,7 +13232,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Note that the <code>name</code> is a field in a properties object, so we are searching for the first <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/common/Property.html">Property</a> with the <code>name</code> "Total Energy".</p>
+<p>The <code>dumps()</code> method used above converts a (list of) PIF objects into a JSON-encoded string.</p>
 
 </div>
 </div>
@@ -13231,7 +13240,12 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="High[er]-level-API:-ReadView">High[er] level API: ReadView<a class="anchor-link" href="#High[er]-level-API:-ReadView">&#182;</a></h3><p>It might be more natural to index the property by its name.  We provide a <code>ReadView</code> that wraps the PIF and provides such an index:</p>
+<h2 id="Identifiers">Identifiers<a class="anchor-link" href="#Identifiers">&#182;</a></h2><p>Identifiers inform the user of what system exists in each PIF record. Identifiers can take the form of:</p>
+<ul>
+<li><code>chemical_formula</code>: A string representing the chemical formula.</li>
+<li><code>names</code>: An array of strings representing the common names of the chemical system.</li>
+<li><code>composition</code>: An array of <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/system/chemical/common/Composition.html">Composition</a> objects specifying the elements and relative atomic/weight percentages.</li>
+</ul>
 
 </div>
 </div>
@@ -13241,8 +13255,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rv</span> <span class="o">=</span> <span class="n">ReadView</span><span class="p">(</span><span class="n">pif</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">rv</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_pif</span><span class="o">.</span><span class="n">chemical_formula</span> <span class="o">=</span> <span class="s2">&quot;Li0.0024Ni0.9976O&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pif</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_pif</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13259,7 +13273,10 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>dict_keys([&#39;Converged&#39;, &#39;XC Functional&#39;, &#39;Relaxed&#39;, &#39;Cutoff Energy&#39;, &#39;k-Points per Reciprocal Atom&#39;, &#39;Pseudopotentials&#39;, &#39;Density Functional Theory&#39;, &#39;VASP&#39;, &#39;Total Energy&#39;, &#39;Pressure&#39;, &#39;Positions&#39;, &#39;Forces&#39;, &#39;positions&#39;, &#39;Density&#39;])
+<pre>{
+    &#34;category&#34;: &#34;system.chemical&#34;,
+    &#34;chemicalFormula&#34;: &#34;Li0.0024Ni0.9976O&#34;
+}
 </pre>
 </div>
 </div>
@@ -13271,7 +13288,11 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can easy obtain the chemical formula of the system as follows:</p>
+<h2 id="Preparation">Preparation<a class="anchor-link" href="#Preparation">&#182;</a></h2><p>Processing information can also be included to detail how this material was made. The <code>preparation</code> field is an array of <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/common/ProcessStep.html">ProcessStep</a> objects with attributes including:</p>
+<ul>
+<li><code>name</code>: A string representing the name of the process step.</li>
+<li><code>details</code>: An array of <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/common/Value.html"><code>Value</code></a> objects.</li>
+</ul>
 
 </div>
 </div>
@@ -13281,8 +13302,10 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The chemical formula for this PIF is </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">rv</span><span class="o">.</span><span class="n">chemical_formula</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">route</span> <span class="o">=</span> <span class="n">ProcessStep</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Route&quot;</span><span class="p">)</span>
+<span class="n">route</span><span class="o">.</span><span class="n">details</span> <span class="o">=</span> <span class="p">[</span><span class="n">Value</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Solid state reaction&quot;</span><span class="p">)]</span>
+<span class="n">my_pif</span><span class="o">.</span><span class="n">preparation</span> <span class="o">=</span> <span class="p">[</span><span class="n">route</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pif</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_pif</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13299,7 +13322,20 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>The chemical formula for this PIF is Al4.
+<pre>{
+    &#34;preparation&#34;: [
+        {
+            &#34;name&#34;: &#34;Route&#34;,
+            &#34;details&#34;: [
+                {
+                    &#34;name&#34;: &#34;Solid state reaction&#34;
+                }
+            ]
+        }
+    ],
+    &#34;category&#34;: &#34;system.chemical&#34;,
+    &#34;chemicalFormula&#34;: &#34;Li0.0024Ni0.9976O&#34;
+}
 </pre>
 </div>
 </div>
@@ -13311,7 +13347,15 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The <code>scalars</code> member of the <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/common/Property.html">Property</a> contains the value of the property.  We also have access to metadata associated with that value, e.g. units:</p>
+<h2 id="Properties">Properties<a class="anchor-link" href="#Properties">&#182;</a></h2><p>Properties describe how this material performs and its various characteristics. The <code>properties</code> field is an array of <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/common/Property.html">Property</a> objects with a diverse set of attributes, including:</p>
+<ul>
+<li><code>name</code>: A string representing the name of the property.</li>
+<li><code>scalars</code>: An array of <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/common/Scalar.html"><code>Scalar</code></a> objects, which contain the measured values with uncertainty.</li>
+<li><code>units</code>: A string representing the units of the property value.</li>
+<li><code>conditions</code>: An array of <code>Value</code> objects specifying the external conditions under which the property was measured or observed.</li>
+<li><code>data_type</code>: A specific string from the set <code>{MACHINE_LEARNING, FIT, COMPUTATIONAL, EXPERIMENTAL}</code>.</li>
+</ul>
+<p>However, you will see below that the PIF structure is very flexible and will accept slight deviations in formats (e.g. <code>scalars</code> formatting). We recommend that you pick to a syntax you like and <em>stay consistent</em> (so don't do what we're doing here).</p>
 
 </div>
 </div>
@@ -13321,10 +13365,18 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The total energy is </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">rv</span><span class="p">[</span><span class="s2">&quot;Total Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">scalars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
-        <span class="n">rv</span><span class="p">[</span><span class="s2">&quot;Total Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
-     <span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">crystallinity</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Crystallinity&quot;</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s2">&quot;Polycrystalline&quot;</span><span class="p">)])</span>
+
+<span class="n">resistivity</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Resistivity&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;\Ohm*cm&quot;</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="mf">28.8677</span><span class="p">,</span> <span class="mf">0.2629</span><span class="p">,</span> <span class="mf">0.0466</span><span class="p">])</span>
+<span class="n">resistivity</span><span class="o">.</span><span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="n">Value</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])]</span>
+
+<span class="n">power_factor</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Power factor&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;W/mK&quot;</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="mf">1.21E-4</span><span class="p">,</span> <span class="mf">1.66E-2</span><span class="p">,</span> <span class="mf">1.48E-1</span><span class="p">])</span>
+<span class="n">power_factor</span><span class="o">.</span><span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="n">Value</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])]</span>
+
+<span class="n">my_pif</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="p">[</span><span class="n">crystallinity</span><span class="p">,</span> <span class="n">resistivity</span><span class="p">,</span> <span class="n">power_factor</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">pif</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_pif</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)[:</span><span class="mi">800</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;... ommitted for space ...&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13341,7 +13393,42 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>The total energy is -14.952228 eV.
+<pre>{
+    &#34;properties&#34;: [
+        {
+            &#34;name&#34;: &#34;Crystallinity&#34;,
+            &#34;scalars&#34;: [
+                {
+                    &#34;value&#34;: &#34;Polycrystalline&#34;
+                }
+            ]
+        },
+        {
+            &#34;name&#34;: &#34;Resistivity&#34;,
+            &#34;scalars&#34;: [
+                28.8677,
+                0.2629,
+                0.0466
+            ],
+            &#34;units&#34;: &#34;\\Ohm*cm&#34;,
+            &#34;conditions&#34;: [
+                {
+                    &#34;name&#34;: &#34;Temperature&#34;,
+                    &#34;scalars&#34;: [
+                        400,
+                        700,
+                        1000
+                    ],
+                    &#34;units&#34;: &#34;K&#34;
+                }
+            ]
+        },
+        {
+            &#34;name&#34;: &#34;Power factor&#34;,
+            &#34;scalars&#34;: [
+                0.000121,
+   
+... ommitted for space ...
 </pre>
 </div>
 </div>
@@ -13353,15 +13440,13 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Real-example:-phase-stability-diagram">Real example: phase stability diagram<a class="anchor-link" href="#Real-example:-phase-stability-diagram">&#182;</a></h2><p>Let's make the <code>AlCu</code> phase diagram!</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="enthalpy_of_formation"><code>enthalpy_of_formation</code><a class="anchor-link" href="#enthalpy_of_formation">&#182;</a></h3><p>First, we define the enthalpy of formation under ideal conditions:</p>
+<h2 id="Reference-information">Reference information<a class="anchor-link" href="#Reference-information">&#182;</a></h2><p>Reference information can be included as an array of <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/common/Reference.html"><code>Reference</code></a> objects in the <code>references</code> field. <code>Reference</code> objects have a large set of fields, including:</p>
+<ul>
+<li><code>doi</code>: A string representing the DOI of the work.</li>
+<li><code>url</code>: A string representing the URL of the website where the work can be accessed.</li>
+<li><code>title</code>: A string representing the title of the work.</li>
+<li><code>authors</code>: An array of <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/common/Name.html"><code>Name</code></a> objects, or just strings.</li>
+</ul>
 
 </div>
 </div>
@@ -13371,101 +13456,12 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">enthalpy_of_formation</span><span class="p">(</span><span class="n">energy</span><span class="p">,</span> <span class="n">n_Al</span><span class="p">,</span> <span class="n">n_Cu</span><span class="p">,</span> <span class="n">energy_Al</span><span class="p">,</span> <span class="n">energy_Cu</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">energy</span> <span class="o">-</span> <span class="n">n_Al</span> <span class="o">*</span> <span class="n">energy_Al</span> <span class="o">-</span> <span class="n">n_Cu</span> <span class="o">*</span> <span class="n">energy_Cu</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_Al</span> <span class="o">+</span> <span class="n">n_Cu</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="get_stoich"><code>get_stoich</code><a class="anchor-link" href="#get_stoich">&#182;</a></h3><p>Next, a little chemical formula parser:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_stoich</span><span class="p">(</span><span class="n">AlCu_formula</span><span class="p">):</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Al([0-9]*)Cu([0-9]*)&quot;</span><span class="p">,</span> <span class="n">AlCu_formula</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    
-    <span class="n">n_Al</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
-    <span class="n">n_Cu</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">n_Al</span><span class="p">,</span> <span class="n">n_Cu</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, we pull the values from some PIFs (the following code takes ~30 seconds):</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Cu_pif</span> <span class="o">=</span> <span class="n">directory_to_pif</span><span class="p">(</span><span class="s2">&quot;./example_data/Cu.cF4&quot;</span><span class="p">)</span>
-<span class="n">Al_pif</span> <span class="o">=</span> <span class="n">directory_to_pif</span><span class="p">(</span><span class="s2">&quot;./example_data/Al.cF4&quot;</span><span class="p">)</span>
-<span class="n">AlCu_pifs</span> <span class="o">=</span> <span class="p">[</span><span class="n">directory_to_pif</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;./example_data/&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span> 
-             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;./example_data/&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;Al&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
-
-<span class="n">energy_Al</span> <span class="o">=</span> <span class="n">ReadView</span><span class="p">(</span><span class="n">Al_pif</span><span class="p">)[</span><span class="s2">&quot;Total Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">scalars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">/</span> <span class="mi">4</span>
-<span class="n">energy_Cu</span> <span class="o">=</span> <span class="n">ReadView</span><span class="p">(</span><span class="n">Cu_pif</span><span class="p">)[</span><span class="s2">&quot;Total Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">scalars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-
-<span class="n">points</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)]</span>
-<span class="k">for</span> <span class="n">pif</span> <span class="ow">in</span> <span class="n">AlCu_pifs</span><span class="p">:</span>
-    <span class="n">rv</span> <span class="o">=</span> <span class="n">ReadView</span><span class="p">(</span><span class="n">pif</span><span class="p">)</span>
-    <span class="n">energy</span> <span class="o">=</span> <span class="n">rv</span><span class="p">[</span><span class="s2">&quot;Total Energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">scalars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-    <span class="n">n_Al</span><span class="p">,</span> <span class="n">n_Cu</span> <span class="o">=</span> <span class="n">get_stoich</span><span class="p">(</span><span class="n">rv</span><span class="o">.</span><span class="n">chemical_formula</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">n_Al</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">n_Cu</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">continue</span>
-    <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">((</span>
-            <span class="n">n_Cu</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_Cu</span> <span class="o">+</span> <span class="n">n_Al</span><span class="p">),</span>
-            <span class="n">enthalpy_of_formation</span><span class="p">(</span><span class="n">energy</span><span class="p">,</span> <span class="n">n_Al</span><span class="p">,</span> <span class="n">n_Cu</span><span class="p">,</span> <span class="n">energy_Al</span><span class="p">,</span> <span class="n">energy_Cu</span><span class="p">)</span>
-        <span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally, we plot the results:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Cu fraction&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$\Delta H$ (eV/atom)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_pif</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="p">[</span><span class="n">Reference</span><span class="p">(</span><span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1143/JJAP.38.L1336&#39;</span><span class="p">,</span> 
+                               <span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://iopscience.iop.org/article/10.1143/JJAP.38.L1336&#39;</span><span class="p">,</span>
+                               <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Li-Doped Nickel Oxide as a Thermoelectric Material&#39;</span><span class="p">,</span>
+                               <span class="n">authors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Woosuck Shin&#39;</span><span class="p">,</span> <span class="s1">&#39;Norimitsu Murayama&#39;</span><span class="p">])]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pif</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_pif</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)[:</span><span class="mi">400</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;... ommitted for space ...&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13481,12 +13477,254 @@ div#notebook {
     <div class="prompt"></div>
 
 
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{
+    &#34;references&#34;: [
+        {
+            &#34;doi&#34;: &#34;10.1143/JJAP.38.L1336&#34;,
+            &#34;url&#34;: &#34;https://iopscience.iop.org/article/10.1143/JJAP.38.L1336&#34;,
+            &#34;title&#34;: &#34;Li-Doped Nickel Oxide as a Thermoelectric Material&#34;,
+            &#34;authors&#34;: [
+                &#34;Woosuck Shin&#34;,
+                &#34;Norimitsu Murayama&#34;
+            ]
+        }
+    ],
+    &#34;properties&#34;: [
+        {
+            &#34;na
+... ommitted for space ...
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hierarchical">Hierarchical<a class="anchor-link" href="#Hierarchical">&#182;</a></h2><p>In addition to having the hierarchical structure we just described, systems can also store <code>sub_systems</code> which is a list of additional <code>System</code> objects that make up the system.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">thermoelectric_module</span> <span class="o">=</span> <span class="n">System</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Thermoelectric module&quot;</span><span class="p">])</span>
+<span class="n">thermoelectric_module</span><span class="o">.</span><span class="n">sub_systems</span> <span class="o">=</span> <span class="p">[</span><span class="n">my_pif</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pif</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">thermoelectric_module</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)[:</span><span class="mi">300</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;... ommitted for space ...&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
 
 
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{
+    &#34;names&#34;: [
+        &#34;Thermoelectric module&#34;
+    ],
+    &#34;subSystems&#34;: [
+        {
+            &#34;references&#34;: [
+                {
+                    &#34;doi&#34;: &#34;10.1143/JJAP.38.L1336&#34;,
+                    &#34;url&#34;: &#34;https://iopscience.iop.org/article/10.1143/JJAP.38.L1336&#34;,
+                    &#34;title&#34;: 
+... ommitted for space ...
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Citrination-metadata">Citrination metadata<a class="anchor-link" href="#Citrination-metadata">&#182;</a></h2><p>Citrination metadata includes identifiers for querying and navigation:</p>
+<ul>
+<li><code>uid</code>: A string representing the permanent ID associated with the system.</li>
+<li><code>tags</code>: An array of strings representing tags that apply to the system.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_pif</span><span class="o">.</span><span class="n">uid</span> <span class="o">=</span> <span class="s2">&quot;my-pif&quot;</span>
+<span class="n">my_pif</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;my_second_upload&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pif</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_pif</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)[:</span><span class="mi">500</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;... ommitted for space ...&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{
+    &#34;tags&#34;: [
+        &#34;my_second_upload&#34;
+    ],
+    &#34;references&#34;: [
+        {
+            &#34;doi&#34;: &#34;10.1143/JJAP.38.L1336&#34;,
+            &#34;url&#34;: &#34;https://iopscience.iop.org/article/10.1143/JJAP.38.L1336&#34;,
+            &#34;title&#34;: &#34;Li-Doped Nickel Oxide as a Thermoelectric Material&#34;,
+            &#34;authors&#34;: [
+                &#34;Woosuck Shin&#34;,
+                &#34;Norimitsu Murayama&#34;
+            ]
+        }
+    ],
+    &#34;uid&#34;: &#34;my-pif&#34;,
+    &#34;properties&#34;: [
+        {
+            &#34;name&#34;: &#34;Crystallinity&#34;,
+         
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-full-PIF-structure-tree">The full PIF structure tree<a class="anchor-link" href="#The-full-PIF-structure-tree">&#182;</a></h2><p>The following image represents the tree structure for the major fields that you'll encounter when working with PIFs. It is not exhaustive, and is current as of <code>pypif 2.1.1</code>.</p>
+<p><img src="fig/pif_structure.png" alt="PIF structure" title="PIF structure"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="More-on-PIF-I/O">More on PIF I/O<a class="anchor-link" href="#More-on-PIF-I/O">&#182;</a></h2><p>Previously, we've been relying on the <code>dumps()</code> method to turn PIF objects into strings for output. We can use the <code>dump()</code> method to save PIF objects (1st argument) into a File object (2nd arg). An example is shown below.</p>
+<p>Analogously, <code>loads()</code> and <code>load()</code> perform the same conversions in the opposite direction.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Creating-a-dataset">Creating a dataset<a class="anchor-link" href="#Creating-a-dataset">&#182;</a></h2><p>If you have been completing the API Example tutorials in the order in which they're presented in the <a href="README.md">README</a>, feel free to use the dataset ID you created previously. Otherwise, the cell below will use the <code>citrination_client</code> to create a new dataset and corresponding <code>dataset_id</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Skip this cell if you have an ID from a dataset you created via the website</span>
+
+<span class="c1"># Initialize the client</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">CitrinationClient</span><span class="p">(</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CITRINATION_API_KEY&#39;</span><span class="p">],</span> <span class="s1">&#39;https://citrination.com&#39;</span><span class="p">)</span>
+<span class="n">data_client</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">data</span>
+
+<span class="c1"># The following lines create a dataset to use throughout the tutorial notebooks</span>
+<span class="n">random_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<span class="n">dataset_name</span> <span class="o">=</span> <span class="s2">&quot;Tutorial dataset &quot;</span> <span class="o">+</span> <span class="n">random_string</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">data_client</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">dataset_name</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Dataset for tutorial&quot;</span><span class="p">,</span> <span class="n">public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">dataset_id</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">_id</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>174256
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we will save our PIF object into a file and upload the file to our dataset to on Citrination.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;example_data/pif.json&quot;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">pif</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">my_pif</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">data_client</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+<span class="n">result</span><span class="o">.</span><span class="vm">__dict__</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[10]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;_failures&#39;: [], &#39;_successes&#39;: [{&#39;path&#39;: &#39;example_data/pif.json&#39;}]}</pre>
 </div>
 
 </div>
@@ -13498,7 +13736,20 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2><p>This notebook gave a very brief introduction to the PIF structure and what kinds of data can be stored. A lot of details were kept hidden through the use of extra Python packages like <a href="https://github.com/CitrineInformatics/pypif-sdk"><code>pypif-sdk</code></a> and <a href="http://citrineinformatics.github.io/pif-dft/dfttopif.html"><code>dfttopif</code></a>. For a more detailed breakdown of the PIF hierarchical format and <a href="https://github.com/CitrineInformatics/pypif/tree/master/pypif"><code>pypif</code></a> package, see the <a href="AdvancedPif.ipynb">Advanced tutorial of PIFs</a>.</p>
+<p>Once uploaded, a PIF can be viewed at the url <a href="http://citrination.com/pifs/{dataset_id}/{version_number}/{uid}">http://citrination.com/pifs/{dataset_id}/{version_number}/{uid}</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2><p>This concludes the advanced tutorial on PIFs, where we dug into the details of the PIF hierarchy and how to use the <code>pypif</code> package. As mentioned before, you should now understand:</p>
+<ul>
+<li>The basic PIF structure and its advantages.</li>
+<li>How to use the <code>pypif</code> package to create and save PIFs.</li>
+<li>How the <code>DataClient</code> can upload data to Citrination.</li>
+</ul>
 
 </div>
 </div>
