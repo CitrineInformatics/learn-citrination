@@ -13245,6 +13245,7 @@ div#notebook {
 <li><code>chemical_formula</code>: A string representing the chemical formula.</li>
 <li><code>names</code>: An array of strings representing the common names of the chemical system.</li>
 <li><code>composition</code>: An array of <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/system/chemical/common/Composition.html">Composition</a> objects specifying the elements and relative atomic/weight percentages.</li>
+<li><code>ids</code>: An array of <a href="http://citrineinformatics.github.io/pif-documentation/schema_definition/common/Id.html">Id</a> objects associated with this system.</li>
 </ul>
 
 </div>
@@ -13299,12 +13300,14 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">route</span> <span class="o">=</span> <span class="n">ProcessStep</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Route&quot;</span><span class="p">)</span>
-<span class="n">route</span><span class="o">.</span><span class="n">details</span> <span class="o">=</span> <span class="p">[</span><span class="n">Value</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Solid state reaction&quot;</span><span class="p">)]</span>
-<span class="n">my_pif</span><span class="o">.</span><span class="n">preparation</span> <span class="o">=</span> <span class="p">[</span><span class="n">route</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">heat</span> <span class="o">=</span> <span class="n">ProcessStep</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Heat Treatment&quot;</span><span class="p">)</span>
+<span class="n">heat</span><span class="o">.</span><span class="n">details</span> <span class="o">=</span> <span class="p">[</span><span class="n">Value</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span> 
+                      <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;600&#39;</span><span class="p">)],</span> 
+                      <span class="n">units</span><span class="o">=</span><span class="s1">&#39;K&#39;</span><span class="p">)]</span>
+<span class="n">my_pif</span><span class="o">.</span><span class="n">preparation</span> <span class="o">=</span> <span class="p">[</span><span class="n">heat</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">pif</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_pif</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
 </pre></div>
 
@@ -13325,10 +13328,16 @@ div#notebook {
 <pre>{
     &#34;preparation&#34;: [
         {
-            &#34;name&#34;: &#34;Route&#34;,
+            &#34;name&#34;: &#34;Heat Treatment&#34;,
             &#34;details&#34;: [
                 {
-                    &#34;name&#34;: &#34;Solid state reaction&#34;
+                    &#34;name&#34;: &#34;Temperature&#34;,
+                    &#34;scalars&#34;: [
+                        {
+                            &#34;value&#34;: &#34;600&#34;
+                        }
+                    ],
+                    &#34;units&#34;: &#34;K&#34;
                 }
             ]
         }
@@ -13362,16 +13371,28 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">crystallinity</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Crystallinity&quot;</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s2">&quot;Polycrystalline&quot;</span><span class="p">)])</span>
 
-<span class="n">resistivity</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Resistivity&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;\Ohm*cm&quot;</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="mf">28.8677</span><span class="p">,</span> <span class="mf">0.2629</span><span class="p">,</span> <span class="mf">0.0466</span><span class="p">])</span>
-<span class="n">resistivity</span><span class="o">.</span><span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="n">Value</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])]</span>
+<span class="n">resistivity</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Resistivity&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;\Ohm*cm&quot;</span><span class="p">,</span> 
+                       <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">28.8677</span><span class="p">),</span> 
+                                <span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.2629</span><span class="p">),</span> 
+                                <span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.0466</span><span class="p">)])</span>
+<span class="n">resistivity</span><span class="o">.</span><span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="n">Value</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> 
+                                <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> 
+                                         <span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">700</span><span class="p">),</span> 
+                                         <span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1000</span><span class="p">)])]</span>
 
-<span class="n">power_factor</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Power factor&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;W/mK&quot;</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="mf">1.21E-4</span><span class="p">,</span> <span class="mf">1.66E-2</span><span class="p">,</span> <span class="mf">1.48E-1</span><span class="p">])</span>
-<span class="n">power_factor</span><span class="o">.</span><span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="n">Value</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])]</span>
+<span class="n">power_factor</span> <span class="o">=</span> <span class="n">Property</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Power factor&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;W/mK&quot;</span><span class="p">,</span> 
+                        <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">1.21E-4</span><span class="p">),</span> 
+                                 <span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">1.66E-2</span><span class="p">),</span> 
+                                 <span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">1.48E-1</span><span class="p">)])</span>
+<span class="n">power_factor</span><span class="o">.</span><span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span><span class="n">Value</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> 
+                                 <span class="n">scalars</span><span class="o">=</span><span class="p">[</span><span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">400</span><span class="p">),</span> 
+                                          <span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">700</span><span class="p">),</span> 
+                                          <span class="n">Scalar</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1000</span><span class="p">)])]</span>
 
 <span class="n">my_pif</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="p">[</span><span class="n">crystallinity</span><span class="p">,</span> <span class="n">resistivity</span><span class="p">,</span> <span class="n">power_factor</span><span class="p">]</span>
 
@@ -13406,28 +13427,26 @@ div#notebook {
         {
             &#34;name&#34;: &#34;Resistivity&#34;,
             &#34;scalars&#34;: [
-                28.8677,
-                0.2629,
-                0.0466
+                {
+                    &#34;value&#34;: 28.8677
+                },
+                {
+                    &#34;value&#34;: 0.2629
+                },
+                {
+                    &#34;value&#34;: 0.0466
+                }
             ],
             &#34;units&#34;: &#34;\\Ohm*cm&#34;,
             &#34;conditions&#34;: [
                 {
                     &#34;name&#34;: &#34;Temperature&#34;,
                     &#34;scalars&#34;: [
-                        400,
-                        700,
-                        1000
-                    ],
-                    &#34;units&#34;: &#34;K&#34;
-                }
-            ]
-        },
-        {
-            &#34;name&#34;: &#34;Power factor&#34;,
-            &#34;scalars&#34;: [
-                0.000121,
-   
+                        {
+                            &#34;value&#34;: 400
+                        },
+                        {
+                   
 ... ommitted for space ...
 </pre>
 </div>
@@ -13453,7 +13472,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_pif</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="p">[</span><span class="n">Reference</span><span class="p">(</span><span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1143/JJAP.38.L1336&#39;</span><span class="p">,</span> 
@@ -13512,7 +13531,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">thermoelectric_module</span> <span class="o">=</span> <span class="n">System</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Thermoelectric module&quot;</span><span class="p">])</span>
@@ -13569,7 +13588,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_pif</span><span class="o">.</span><span class="n">uid</span> <span class="o">=</span> <span class="s2">&quot;my-pif&quot;</span>
@@ -13612,6 +13631,7 @@ div#notebook {
         {
             &#34;name&#34;: &#34;Crystallinity&#34;,
          
+... ommitted for space ...
 </pre>
 </div>
 </div>
@@ -13691,21 +13711,21 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now we will save our PIF object into a file and upload the file to our dataset to on Citrination.</p>
+<p>Now we will save our PIF object into a file and upload the file to our dataset on Citrination.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;example_data/pif.json&quot;</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
     <span class="n">pif</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">my_pif</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">data_client</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-<span class="n">result</span><span class="o">.</span><span class="vm">__dict__</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Upload successful? </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">successful</span><span class="p">()))</span>
 </pre></div>
 
     </div>
@@ -13718,15 +13738,13 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[10]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;_failures&#39;: [], &#39;_successes&#39;: [{&#39;path&#39;: &#39;example_data/pif.json&#39;}]}</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Upload successful? True
+</pre>
 </div>
-
 </div>
 
 </div>

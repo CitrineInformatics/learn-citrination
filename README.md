@@ -17,10 +17,13 @@ There are also advanced topics tutorials:
 
 Most of these tutorials are Jupyter notebooks backed by a python3 kernel.  You'll need:
  - python3 with Jupyter.  [Anaconda](https://www.continuum.io/downloads) is highly recommended.
- - Additional packages, which can be installed using `pip3` or `conda` as follows:
- 
+ - Additional packages, which can be installed using `pip`:   
  ```
- pip3 install -U -r requirements.txt  
+ pip install -U -r requirements.txt   
+ ```   
+ 
+ or `conda`:   
+ ```
  while read requirement; do conda install --yes $requirement; done < requirements.txt
  ```   
 
