@@ -17,9 +17,15 @@ There are also advanced topics tutorials:
 
 Most of these tutorials are Jupyter notebooks backed by a python3 kernel.  You'll need:
  - python3 with Jupyter.  [Anaconda](https://www.continuum.io/downloads) is highly recommended.
- - `pypif` and `citrination_client` packages:
+ - Additional packages, which can be installed using `pip`:   
+ ```
+ pip install -U -r requirements.txt   
+ ```   
  
- ```pip install pypif citrination_client dfttopif```
+ or `conda`:   
+ ```
+ while read requirement; do conda install --yes $requirement; done < requirements.txt
+ ```   
 
  - A valid Citrination Client API key set in your environment variables:  
    1. [Create an account](https://citrination.com/users/sign_up) on Citrination (if you don't already have one)
