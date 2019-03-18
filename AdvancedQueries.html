@@ -13142,7 +13142,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Standard packages</span>
@@ -13150,8 +13150,9 @@ div#notebook {
 
 <span class="c1"># Third-party packages</span>
 <span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">CitrinationClient</span>
-<span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">PifSystemReturningQuery</span><span class="p">,</span> <span class="n">PifSystemQuery</span><span class="p">,</span> <span class="n">FieldQuery</span><span class="p">,</span> <span class="n">ValueQuery</span>
-<span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">PropertyQuery</span><span class="p">,</span> <span class="n">DataQuery</span><span class="p">,</span> <span class="n">DatasetQuery</span><span class="p">,</span> <span class="n">ChemicalFieldQuery</span><span class="p">,</span> <span class="n">ChemicalFilter</span><span class="p">,</span> <span class="n">Filter</span>
+<span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">PifSystemReturningQuery</span><span class="p">,</span> <span class="n">PifSystemQuery</span><span class="p">,</span> <span class="n">DataQuery</span><span class="p">,</span> <span class="n">DatasetQuery</span>
+<span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">PropertyQuery</span><span class="p">,</span> <span class="n">ChemicalFieldQuery</span><span class="p">,</span> <span class="n">FieldQuery</span><span class="p">,</span> <span class="n">ValueQuery</span>
+<span class="kn">from</span> <span class="nn">citrination_client</span> <span class="k">import</span> <span class="n">ChemicalFilter</span><span class="p">,</span> <span class="n">Filter</span>
 <span class="kn">from</span> <span class="nn">pypif</span> <span class="k">import</span> <span class="n">pif</span>
 </pre></div>
 
@@ -13180,7 +13181,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Initialize the SearchClient</span>
@@ -13208,7 +13209,7 @@ div#notebook {
                             <span class="n">extract_as</span><span class="o">=</span><span class="s2">&quot;formation_enthalpy&quot;</span><span class="p">,</span>
                             <span class="n">extract_all</span><span class="o">=</span><span class="kc">True</span><span class="p">)))))</span>
 
-<span class="n">query_result</span> <span class="o">=</span> <span class="n">search_client</span><span class="o">.</span><span class="n">pif_search</span><span class="p">(</span><span class="n">system_query</span><span class="p">)</span>
+<span class="n">query_result</span> <span class="o">=</span> <span class="n">search_client</span><span class="o">.</span><span class="n">pif_search</span><span class="p">(</span><span class="n">pif_system_returning_query</span><span class="o">=</span><span class="n">system_query</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> hits.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query_result</span><span class="o">.</span><span class="n">total_num_hits</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracted fields:&quot;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
@@ -13265,14 +13266,14 @@ Extracted fields:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">mp_dataset_id</span> <span class="o">=</span> <span class="mi">150675</span>
 <span class="n">query_size</span> <span class="o">=</span> <span class="mi">10000</span>
 <span class="n">simple_query</span> <span class="o">=</span> <span class="n">search_client</span><span class="o">.</span><span class="n">generate_simple_chemical_query</span><span class="p">(</span><span class="n">chemical_formula</span><span class="o">=</span><span class="s2">&quot;PbSe&quot;</span><span class="p">,</span> <span class="n">include_datasets</span><span class="o">=</span><span class="p">[</span><span class="n">mp_dataset_id</span><span class="p">],</span>
                                                             <span class="n">size</span><span class="o">=</span><span class="n">query_size</span><span class="p">)</span>
-<span class="n">search_result</span> <span class="o">=</span> <span class="n">search_client</span><span class="o">.</span><span class="n">pif_search</span><span class="p">(</span><span class="n">simple_query</span><span class="p">)</span>
+<span class="n">search_result</span> <span class="o">=</span> <span class="n">search_client</span><span class="o">.</span><span class="n">pif_search</span><span class="p">(</span><span class="n">pif_system_returning_query</span><span class="o">=</span><span class="n">simple_query</span><span class="p">)</span>
 <span class="n">num_pifs</span> <span class="o">=</span> <span class="n">search_result</span><span class="o">.</span><span class="n">total_num_hits</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> total hits.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_pifs</span><span class="p">))</span>
 
@@ -13320,27 +13321,17 @@ Extracted fields:
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="formula_filter"><code>formula_filter</code><a class="anchor-link" href="#formula_filter">&#182;</a></h3><p>Now let's explore the different filters we can apply to chemical formulas. We will first write a helper method that applies a <code>ChemicalFilter</code> to the <code>chemical_formula</code> field of a <code>PifSystemQuery</code>. Note that the wildcard character <code>?</code> can match any element.</p>
+<h3 id="formula_filter"><code>formula_filter</code><a class="anchor-link" href="#formula_filter">&#182;</a></h3><p>Now let's explore the different filters we can apply to chemical formulas. We will first write a helper method that reduces the redundancy in constructing a query.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">formula_filter</span><span class="p">(</span><span class="n">filter_flag</span><span class="p">):</span>
-    <span class="n">chemical_filter</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">filter_flag</span> <span class="o">==</span> <span class="s1">&#39;Gallium&#39;</span><span class="p">:</span>
-        <span class="n">chemical_filter</span> <span class="o">=</span> <span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;Ga&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">filter_flag</span> <span class="o">==</span> <span class="s1">&#39;Ternary&#39;</span><span class="p">:</span>
-        <span class="n">chemical_filter</span> <span class="o">=</span> <span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;?x?y?z&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">filter_flag</span> <span class="o">==</span> <span class="s1">&#39;Oxides&#39;</span><span class="p">:</span>
-        <span class="n">chemical_filter</span> <span class="o">=</span> <span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;?xOy&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">filter_flag</span> <span class="o">==</span> <span class="s1">&#39;Single oxides&#39;</span><span class="p">:</span>
-        <span class="n">chemical_filter</span> <span class="o">=</span> <span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;?1O1&#39;</span><span class="p">)</span>
-        
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">formula_filter</span><span class="p">(</span><span class="n">matching_formula</span><span class="p">):</span>
     <span class="n">query_filter</span> <span class="o">=</span> <span class="n">PifSystemReturningQuery</span><span class="p">(</span>
                     <span class="n">size</span><span class="o">=</span><span class="n">query_size</span><span class="p">,</span>
                     <span class="n">random_results</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -13351,7 +13342,7 @@ Extracted fields:
                             <span class="n">chemical_formula</span><span class="o">=</span><span class="n">ChemicalFieldQuery</span><span class="p">(</span>
                                 <span class="n">extract_all</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                 <span class="n">extract_as</span><span class="o">=</span><span class="s1">&#39;formula&#39;</span><span class="p">,</span>
-                                <span class="nb">filter</span><span class="o">=</span><span class="n">chemical_filter</span><span class="p">))))</span>
+                                <span class="nb">filter</span><span class="o">=</span><span class="n">matching_formula</span><span class="p">))))</span>
     <span class="k">return</span> <span class="n">query_filter</span>
 </pre></div>
 
@@ -13370,11 +13361,11 @@ Extracted fields:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">query_size</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">query_filter_none</span> <span class="o">=</span> <span class="n">formula_filter</span><span class="p">(</span><span class="s1">&#39;None&#39;</span><span class="p">)</span>
+<span class="n">query_filter_none</span> <span class="o">=</span> <span class="n">formula_filter</span><span class="p">(</span><span class="n">matching_formula</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">search_result</span> <span class="o">=</span> <span class="n">search_client</span><span class="o">.</span><span class="n">pif_search</span><span class="p">(</span><span class="n">query_filter_none</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> total hits, the first 5 of which are:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">search_result</span><span class="o">.</span><span class="n">total_num_hits</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
@@ -13396,11 +13387,11 @@ Extracted fields:
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>69640 total hits, the first 5 of which are:
-{&#34;formula&#34;: [&#34;Sc29Fe6&#34;]}
-{&#34;formula&#34;: [&#34;La2ZnO4&#34;]}
-{&#34;formula&#34;: [&#34;Mg(VS2)2&#34;]}
-{&#34;formula&#34;: [&#34;V2Co(PO5)2&#34;]}
-{&#34;formula&#34;: [&#34;CeAl3&#34;]}
+{&#34;formula&#34;: [&#34;Ni2Ag3O4&#34;]}
+{&#34;formula&#34;: [&#34;ZrNi&#34;]}
+{&#34;formula&#34;: [&#34;CdH4Br3N&#34;]}
+{&#34;formula&#34;: [&#34;La2Mn3PbO9&#34;]}
+{&#34;formula&#34;: [&#34;BaSbTe3&#34;]}
 </pre>
 </div>
 </div>
@@ -13412,17 +13403,17 @@ Extracted fields:
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Filter-for-Gallium-containing-compounds">Filter for Gallium-containing compounds<a class="anchor-link" href="#Filter-for-Gallium-containing-compounds">&#182;</a></h3><p>Next we will apply a filter for the <code>chemical_formula</code> to select the subset of materials containing the element Gallium.</p>
+<h3 id="Filter-for-Gallium-containing-compounds">Filter for Gallium-containing compounds<a class="anchor-link" href="#Filter-for-Gallium-containing-compounds">&#182;</a></h3><p>Next we will apply a filter for the <code>chemical_formula</code> to select the subset of materials containing the element Gallium. We will use a <code>ChemicalFilter</code> to match <code>Ga</code> in the <code>chemical_formula</code>.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">query_filter_Ga</span> <span class="o">=</span> <span class="n">formula_filter</span><span class="p">(</span><span class="s1">&#39;Gallium&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">query_filter_Ga</span> <span class="o">=</span> <span class="n">formula_filter</span><span class="p">(</span><span class="n">matching_formula</span><span class="o">=</span><span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;Ga&#39;</span><span class="p">))</span>
 <span class="n">search_result</span> <span class="o">=</span> <span class="n">search_client</span><span class="o">.</span><span class="n">pif_search</span><span class="p">(</span><span class="n">query_filter_Ga</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> total hits, the first 5 of which are:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">search_result</span><span class="o">.</span><span class="n">total_num_hits</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
@@ -13445,10 +13436,10 @@ Extracted fields:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>23 total hits, the first 5 of which are:
 {&#34;formula&#34;: [&#34;Ga(MoSe2)4&#34;]}
+{&#34;formula&#34;: [&#34;Ga&#34;]}
+{&#34;formula&#34;: [&#34;Ga(Bi3O5)4&#34;]}
 {&#34;formula&#34;: [&#34;GaS&#34;]}
 {&#34;formula&#34;: [&#34;Ga(IO3)3&#34;]}
-{&#34;formula&#34;: [&#34;Ga&#34;]}
-{&#34;formula&#34;: [&#34;Ga(SbCl)4&#34;]}
 </pre>
 </div>
 </div>
@@ -13460,17 +13451,17 @@ Extracted fields:
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Filter-for-ternary-compounds">Filter for ternary compounds<a class="anchor-link" href="#Filter-for-ternary-compounds">&#182;</a></h3><p>Next, we will apply a different filter to the <code>chemical_formula</code> to select the subset of materials with ternary composition $A_xB_yC_z$.</p>
+<h3 id="Filter-for-ternary-compounds">Filter for ternary compounds<a class="anchor-link" href="#Filter-for-ternary-compounds">&#182;</a></h3><p>Next, we will apply a different filter to the <code>chemical_formula</code> to select the subset of materials with ternary composition $A_xB_yC_z$. Note that the wildcard character <code>?</code> can match any element.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">query_filter_ternary</span> <span class="o">=</span> <span class="n">formula_filter</span><span class="p">(</span><span class="s1">&#39;Ternary&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">query_filter_ternary</span> <span class="o">=</span> <span class="n">formula_filter</span><span class="p">(</span><span class="n">matching_formula</span><span class="o">=</span><span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;?x?y?z&#39;</span><span class="p">))</span>
 <span class="n">search_result</span> <span class="o">=</span> <span class="n">search_client</span><span class="o">.</span><span class="n">pif_search</span><span class="p">(</span><span class="n">query_filter_ternary</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> total hits, the first 5 of which are:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">search_result</span><span class="o">.</span><span class="n">total_num_hits</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
@@ -13492,11 +13483,11 @@ Extracted fields:
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>33017 total hits, the first 5 of which are:
-{&#34;formula&#34;: [&#34;BaSbAu&#34;]}
-{&#34;formula&#34;: [&#34;PrErTl2&#34;]}
-{&#34;formula&#34;: [&#34;Cs2ZnCl4&#34;]}
-{&#34;formula&#34;: [&#34;Ag2SnO3&#34;]}
-{&#34;formula&#34;: [&#34;La3Ge3Cl2&#34;]}
+{&#34;formula&#34;: [&#34;TiTl2W&#34;]}
+{&#34;formula&#34;: [&#34;KAgO2&#34;]}
+{&#34;formula&#34;: [&#34;LiReO4&#34;]}
+{&#34;formula&#34;: [&#34;Mn2Mo3O8&#34;]}
+{&#34;formula&#34;: [&#34;Pb(C2N3)2&#34;]}
 </pre>
 </div>
 </div>
@@ -13515,10 +13506,10 @@ Extracted fields:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">query_filter_oxides</span> <span class="o">=</span> <span class="n">formula_filter</span><span class="p">(</span><span class="s1">&#39;Oxides&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">query_filter_oxides</span> <span class="o">=</span> <span class="n">formula_filter</span><span class="p">(</span><span class="n">matching_formula</span><span class="o">=</span><span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;?xOy&#39;</span><span class="p">))</span>
 <span class="n">search_result</span> <span class="o">=</span> <span class="n">search_client</span><span class="o">.</span><span class="n">pif_search</span><span class="p">(</span><span class="n">query_filter_oxides</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> total hits, the first 5 of which are:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">search_result</span><span class="o">.</span><span class="n">total_num_hits</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
@@ -13540,11 +13531,11 @@ Extracted fields:
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1577 total hits, the first 5 of which are:
-{&#34;formula&#34;: [&#34;SeO3&#34;]}
-{&#34;formula&#34;: [&#34;RuO2&#34;]}
-{&#34;formula&#34;: [&#34;Ce4DyO9&#34;]}
-{&#34;formula&#34;: [&#34;WO3&#34;]}
-{&#34;formula&#34;: [&#34;Fe2O3&#34;]}
+{&#34;formula&#34;: [&#34;WO2&#34;]}
+{&#34;formula&#34;: [&#34;Rb2O3&#34;]}
+{&#34;formula&#34;: [&#34;HfO2&#34;]}
+{&#34;formula&#34;: [&#34;PbO&#34;]}
+{&#34;formula&#34;: [&#34;Pr2O3&#34;]}
 </pre>
 </div>
 </div>
@@ -13563,10 +13554,10 @@ Extracted fields:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">query_filter_oxides</span> <span class="o">=</span> <span class="n">formula_filter</span><span class="p">(</span><span class="s1">&#39;Single oxides&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">query_filter_oxides</span> <span class="o">=</span> <span class="n">formula_filter</span><span class="p">(</span><span class="n">matching_formula</span><span class="o">=</span><span class="n">ChemicalFilter</span><span class="p">(</span><span class="n">equal</span><span class="o">=</span><span class="s1">&#39;?1O1&#39;</span><span class="p">))</span>
 <span class="n">search_result</span> <span class="o">=</span> <span class="n">search_client</span><span class="o">.</span><span class="n">pif_search</span><span class="p">(</span><span class="n">query_filter_oxides</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> total hits, the first 5 of which are:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">search_result</span><span class="o">.</span><span class="n">total_num_hits</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
@@ -13588,11 +13579,11 @@ Extracted fields:
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>121 total hits, the first 5 of which are:
-{&#34;formula&#34;: [&#34;RbO&#34;]}
+{&#34;formula&#34;: [&#34;MgO&#34;]}
 {&#34;formula&#34;: [&#34;FeO&#34;]}
 {&#34;formula&#34;: [&#34;CO&#34;]}
-{&#34;formula&#34;: [&#34;CuO&#34;]}
-{&#34;formula&#34;: [&#34;NpO&#34;]}
+{&#34;formula&#34;: [&#34;H2O2&#34;]}
+{&#34;formula&#34;: [&#34;NbO&#34;]}
 </pre>
 </div>
 </div>
@@ -13611,7 +13602,7 @@ Extracted fields:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">query_size</span> <span class="o">=</span> <span class="mi">3</span>
@@ -13699,28 +13690,27 @@ Extracted fields:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Logical operation 1: Oxides that MUST NOT have only 1 O atom.
 1456 total hits, the first 3 of which are:
-{&#34;formula&#34;: &#34;Zr6O11&#34;}
+{&#34;formula&#34;: &#34;WO3&#34;}
 {&#34;formula&#34;: &#34;SiO2&#34;}
-{&#34;formula&#34;: &#34;VO2&#34;}
+{&#34;formula&#34;: &#34;SiO2&#34;}
 
 Logical operation 2: All compounds that MUST have &#39;Enthalpy of Formation&#39; and &#39;Band gap&#39;, and SHOULD have &#39;Crystal System&#39;
 69640 total hits, the first 3 of which are:
 {
     &#34;crystal system&#34;: &#34;hexagonal&#34;,
-    &#34;formula&#34;: &#34;CuSe&#34;,
-    &#34;H_f&#34;: &#34;0.09619559236979214&#34;
+    &#34;bandgap&#34;: &#34;2.3829000000000002&#34;,
+    &#34;formula&#34;: &#34;PbI2&#34;,
+    &#34;H_f&#34;: &#34;-0.6739633991666665&#34;
 }
 {
-    &#34;crystal system&#34;: &#34;monoclinic&#34;,
-    &#34;bandgap&#34;: &#34;2.531&#34;,
-    &#34;formula&#34;: &#34;Gd3Si2Cl5O6&#34;,
-    &#34;H_f&#34;: &#34;-3.2142637892999995&#34;
+    &#34;crystal system&#34;: &#34;trigonal&#34;,
+    &#34;formula&#34;: &#34;Eu(MnSb)2&#34;,
+    &#34;H_f&#34;: &#34;-0.20808670555172312&#34;
 }
 {
-    &#34;crystal system&#34;: &#34;triclinic&#34;,
-    &#34;bandgap&#34;: &#34;2.9164999999999996&#34;,
-    &#34;formula&#34;: &#34;NaCa8SmTi10(SiO5)10&#34;,
-    &#34;H_f&#34;: &#34;-3.4735250649270832&#34;
+    &#34;crystal system&#34;: &#34;cubic&#34;,
+    &#34;formula&#34;: &#34;Rb&#34;,
+    &#34;H_f&#34;: &#34;0.0&#34;
 }
 </pre>
 </div>

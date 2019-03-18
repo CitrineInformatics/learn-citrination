@@ -13386,7 +13386,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_dataset_id</span> <span class="o">=</span> <span class="mi">154987</span><span class="p">;</span> <span class="n">another_dataset_id</span> <span class="o">=</span> <span class="mi">1160</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_dataset_id</span> <span class="o">=</span> <span class="mi">154987</span>
+<span class="n">another_dataset_id</span> <span class="o">=</span> <span class="mi">1160</span>
 <span class="n">simple_query</span> <span class="o">=</span> <span class="n">search_client</span><span class="o">.</span><span class="n">generate_simple_chemical_query</span><span class="p">(</span><span class="n">include_datasets</span><span class="o">=</span><span class="p">[</span><span class="n">my_dataset_id</span><span class="p">,</span> <span class="n">another_dataset_id</span><span class="p">],</span> 
                                                             <span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 <span class="n">query_result</span> <span class="o">=</span> <span class="n">search_client</span><span class="o">.</span><span class="n">pif_search</span><span class="p">(</span><span class="n">simple_query</span><span class="p">)</span>
@@ -13446,7 +13447,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Filter-by-chemical-formula">Filter by chemical formula<a class="anchor-link" href="#Filter-by-chemical-formula">&#182;</a></h3><p>We will try two different types of queries, the first one where we filter compounds in a specific dataset that have the formula <code>AlxCuy</code>.</p>
+<h3 id="Filter-by-chemical-formula">Filter by chemical formula<a class="anchor-link" href="#Filter-by-chemical-formula">&#182;</a></h3><p>We will try two different types of queries, the first one where we filter compounds in a specific dataset that have the formula <code>AlxCuy</code>. To do this, we will use the <code>ChemicalFilter</code>. You'll also notice that we have used a <code>Filter</code> on the <code>id</code> field, as we did previously, to restrict our search to a specific dataset.</p>
 
 </div>
 </div>
