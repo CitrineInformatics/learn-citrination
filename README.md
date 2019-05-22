@@ -1,3 +1,5 @@
+![Citrine banner](fig/citrine_banner.png "Citrine banner")
+
 # learn-citrination
 
 Demos and tutorials for API access to [Citrination](https://citrination.com/). Documentation for the **Python Citrination Client (PyCC)** can be found [here](http://citrineinformatics.github.io/python-citrination-client/index.html).
