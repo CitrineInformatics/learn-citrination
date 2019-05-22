@@ -1,0 +1,222 @@
+[
+    {
+        "references": [
+            {
+                "doi": "10.1063/1.3253115"
+            }
+        ],
+        "properties": [
+            {
+                "name": "Crystallinity",
+                "scalars": "Single crystalline"
+            },
+            {
+                "name": "Band gap",
+                "scalars": "13.6",
+                "units": "eV"
+            }
+        ],
+        "category": "system.chemical",
+        "chemicalFormula": "Li1F1"
+    },
+    {
+        "references": [
+            {
+                "doi": "10.1063/1.3253115"
+            }
+        ],
+        "properties": [
+            {
+                "name": "Crystallinity",
+                "scalars": "Single crystalline"
+            },
+            {
+                "name": "Band gap",
+                "scalars": "6",
+                "units": "eV"
+            }
+        ],
+        "category": "system.chemical",
+        "chemicalFormula": "Li1I1"
+    },
+    {
+        "references": [
+            {
+                "doi": "10.1063/1.3253115"
+            }
+        ],
+        "properties": [
+            {
+                "name": "Crystallinity",
+                "scalars": ""
+            },
+            {
+                "name": "Band gap",
+                "scalars": "14.5",
+                "units": "eV"
+            }
+        ],
+        "category": "system.chemical",
+        "chemicalFormula": "Be1O1"
+    },
+    {
+        "references": [
+            {
+                "doi": "10.1063/1.3253115"
+            }
+        ],
+        "properties": [
+            {
+                "name": "Crystallinity",
+                "scalars": "Single crystalline"
+            },
+            {
+                "name": "Band gap",
+                "scalars": "1.16",
+                "units": "eV"
+            }
+        ],
+        "category": "system.chemical",
+        "chemicalFormula": "B1"
+    },
+    {
+        "references": [
+            {
+                "doi": "10.1063/1.3253115"
+            }
+        ],
+        "properties": [
+            {
+                "name": "Crystallinity",
+                "scalars": ""
+            },
+            {
+                "name": "Band gap",
+                "scalars": "7",
+                "units": "eV"
+            }
+        ],
+        "category": "system.chemical",
+        "chemicalFormula": "B2O3"
+    },
+    {
+        "references": [
+            {
+                "doi": "10.1063/1.3253115"
+            }
+        ],
+        "properties": [
+            {
+                "name": "Crystallinity",
+                "scalars": ""
+            },
+            {
+                "name": "Band gap",
+                "scalars": "",
+                "units": "eV"
+            }
+        ],
+        "category": "system.chemical",
+        "chemicalFormula": "B2Se3"
+    },
+    {
+        "references": [
+            {
+                "doi": "10.1063/1.3253115"
+            }
+        ],
+        "properties": [
+            {
+                "name": "Crystallinity",
+                "scalars": "Polycrystalline"
+            },
+            {
+                "name": "Band gap",
+                "scalars": "3.7",
+                "units": "eV"
+            }
+        ],
+        "category": "system.chemical",
+        "chemicalFormula": "C1Br4"
+    },
+    {
+        "references": [
+            {
+                "doi": "10.1063/1.3253115"
+            }
+        ],
+        "properties": [
+            {
+                "name": "Crystallinity",
+                "scalars": "Single crystalline"
+            },
+            {
+                "name": "Band gap",
+                "scalars": "8.6",
+                "units": "eV"
+            }
+        ],
+        "category": "system.chemical",
+        "chemicalFormula": "Na1Cl1"
+    },
+    {
+        "references": [
+            {
+                "doi": "10.1063/1.3253115"
+            }
+        ],
+        "properties": [
+            {
+                "name": "Crystallinity",
+                "scalars": "Polycrystalline"
+            },
+            {
+                "name": "Band gap",
+                "scalars": "1",
+                "units": "eV"
+            }
+        ],
+        "category": "system.chemical",
+        "chemicalFormula": "Na3Sb1"
+    },
+    {
+        "references": [
+            {
+                "doi": "10.1063/1.3253115"
+            }
+        ],
+        "properties": [
+            {
+                "name": "Crystallinity",
+                "scalars": "Single crystalline"
+            },
+            {
+                "name": "Band gap",
+                "scalars": "7.69",
+                "units": "eV"
+            }
+        ],
+        "category": "system.chemical",
+        "chemicalFormula": "Mg1O1"
+    },
+    {
+        "references": [
+            {
+                "doi": "10.1063/1.3253115"
+            }
+        ],
+        "properties": [
+            {
+                "name": "Crystallinity",
+                "scalars": "Single crystalline"
+            },
+            {
+                "name": "Band gap",
+                "scalars": "0.78",
+                "units": "eV"
+            }
+        ],
+        "category": "system.chemical",
+        "chemicalFormula": "Mg2Si1"
+    }
+]

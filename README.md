@@ -2,7 +2,9 @@
 
 # learn-citrination
 
-Demos and tutorials for API access to [Citrination](https://citrination.com/). Documentation for the **Python Citrination Client (PyCC)** can be found [here](http://citrineinformatics.github.io/python-citrination-client/index.html).
+Demos and tutorials for API access to [Citrination](https://citrination.com/).
+
+Documentation for the **Python Citrination Client (PyCC)** can be found [here](http://citrineinformatics.github.io/python-citrination-client/index.html).
 
 ## Contents
 The examples are grouped based on the functionality and tools they aim to teach. Examples include:
@@ -27,8 +29,8 @@ Most of these tutorials are [Jupyter](https://jupyter.org/) notebooks backed by 
 
 ## API Key  
 You will need a valid Citrination Client API key set in your environment variables:  
-1. [Create an account](https://citrination.com/users/sign_up) on Citrination (if you don't already have one)
-2. Go to your [account page](https://citrination.com/users/edit) and look for "API Key"
+1. [Create an account](https://citrination.com/users/sign_up) on Citrination (if you don't already have one).
+2. Go to your [account page](https://citrination.com/users/edit) and look for "API Key."
 3. Add the key to your environment.
     * On MacOS, open your `.bash_profile` and add the line
     ```
