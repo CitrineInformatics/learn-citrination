@@ -1,4 +1,4 @@
-![Banner logo](../fig/citrine_banner.png "Banner logo")
+![Banner logo](https://raw.githubusercontent.com/CitrineInformatics/community-tools/master/templates/fig/citrine_banner_2.png)
 
 # API Examples
 This folder contains examples (Jupyter notebooks) of how to interface with the [Python Citrination Client](http://citrineinformatics.github.io/python-citrination-client/index.html). You should make sure that you have Python 3 and all packages listed in [`requirements.txt`](../requirements.txt) installed properly.

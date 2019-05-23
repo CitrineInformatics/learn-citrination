@@ -1,4 +1,4 @@
-![Citrine banner](fig/citrine_banner.png "Citrine banner")
+![Citrine banner](https://raw.githubusercontent.com/CitrineInformatics/community-tools/master/templates/fig/citrine_banner_2.png)
 
 # learn-citrination
 
@@ -10,13 +10,13 @@ Documentation for the **Python Citrination Client (PyCC)** can be found [here](h
 The examples are grouped based on the functionality and tools they aim to teach. Examples include:
 * The [matminer](matminer_examples) package and how it interfaces with Citrination.
 * [Synthetic data](synthetic_data_examples) to demonstrate data summary statistics on Citrination.
-* Guides to the [Citrination web UI](citrination_ui_examples) with screenshots.
+* Guides to the [Citrination web UI](citrination_ui_examples) with screenshots in Markdown files.
 * Guides to the [Citrination API](citination_api_examples) with Python notebooks.
 
 ## Requirements
 
-Most of these tutorials are [Jupyter](https://jupyter.org/) notebooks backed by a Python 3 kernel.  You'll need:
- - Python 3 with Jupyter. [Anaconda](https://www.continuum.io/downloads) is highly recommended.
+Most of these tutorials are [Jupyter](https://jupyter.org/) notebooks backed by a [Python 3](https://docs.python.org/3/whatsnew/index.html) kernel.  You'll need:
+ - Python 3 with Jupyter. [Anaconda](https://www.continuum.io/downloads)/[Miniconda](https://docs.conda.io/en/latest/miniconda.html) is highly recommended.
  - Additional packages, which can be installed using `pip`:   
  ```
  pip install -U -r requirements.txt   
@@ -28,7 +28,7 @@ Most of these tutorials are [Jupyter](https://jupyter.org/) notebooks backed by 
  ```   
 
 ## API Key  
-You will need a valid Citrination Client API key set in your environment variables:  
+You will need a valid Citrination Client [API key](http://citrineinformatics.github.io/python-citrination-client/tutorial/initialization.html) set in your [environment variables](https://en.wikipedia.org/wiki/Environment_variable):  
 1. [Create an account](https://citrination.com/users/sign_up) on Citrination (if you don't already have one).
 2. Go to your [account page](https://citrination.com/users/edit) and look for "API Key."
 3. Add the key to your environment.
@@ -42,11 +42,14 @@ You will need a valid Citrination Client API key set in your environment variabl
     ```
     setx CITRINATION_API_KEY "your_key_copied_from_the_website"
     ```
+    Each new Prompt you open will have the key loaded automatically.
 
 The API key functions as the password for the client, so it's important to keep it private.  Therefore, we put it in your system environment instead of in the source code to help avoid unintentional sharing or publication of your API key.
 
 ## Additional Resources
 
-* The example data used in these tutorials is drawn from: [Alloy Database](http://alloy.phys.cmu.edu/) by Mihalkovic, Widom, and coworkers.
+* The [example data](citrination_api_examples/tutorial_sequence/example_data) used in these tutorials are drawn from: [Alloy Database](http://alloy.phys.cmu.edu/) by Mihalkovic, Widom, and coworkers.
+
+* The band gap data used in these tutorials are from [Strehlow and Cook, *J Phys Chem Ref Data*, **2** (1973)](https://doi.org/10.1063/1.3253115).
 
 * [More programmatic tools](https://github.com/CitrineInformatics/community-tools) have also been developed by the Citrine Community team.

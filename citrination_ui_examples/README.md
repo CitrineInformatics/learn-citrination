@@ -1,4 +1,4 @@
-![Banner logo](../fig/citrine_banner.png "Banner logo")
+![Banner logo](https://raw.githubusercontent.com/CitrineInformatics/community-tools/master/templates/fig/citrine_banner_2.png)
 
 # Web UI Examples
 This folder contains walk-through examples (with screenshots) of how to use the online [Citrination UI](https://citrination.com/). The numbering corresponds to a suggested order for someone accessing Citrination for their first time.

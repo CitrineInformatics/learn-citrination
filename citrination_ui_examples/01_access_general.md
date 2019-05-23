@@ -1,4 +1,4 @@
-![Banner logo](../fig/citrine_banner.png "Banner logo")
+![Banner logo](https://raw.githubusercontent.com/CitrineInformatics/community-tools/master/templates/fig/citrine_banner_2.png)
 
 # Access and General Information
 *Authors: Enze Chen*
