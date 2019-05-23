@@ -10,8 +10,8 @@ This folder contains examples (Jupyter notebooks) of how to interface with the [
 
 * [tutorial_sequence](tutorial_sequence) has six notebooks organized as a sequence demonstrating the import and usage of DFT data. They discuss how to work with PIFs (including the `pypif` package), how to build search queries, and how to perform ML on Citrination.
 
-The other notebooks demonstrate other important aspects of the Citrination API.
+* The other notebooks demonstrate other important aspects of the Citrination API.
 
 ## Additional resources
 
-* Screenshot tutorials of our web UI can be found in a [separate folder](../web_ui_examples).
+* Screenshot tutorials of our web UI can be found in a [separate folder](../citrination_ui_examples).
