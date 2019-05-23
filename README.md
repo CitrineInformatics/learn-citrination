@@ -6,12 +6,14 @@ Demos and tutorials for API access to [Citrination](https://citrination.com/).
 
 Documentation for the **Python Citrination Client (PyCC)** can be found [here](http://citrineinformatics.github.io/python-citrination-client/index.html).
 
+
 ## Contents
 The examples are grouped based on the functionality and tools they aim to teach. Examples include:
+* Guides to the [Citrination API](citination_api_examples) with Python notebooks.
+* Guides to the [Citrination web UI](citrination_ui_examples) with screenshots in Markdown files.
 * The [matminer](matminer_examples) package and how it interfaces with Citrination.
 * [Synthetic data](synthetic_data_examples) to demonstrate data summary statistics on Citrination.
-* Guides to the [Citrination web UI](citrination_ui_examples) with screenshots in Markdown files.
-* Guides to the [Citrination API](citination_api_examples) with Python notebooks.
+
 
 ## Requirements
 
@@ -26,6 +28,7 @@ Most of these tutorials are [Jupyter](https://jupyter.org/) notebooks backed by 
  ```
  while read requirement; do conda install --yes $requirement; done < requirements.txt
  ```   
+
 
 ## API Key  
 You will need a valid Citrination Client [API key](http://citrineinformatics.github.io/python-citrination-client/tutorial/initialization.html) set in your [environment variables](https://en.wikipedia.org/wiki/Environment_variable):  
@@ -45,6 +48,7 @@ You will need a valid Citrination Client [API key](http://citrineinformatics.git
     Each new Prompt you open will have the key loaded automatically.
 
 The API key functions as the password for the client, so it's important to keep it private.  Therefore, we put it in your system environment instead of in the source code to help avoid unintentional sharing or publication of your API key.
+
 
 ## Additional Resources
 
