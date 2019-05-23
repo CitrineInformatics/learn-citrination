@@ -25,7 +25,6 @@ script:
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/ImportInstron"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/TsneDemo"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/clients_sequence/1_data_client_api_tutorial"
-- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/clients_sequence/2_data_views_client_api_tutorial"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/clients_sequence/3_models_client_api_tutorial"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/clients_sequence/5_search_client_api_tutorial"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/tutorial_sequence/1_ImportVASP"
