@@ -36,17 +36,17 @@ def write_dataset_from_func(test_function:Callable[[np.ndarray], float],
     pif_systems = []
     for i, val_row in enumerate(input_vals):
         system = System()
-        system.names = f'{test_function.__name__}_{i}'
+        system.names = '{}_{}'.format(test_function.__name__, i)
         system.properties =  []
 
         for j, x_val in enumerate(val_row):
             func_input = Property()
-            func_input.name = f"x{j+1}"
+            func_input.name = 'x{}'.format(j+1)
             func_input.scalars = x_val
             system.properties.append(func_input)
 
         func_output = Property()
-        func_output.name = f"y"
+        func_output.name = 'y'
         func_output.scalars = test_function(val_row)
         system.properties.append(func_output)
         pif_systems.append(system)
@@ -187,7 +187,7 @@ def run_sequential_learning(client:CitrinationClient, view_id:int, dataset_id:in
 
     for i in range(num_sl_iterations):
         if print_output:
-            print(f"\n---STARTING SL ITERATION #{i+1}---")
+            print("\n---STARTING SL ITERATION #{}---".format(i+1))
 
         _wait_on_ingest(client, dataset_id, wait_time, print_output)
         _wait_on_data_view(client, dataset_id, view_id, wait_time, print_output)
@@ -203,7 +203,7 @@ def run_sequential_learning(client:CitrinationClient, view_id:int, dataset_id:in
             ).uuid
 
         if print_output:
-            print(f"Created design run with ID {design_id}")
+            print("Created design run with ID {}".format(design_id))
 
         _wait_on_design_run(client, design_id, view_id, wait_time, print_output)
 
@@ -215,7 +215,7 @@ def run_sequential_learning(client:CitrinationClient, view_id:int, dataset_id:in
         values_w_uncertainties = [
             (
                 m["descriptor_values"][target[0]],
-                m["descriptor_values"][f"Uncertainty in {target[0]}"]
+                m["descriptor_values"]["Uncertainty in {}".format(target[0])]
             ) for m in candidates
         ]
 
@@ -227,7 +227,7 @@ def run_sequential_learning(client:CitrinationClient, view_id:int, dataset_id:in
 
         best_sl_pred_vals.append(best_value_w_uncertainty)
         if print_output:
-            print(f"SL iter #{i+1}, best predicted (value, uncertainty) = {best_value_w_uncertainty}")
+            print("SL iter #{}, best predicted (value, uncertainty) = {}".format(i+1, best_value_w_uncertainty))
 
         # Update dataset w/ new candidates
         new_x_vals = []
@@ -236,7 +236,7 @@ def run_sequential_learning(client:CitrinationClient, view_id:int, dataset_id:in
                 [float(material["descriptor_values"][x]) for x in input_properties]
             ))
 
-        temp_dataset_fpath = f"design-{design_id}.json"
+        temp_dataset_fpath = "design-{}.json".format(design_id)
         write_dataset_from_func(true_function, temp_dataset_fpath, new_x_vals)
         upload_data_and_get_id(
             client,
@@ -248,7 +248,7 @@ def run_sequential_learning(client:CitrinationClient, view_id:int, dataset_id:in
         _wait_on_ingest(client, dataset_id, wait_time, print_output)
 
         if print_output:
-            print(f"Dataset updated: {len(new_x_vals)} candidates added")
+            print("Dataset updated: {} candidates added.".format(len(new_x_vals)))
 
         query_dataset = PifSystemReturningQuery(size=9999,
                             query=DataQuery(
@@ -258,7 +258,7 @@ def run_sequential_learning(client:CitrinationClient, view_id:int, dataset_id:in
         query_result = client.search.pif_search(query_dataset)
 
         if print_output:
-            print(f"New dataset contains {query_result.total_num_hits} PIFs")
+            print("New dataset contains {} PIFs.".format(query_result.total_num_hits))
 
         # Update measured values in new dataset
         dataset_y_values = []
@@ -334,7 +334,7 @@ def plot_sl_results(measured, predicted, init_best):
         [round(float(v), 3) for v in measured],
         lw=5,
         color="#1f77b4",
-        label=f"Measured Results"
+        label="Measured Results"
     )
 
     # Predicted results
@@ -343,7 +343,7 @@ def plot_sl_results(measured, predicted, init_best):
         [round(float(v[0]), 3) for v in predicted],
         lw=5,
         color="#ff7f0e",
-        label=f"Predicted Results"
+        label="Predicted Results"
     )
 
     # Error bars
@@ -361,7 +361,7 @@ def plot_sl_results(measured, predicted, init_best):
     plt.plot(
         np.arange(1, len(predicted)+1),
         [init_best] * len(predicted),
-        label=f"Best in Training",
+        label="Best in Training",
         color="black",
         lw=4,
         alpha=0.7
@@ -370,6 +370,6 @@ def plot_sl_results(measured, predicted, init_best):
     plt.xlabel("SL iteration #")
     plt.legend(loc='best', bbox_to_anchor=(1.25, 1.0))
     plt.ylabel("Function value")
-    plt.title(f"Optimizing using MLI")
+    plt.title("Optimizing using MLI")
     plt.grid(b=False, axis='x')
     plt.show()
