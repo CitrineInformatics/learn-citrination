@@ -28,6 +28,7 @@ script:
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/clients_sequence/2_data_views_client_api_tutorial"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/clients_sequence/3_models_client_api_tutorial"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/clients_sequence/4_search_client_api_tutorial"
+- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/clients_sequence/5_sequential_learning_api_tutorial"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/tutorial_sequence/1_ImportVASP"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/tutorial_sequence/2_WorkingWithPIFs"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/tutorial_sequence/3_IntroQueries"
@@ -36,6 +37,12 @@ script:
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/tutorial_sequence/AdvancedQueries"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_ui_examples/JournalPaperToModel"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "synthetic_data_examples/SyntheticDataDemo"
+- if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then
+  pip install matminer
+  pip install pymatgen
+  ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "matminer_examples/BandGapComparisonCitrinationVsMP"
+  ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "matminer_examples/DataRetrievalWithMatMiner"
+  fi
 env:
   global:
     secure: fdKOZcKt1AYOVvTvLBK2igKaW8cA1nFXK9GutATM8a+vEM3wmhE7UR+0OB64GU1f6OxUi+wErGgxz+b/bAK/3pSCeL9YGA0VTB+0Kg80f9D1/fez286w+Dn+VYtwjzDirwrzBsLGKiv3pd8YmRKConU8S9agBlk//3zaT6jknRneD0omrciXSSrLAQlvkUKTruFDSid+EPsL6WYVfB3nZj4xi8HOWktUCMl4xGuQeFQsNbjG6HOCxRVbw/A7TaXaQCmE3xyQzOrX+1VVZHLC6GB/XNKugkGDpGXSKOTZgsVtnUeJIOZRyRySV34glMG2wF6GPAfL+buDZmGNE8HB9dVL46LW84pNBG+xKKOYMfE21YmlefT+4/1R6dVIrpepkllxzSIy+pJREZeSEN4VtIAa6OqrM8BqZ4v/CFbIaBHrkioqyKm7gQmqoHWYRkix2tb0sZwmjciMiZucUBCZ4nK1ytigEVLIe7xviEp8ije9Y/AvrL4MGiSOftLv/2CjMtrOQzCRddvC1TzpHNzDQI2CjQSZrbVUxOIYgiz8Uv7K/r+2f2KhL8IM3GTs+Aiouk97FSU4q2FjDPaCfNrrfwWF4oWTCQ9EeYM41q/RXeL5e2+phq6UpPgI9qZOdyZi49MIJ/W03UEnX+38uk2Y2Xm1R8sXmhq4EI4hO2M9Trs=

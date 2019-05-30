@@ -1,4 +1,9 @@
+# MacOS files
 **/.DS_Store
+
+# User generated files
+**/design-*.json
+**/toy_*.json
 
 # Byte-compiled / optimized / DLL files
 **/__pycache__/

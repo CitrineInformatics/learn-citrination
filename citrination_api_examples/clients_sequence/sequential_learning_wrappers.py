@@ -10,7 +10,6 @@ from typing import Callable, List, Tuple, Optional
 
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 from citrination_client import (CitrinationClient, DataQuery, DatasetQuery,
                                 Filter, PifSystemReturningQuery,
                                 RealDescriptor)
@@ -324,63 +323,52 @@ def _wait_on_design_run(client:CitrinationClient, design_id:int, view_id:int,
             sleep(wait_time)
         else:
             design_processing = False
-
+            
 
 def plot_sl_results(measured, predicted, init_best):
-    # Measured results
-    sns.lineplot(
-        x=np.arange(1, len(measured)+1),
-        y=[round(float(v), 3) for v in measured],
-        lw=5,
-        estimator=None,
-        markers=True,
-        color="steelblue",
-        label=f"Measured Results",
-        legend=False,
+#     plt.rcParams.update({'figure.figsize':(8, 6), 'font.size':18})
 
+    # Measured results
+    plt.plot(
+        np.arange(1, len(measured)+1),
+        [round(float(v), 3) for v in measured],
+        lw=5,
+        color="#1f77b4",
+        label=f"Measured Results"
     )
 
     # Predicted results
-    predicted_ax = sns.lineplot(
-        x=np.arange(1, len(predicted)+1),
-        y=[round(float(v[0]), 3) for v in predicted],
+    plt.plot(
+        np.arange(1, len(predicted)+1),
+        [round(float(v[0]), 3) for v in predicted],
         lw=5,
-        estimator=None,
-        markers=True,
-        color="orange",
-        label=f"Predicted Results",
-        legend=False,
-
+        color="#ff7f0e",
+        label=f"Predicted Results"
     )
 
     # Error bars
-    predicted_ax.errorbar(
+    plt.errorbar(
         x=np.arange(1, len(predicted)+1),
         y=[round(float(v[0]), 3) for v in predicted],
         yerr=[round(float(v[1]), 3) for v in predicted],
         lw=5,
-        color="green",
-        ecolor=["green"]*len(predicted),
-        label="Predicted Uncertainty",
-        fmt='',
-        zorder=-1
+        fmt='none',
+        ecolor="#2ca02c",
+        label="Predicted Uncertainty"
     )
 
     # Best candidate in training set
-    sns.lineplot(
-        x=np.arange(1, len(predicted)+1),
-        y=[init_best] * len(predicted),
-        estimator=None,
-        markers=False,
+    plt.plot(
+        np.arange(1, len(predicted)+1),
+        [init_best] * len(predicted),
         label=f"Best in Training",
-        legend=False,
         color="black",
         lw=4,
         alpha=0.7
     )
 
     plt.xlabel("SL iteration #")
-    plt.legend(loc='best', bbox_to_anchor=(1.5, 1.0))
+    plt.legend(loc='best', bbox_to_anchor=(1.25, 1.0))
     plt.ylabel("Function value")
     plt.title(f"Optimizing using MLI")
     plt.grid(b=False, axis='x')
