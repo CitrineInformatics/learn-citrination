@@ -29,7 +29,7 @@ script:
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/clients_sequence/2_data_views_client_api_tutorial"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/clients_sequence/3_models_client_api_tutorial"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/clients_sequence/4_search_client_api_tutorial"
-- ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/clients_sequence/5_sequential_learning_api_tutorial"
+# - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/clients_sequence/5_sequential_learning_api_tutorial"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/tutorial_sequence/1_ImportVASP"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/tutorial_sequence/2_WorkingWithPIFs"
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "citrination_api_examples/tutorial_sequence/3_IntroQueries"

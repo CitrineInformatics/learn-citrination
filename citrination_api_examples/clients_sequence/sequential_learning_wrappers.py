@@ -304,7 +304,7 @@ def _wait_on_design_run(client, design_id, view_id, wait_time, print_output = Tr
     while design_processing:
         status = client.models.get_design_run_status(view_id, design_id).status
         if print_output:
-            print(f"Design run status: {status}")
+            print("Design run status: {}".format(status))
 
         if status != "Finished":
             sleep(wait_time)
