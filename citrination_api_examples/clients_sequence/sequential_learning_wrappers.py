@@ -6,7 +6,6 @@ This file contains wrapper functions that are used in the sequential learning AP
 import json
 from collections import OrderedDict
 from time import sleep
-from typing import Callable, List, Tuple, Optional
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,8 +18,7 @@ from pypif import pif
 from pypif.obj import *
 
 
-def write_dataset_from_func(test_function:Callable[[np.ndarray], float],
-                        filename:str, input_vals:List[np.ndarray]) -> None:
+def write_dataset_from_func(test_function, filename, input_vals):
     '''Given a function, write a dataset evaluated on given input values
 
     :param test_function: Function for generating dataset
@@ -55,11 +53,8 @@ def write_dataset_from_func(test_function:Callable[[np.ndarray], float],
         f.write(pif.dumps(pif_systems, indent=4))
 
 
-def upload_data_and_get_id(client:CitrinationClient,
-                        dataset_name:str,
-                        dataset_local_fpath:str,
-                        create_new_version:Optional[bool] = False,
-                        given_dataset_id:Optional[int] = None) -> int:
+def upload_data_and_get_id(client, dataset_name, dataset_local_fpath,
+                        create_new_version = False, given_dataset_id = None):
     '''Uploads data to a new/given dataset and returns its ID
 
     :param client: Client API object to pass in
@@ -76,7 +71,6 @@ def upload_data_and_get_id(client:CitrinationClient,
     :rtype: int
     '''
 
-
     if given_dataset_id is None:
         dataset = client.data.create_dataset(dataset_name)
         dataset_id = dataset.id
@@ -90,10 +84,8 @@ def upload_data_and_get_id(client:CitrinationClient,
     return dataset_id
 
 
-def build_view_and_get_id(client:CitrinationClient, dataset_id:int,
-                        view_name:str, input_keys:List[str],
-                        output_keys:List[str], view_desc:str = "",
-                        wait_time:int = 2, print_output:bool = False) -> int:
+def build_view_and_get_id(client, dataset_id, input_keys, output_keys, view_name, view_desc = "",
+                        wait_time = 2, print_output = False):
     '''Builds a new data view and returns the view ID
 
     :param client: Client object
@@ -140,14 +132,13 @@ def build_view_and_get_id(client:CitrinationClient, dataset_id:int,
     return dv_id
 
 
-def run_sequential_learning(client:CitrinationClient, view_id:int, dataset_id:int,
-                        num_candidates_per_iter:int,
-                        design_effort:int, wait_time:int,
-                        num_sl_iterations:int, input_properties:List[str],
-                        target:List[str], print_output:bool,
-                        true_function:Callable[[np.ndarray], float],
-                        score_type:str,
-                        ) -> Tuple[List[float], List[float]]:
+def run_sequential_learning(client, view_id, dataset_id,
+                        num_candidates_per_iter,
+                        design_effort, wait_time,
+                        num_sl_iterations, input_properties,
+                        target, print_output,
+                        true_function,
+                        score_type):
     '''Runs SL design
 
     :param client: Client object
@@ -283,8 +274,7 @@ def run_sequential_learning(client:CitrinationClient, view_id:int, dataset_id:in
     return (best_sl_pred_vals, best_sl_measured_vals)
 
 
-def _wait_on_ingest(client:CitrinationClient, dataset_id:int,
-                        wait_time:int, print_output:bool=True) -> None:
+def _wait_on_ingest(client, dataset_id, wait_time, print_output = True):
     # Wait for ingest to finish
     sleep(wait_time)
     while (client.data.get_ingest_status(dataset_id) != "Finished"):
@@ -293,9 +283,7 @@ def _wait_on_ingest(client:CitrinationClient, dataset_id:int,
         sleep(wait_time)
 
 
-def _wait_on_data_view(client:CitrinationClient, dataset_id:int,
-                        view_id:int, wait_time:int,
-                        print_output:bool=True) -> None:
+def _wait_on_data_view(client, dataset_id, view_id, wait_time, print_output = True):
     is_view_ready = False
     sleep(wait_time)
     while (not is_view_ready):
@@ -310,8 +298,7 @@ def _wait_on_data_view(client:CitrinationClient, dataset_id:int,
             print("Waiting for design services...")
 
 
-def _wait_on_design_run(client:CitrinationClient, design_id:int, view_id:int,
-                        wait_time:int, print_output:bool=True) -> None:
+def _wait_on_design_run(client, design_id, view_id, wait_time, print_output = True):
     design_processing = True
     sleep(wait_time)
     while design_processing:

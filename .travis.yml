@@ -18,6 +18,7 @@ install:
 - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
 - source activate test-environment
 - pip install -r requirements.txt
+- if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then pip install matminer pymatgen; fi
 script:
 - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then export NOTEBOOK_KERNEL="python2";
   else export NOTEBOOK_KERNEL="python3"; fi
@@ -39,8 +40,6 @@ script:
 - ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "synthetic_data_examples/SyntheticDataDemo"
 - |
   if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then
-    pip install matminer
-    pip install pymatgen
     ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "matminer_examples/BandGapComparisonCitrinationVsMP"
     ./ci/test_notebooks.sh $NOTEBOOK_KERNEL "matminer_examples/DataRetrievalWithMatMiner"
   fi
