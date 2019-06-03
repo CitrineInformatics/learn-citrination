@@ -1,7 +1,12 @@
+# MacOS files
 **/.DS_Store
 
+# User generated files
+**/design-*.json
+**/toy_*.json
+
 # Byte-compiled / optimized / DLL files
-__pycache__/
+**/__pycache__/
 *.py[cod]
 *$py.class
 
@@ -69,7 +74,7 @@ docs/_build/
 target/
 
 # IPython Notebook
-.ipynb_checkpoints
+**/.ipynb_checkpoints
 
 # pyenv
 .python-version

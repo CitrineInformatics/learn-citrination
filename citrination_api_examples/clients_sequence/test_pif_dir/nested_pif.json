@@ -1,0 +1,14 @@
+[
+    {
+        "uid": "nested_uid",
+        "properties": [
+            {
+                "name": "Band gap",
+                "scalars": "6",
+                "units": "eV"
+            }
+        ],
+        "category": "system.chemical",
+        "chemicalFormula": "Li1I1"
+    }
+]

@@ -1,0 +1,90 @@
+FORMULA,REFERENCE: DOI,PROPERTY: Crystallinity,PROPERTY: Band gap (eV)
+Mg2Ge1,10.1063/1.3253115,Single crystalline,0.57
+Mg2Ge1,10.1063/1.3253115,Single crystalline,0.548
+Mg2Sn1,10.1063/1.3253115,Single crystalline,0.185
+Mg1Te1,10.1063/1.3253115,Single crystalline,3.6
+Al1N1,10.1063/1.3253115,Single crystalline,5.88
+Al1P1,10.1063/1.3253115,Single crystalline,2.51
+Al1As1,10.1063/1.3253115,Single crystalline,2.13
+Al1Sb1,10.1063/1.3253115,Single crystalline,1.6
+Si1C1,10.1063/1.3253115,Single crystalline,3.33
+Si,10.1063/1.3253115,Single crystalline,1.166
+Si1As1,10.1063/1.3253115,Single crystalline,2.2
+P,10.1063/1.3253115,Single crystalline,1.4
+K2S1,10.1063/1.3253115,,2.1
+K1Br1,10.1063/1.3253115,Single crystalline,6.75
+K3Sb1,10.1063/1.3253115,Polycrystalline,1.1
+K1I1,10.1063/1.3253115,Single crystalline,5.92
+Ca1F2,10.1063/1.3253115,Single crystalline,10
+Sc2O3,10.1063/1.3253115,Single crystalline,6
+Ti2O3,10.1063/1.3253115,Single crystalline,0.05
+Ti1Se2,10.1063/1.3253115,Single crystalline,1.55
+V2O5,10.1063/1.3253115,Single crystalline,2.54
+Cr2O3,10.1063/1.3253115,,1
+Mn1O2,10.1063/1.3253115,Single crystalline,0.26
+Mn1Al3,10.1063/1.3253115,Polycrystalline,0.58
+Mn1Te9,10.1063/1.3253115,Polycrystalline,2
+Fe1P2,10.1063/1.3253115,Polycrystalline,0.4
+Fe2Te3,10.1063/1.3253115,Polycrystalline,0.34
+Co1Te1.88,10.1063/1.3253115,,0.2
+NiTe,10.1063/1.3253115,,0.23
+Cu1P2,10.1063/1.3253115,Single crystalline,1.4
+Cu1Cl1,10.1063/1.3253115,Polycrystalline,3.306
+Cu2Te1,10.1063/1.3253115,Single crystalline,1.04
+Zn1P2,10.1063/1.3253115,,1.85
+Zn1S1,10.1063/1.3253115,Single crystalline,3.82
+Zn1Se1,10.1063/1.3253115,Single crystalline,2.68
+Zn1Sb1,10.1063/1.3253115,Single crystalline,0.61
+Zn3Sb2,10.1063/1.3253115,Polycrystalline,0.2
+Zn1Te1,10.1063/1.3253115,Single crystalline,2.176
+Ga2O3,10.1063/1.3253115,Single crystalline,4.54
+Ga2S3,10.1063/1.3253115,Single crystalline,3.59
+Ga2S3,10.1063/1.3253115,Single crystalline,2.85
+Ga1As1,10.1063/1.3253115,Single crystalline,1.37
+Ga2Se3,10.1063/1.3253115,Single crystalline,2.05
+Ga1Se1,10.1063/1.3253115,Single crystalline,1.97
+Ga1Sb1,10.1063/1.3253115,Single crystalline,0.725
+Ga2Te3,10.1063/1.3253115,Single crystalline,1.5
+Ge1O2,10.1063/1.3253115,Amorphous,6
+Ge1S1,10.1063/1.3253115,Single crystalline,1.69
+Ge,10.1063/1.3253115,Single crystalline,0.889
+Ge1Se1,10.1063/1.3253115,Single crystalline,1.53
+Ge1Te1,10.1063/1.3253115,,0.33
+As2S3,10.1063/1.3253115,Single crystalline,3
+As2S3,10.1063/1.3253115,Single crystalline,2.56
+As2S3,10.1063/1.3253115,Amorphous,2.32
+As2Se3,10.1063/1.3253115,Single crystalline,1.77
+As2Se3,10.1063/1.3253115,Amorphous,1.1
+As1I3,10.1063/1.3253115,Single crystalline,2.54
+Se,10.1063/1.3253115,Single crystalline,1.56
+Se3Te1,10.1063/1.3253115,Polycrystalline,1.87
+Rb1Br1,10.1063/1.3253115,Single crystalline,7.25
+Rb1I1,10.1063/1.3253115,Single crystalline,6.37
+Sr1S1,10.1063/1.3253115,Single crystalline,4.8
+Zr3O1,10.1063/1.3253115,Polycrystalline,0.2
+Zr1Se3,10.1063/1.3253115,Single crystalline,1.25
+Mo1O3,10.1063/1.3253115,Single crystalline,2.8
+Mo1Te2,10.1063/1.3253115,Single crystalline,0.83
+Ru1Te2,10.1063/1.3253115,Polycrystalline,0.25
+Pd1Se1,10.1063/1.3253115,Single crystalline,0.2
+Ag2S1,10.1063/1.3253115,Single crystalline,0.87
+Ag1Cl1,10.1063/1.3253115,Single crystalline,3.22
+Ag1Br1,10.1063/1.3253115,Single crystalline,2.97
+Ag1Te1,10.1063/1.3253115,Polycrystalline,0.85
+Ag1I1,10.1063/1.3253115,Single crystalline,2.919
+Cd3P2,10.1063/1.3253115,Single crystalline,0.52
+Cd1S1,10.1063/1.3253115,Single crystalline,2.425
+Cd1As2,10.1063/1.3253115,Single crystalline,1.04
+Cd1Se1,10.1063/1.3253115,Single crystalline,1.865
+Cd1Sb1,10.1063/1.3253115,Single crystalline,0.585
+Cd1I2,10.1063/1.3253115,Single crystalline,3.266
+Cd3Bi2,10.1063/1.3253115,,0.2
+In1p1,10.1063/1.3253115,,1.41
+In1As1,10.1063/1.3253115,Single crystalline,0.412
+In1Se1,10.1063/1.3253115,Single crystalline,1.12
+In2Te3,10.1063/1.3253115,Single crystalline,0.84
+Sn1O2,10.1063/1.3253115,Single crystalline,3.631
+Sn1O2,10.1063/1.3253115,Single crystalline,3.71
+Sn1Cl2,10.1063/1.3253115,Polycrystalline,3.9
+Sn1Se2,10.1063/1.3253115,Single crystalline,1.3
+Sn1Te1,10.1063/1.3253115,Single crystalline,0.3
