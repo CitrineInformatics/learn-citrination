@@ -108,4 +108,9 @@ This concludes our discussion of how to manage datasets on the Citrination platf
 * Viewing and managing datasets on Citrination.
 * Reading PIF records on Citrination.
 
-When you're ready to move on, feel free to look at either the [Data Views](03_data_views.md) or [Search](04_search.md) guides. If you have further questions, please do not hesitate to [Contact Us](https://citrine.io/contact/).
+When you're ready to move on, possible next steps include:
+* [Data Views](03_data_views.md) for data analytics and machine learning services.
+* [Search](04_search.md) for querying for PIF records.
+* [Teams](05_teams.md) for sharing resources within a group of users.
+
+If you have further questions, please do not hesitate to [Contact Us](https://citrine.io/contact/).

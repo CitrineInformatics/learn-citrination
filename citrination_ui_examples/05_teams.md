@@ -43,5 +43,12 @@ The third tab lists resources shared with the team. This includes datasets and d
 
 Clicking on the name of the resource will take you to that resource's page. As described in the image above, you must use the **Access** page for each resource in order to add that resource to a team. This slightly involved step helps prevent data from accidentally being shared with the wrong parties.
 
+## Groups
+As an alternative to Teams, **Groups** are another way to share your resources on Citrination. The groups [interface](https://citrination.com/groups) can be accessed through the dropdown menu in the top right corner.
+
+![Groups](fig/46_groups.png "Groups")
+
+Group members have *read-only* access to your resources, which means they can view and download data, but they cannot update any information or delete any resources. Inside each group, you will see the users and their affiliation (e.g. Owner, Member) along with any shared datasets and data views.
+
 ## Conclusion
 This concludes our discussion of how to create and manage Teams using the Citrination UI.  If you have further questions, please do not hesitate to [Contact Us](https://citrine.io/contact/).

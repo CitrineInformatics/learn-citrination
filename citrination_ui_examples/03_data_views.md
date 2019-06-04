@@ -60,7 +60,7 @@ Here, each PIF record is displayed as a row in the table, and each property that
 At the top, there are the following options:
 * **Summary**: This shows the same summary information during View creation, and you'll have the option of editing the name and description.
 * **ML Configuration**: This allows you to configure ML and train models using this View.
-* **Access**: This gives you the option of changing the Privacy settings of your View.
+* **Access**: This gives you the option of changing the Privacy settings of your View. You can also share the data view with your [Team](05_teams.md).
 
 ## View plots
 Under the View name, the "Plots" tab leads to a page like the following:
