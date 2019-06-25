@@ -45,7 +45,7 @@ The User menu has four options on it. The first is your user profile, which look
 
 Here you can add information about yourself, like a biography, your research areas, and any linked IDs by clicking "Edit User Profile."
 
-Perhaps the most important option in the dropdown menu is the "Account Settings" option, which allows you to edit your personal account details, like your email address. It also has your **personal API Key**, which you will use for [API](http://citrineinformatics.github.io/python-citrination-client/index.html) authentication. You should **never** share this key with anyone or post it publicly. The third item in Account Settings is setting up [Two-Factor Authentication](https://authy.com/what-is-2fa/), which we advise but is certainly optional.
+Perhaps the most important option in the dropdown menu is the "Account Settings" option, which allows you to edit your personal account details, like your email address. It also has your **personal API Key**, which you will use for [API](http://citrineinformatics.github.io/python-citrination-client/index.html) authentication. You should **never** share this key with anyone or post it publicly.
 
 ## Getting help
 At the bottom, you will see a table of six blue links:   
