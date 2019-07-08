@@ -29,6 +29,7 @@ Most of these tutorials are [Jupyter](https://jupyter.org/) notebooks backed by 
  while read requirement; do conda install --yes $requirement; done < requirements.txt
  ```   
 
+Most of the IPython notebooks are tested using [continuous integration](https://docs.travis-ci.com/user/for-beginners) and Python versions 2.7, 3.5, and 3.6. While other Python versions (e.g. 3.4) may still work, we cannot guarantee full support.
 
 ## API Key  
 You will need a valid Citrination Client [API key](http://citrineinformatics.github.io/python-citrination-client/tutorial/initialization.html) set in your [environment variables](https://en.wikipedia.org/wiki/Environment_variable):  
