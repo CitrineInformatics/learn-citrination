@@ -2,6 +2,7 @@
 **/.DS_Store
 
 # User generated files
+**/temp/
 **/design-*.json
 **/toy_*.json
 

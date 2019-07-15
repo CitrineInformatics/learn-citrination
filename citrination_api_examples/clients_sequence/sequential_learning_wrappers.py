@@ -1,17 +1,20 @@
 '''
 Authors: Eddie Kim, Enze Chen
-This file contains wrapper functions that are used in the sequential learning API tutorial notebook. Detailed docstrings with method fuctions and parameters are given below.
+This file contains wrapper functions that are used in the sequential learning
+API tutorial notebook. Detailed docstrings with method fuctions and parameters
+are given below.
 '''
 
-import json
-from collections import OrderedDict
+# Standard packages
+import os
 from time import sleep
 
+# Third-party packages
 import numpy as np
 import matplotlib.pyplot as plt
-from citrination_client import (CitrinationClient, DataQuery, DatasetQuery,
-                                Filter, PifSystemReturningQuery,
-                                RealDescriptor)
+
+# Citrine packages
+from citrination_client import *
 from citrination_client.models.design import Target
 from citrination_client.views.data_view_builder import DataViewBuilder
 from pypif import pif
@@ -19,16 +22,13 @@ from pypif.obj import *
 
 
 def write_dataset_from_func(test_function, filename, input_vals):
-    '''Given a function, write a dataset evaluated on given input values
+    '''
+    Given a function, write a dataset evaluated on given input values.
 
-    :param test_function: Function for generating dataset
-    :type test_function: Callable[[np.ndarray], float]
-    :param filename: Name of file for saving CSV dataset
-    :type filename: str
-    :param input_vals: List of input values to eval function over
-    :type input_vals: np.ndarray
-    :return: Doesn't return anything
-    :rtype: None
+    :param test_function: Function for generating dataset.
+    :param filename: Name of file as a string for saving CSV dataset.
+    :param input_vals: List of input values as numpy array to evaluate function over.
+    :return: None.
     '''
 
     pif_systems = []
@@ -44,31 +44,30 @@ def write_dataset_from_func(test_function, filename, input_vals):
             system.properties.append(func_input)
 
         func_output = Property()
-        func_output.name = 'y'
+        func_output.name = 'Band gap difference'
         func_output.scalars = test_function(val_row)
         system.properties.append(func_output)
         pif_systems.append(system)
 
-    with open(filename, "w") as f:
+    if not os.path.exists('temp'):
+        os.makedirs('temp')
+
+    with open(os.path.join('temp', filename), "w") as f:
         f.write(pif.dumps(pif_systems, indent=4))
+        print('"{}" file successfully created.'.format(filename))
 
 
 def upload_data_and_get_id(client, dataset_name, dataset_local_fpath,
-                        create_new_version = False, given_dataset_id = None):
-    '''Uploads data to a new/given dataset and returns its ID
+                           create_new_version = False, given_dataset_id = None):
+    '''
+    Uploads data to a new/given dataset and returns its ID.
 
-    :param client: Client API object to pass in
-    :type client: CitrinationClient
-    :param dataset_name: Name of dataset
-    :type dataset_name: str
-    :param dataset_local_fpath: Local data filepath
-    :type dataset_local_fpath: str
-    :param create_new_version: Whether or not to make a new version
-    :param create_new_version: bool
-    :param given_dataset_id: ID if using existing dataset, defaults to None
-    :param given_dataset_id: int
-    :return: ID of the dataset
-    :rtype: int
+    :param client: CitrinationClient API object to pass in.
+    :param dataset_name: Name of dataset as a string.
+    :param dataset_local_fpath: Local data filepath as a string.
+    :param create_new_version: Boolean flag for whether or not to make a new version.
+    :param given_dataset_id: Integer ID if using existing dataset; default = None.
+    :return dataset_id: Integer ID of the dataset.
     '''
 
     if given_dataset_id is None:
@@ -79,46 +78,37 @@ def upload_data_and_get_id(client, dataset_name, dataset_local_fpath,
         if create_new_version:
             client.data.create_dataset_version(dataset_id)
 
-    client.data.upload(dataset_id, dataset_local_fpath)
+    client.data.upload(dataset_id, os.path.join('temp', dataset_local_fpath))
     assert (client.data.matched_file_count(dataset_id) >= 1), "Upload failed."
     return dataset_id
 
 
-def build_view_and_get_id(client, dataset_id, input_keys, output_keys, view_name, view_desc = "",
-                        wait_time = 2, print_output = False):
-    '''Builds a new data view and returns the view ID
+def build_view_and_get_id(client, dataset_id, input_keys, output_keys, view_name,
+                          view_desc = '', wait_time = 2, print_output = False):
+    '''
+    Builds a new data view and returns the view ID.
 
-    :param client: Client object
-    :type client: CitrinationClient
-    :param dataset_id: Dataset to build view from
-    :type dataset_id: int
-    :param view_name: Name of the new view
-    :type view_name: str
-    :param input_keys: Input key names
-    :type input_keys: List[str]
-    :param output_keys: Output key names
-    :type output_keys: List[str]
-    :param view_desc: Description for the view, defaults to ""
-    :param view_desc: str, optional
-    :param wait_time: Wait time in seconds before polling API
-    :type wait_time: int
-    :param print_output: Whether or not to print outputs
-    :type print_output: bool
-    :return: ID of the view
-    :rtype: int
+    :param client: CitrinationClient object.
+    :param dataset_id: Integer ID of the dataset to build data view from.
+    :param view_name: Name of the new data view as a string.
+    :param input_keys: List of string representing input key names.
+    :param output_keys: List of string representing output key names.
+    :param view_desc: String description for the data view.
+    :param wait_time: Wait time in seconds (int) before polling API.
+    :param print_output: Boolean flag for whether or not to print outputs.
+    :return dv_id: Integer ID of the data view.
     '''
 
     dv_builder = DataViewBuilder()
     dv_builder.dataset_ids([str(dataset_id)])
-    dv_builder.model_type('default')
 
     for key_name in input_keys:
-        desc_x = RealDescriptor(key=key_name, lower_bound=-1e6, upper_bound=1e6)
-        dv_builder.add_descriptor(desc_x, role='input')
+        desc_x = RealDescriptor(key=key_name, lower_bound=-1e3, upper_bound=1e3)
+        dv_builder.add_descriptor(descriptor=desc_x, role='input')
 
     for key_name in output_keys:
-        desc_y = RealDescriptor(key=key_name, lower_bound=-1e6, upper_bound=1e6)
-        dv_builder.add_descriptor(desc_y, role='output')
+        desc_y = RealDescriptor(key=key_name, lower_bound=0, upper_bound=1e2)
+        dv_builder.add_descriptor(descriptor=desc_y, role='output')
 
     dv_config = dv_builder.build()
 
@@ -127,49 +117,33 @@ def build_view_and_get_id(client, dataset_id, input_keys, output_keys, view_name
     dv_id = client.data_views.create(
         configuration=dv_config,
         name=view_name,
-        description=view_desc
-    )
+        description=view_desc)
+
     return dv_id
 
 
-def run_sequential_learning(client, view_id, dataset_id,
-                        num_candidates_per_iter,
-                        design_effort, wait_time,
-                        num_sl_iterations, input_properties,
-                        target, print_output,
-                        true_function,
-                        score_type):
-    '''Runs SL design
-
-    :param client: Client object
-    :type client: CitrinationClient
-    :param view_id: View ID
-    :type view_id: int
-    :param dataset_id: Dataset ID
-    :type dataset_id: int
-    :param num_candidates_per_iter: Candidates in a batch
-    :type num_candidates_per_iter: int
-    :param design_effort: Effort from 1-30
-    :type design_effort: int
-    :param wait_time: Wait time in seconds before polling API
-    :type wait_time: int
-    :param num_sl_iterations: SL iterations to run
-    :type num_sl_iterations: int
-    :param input_properties: Inputs
-    :type input_properties: List[str]
-    :param target: ("Output property", {"Min", "Max"})
-    :type target: List[str]
-    :param print_output: Whether or not to print outputs
-    :type print_output: bool
-    :param true_function: Actual function for evaluating measured/true values
-    :type true_function: Callable[[np.ndarray], float]
-    :param score_type: MLI or MEI
-    :type score_type: str
-    :return: 2-tuple: list of predicted scores/uncertainties; list of measured scores/uncertainties
-    :rtype: Tuple[List[float], List[float]]
+def run_sequential_learning(client, view_id, dataset_id, num_candidates_per_iter,
+                            design_effort, wait_time, num_sl_iterations,
+                            input_properties, target, print_output, true_function,
+                            score_type):
     '''
+    Runs SL design.
 
-
+    :param client: CitrinationClient object.
+    :param view_id: Integer ID for the data view.
+    :param dataset_id: Integer ID for the data set.
+    :param num_candidates_per_iter: Integer number of candidates in a batch.
+    :param design_effort: Integer from 1 to 30 representing design effort.
+    :param wait_time: Wait time in seconds (int) before polling API.
+    :param num_sl_iterations: Integer number of SL iterations to run.
+    :param input_properties: List of strings representing input property keys.
+    :param target: List of strings for target property key and optimization goal.
+    :param print_output: Boolean flag for whether or not to print outputs.
+    :param true_function: Actual function for evaluating measured/true values.
+    :param score_type: String for candidate selection strategy: 'MLI' or 'MEI'.
+    :return: 2-tuple: (List of floats for predicted scores/uncertainties,
+                       List of floats for measured scores/uncertainties)
+    '''
 
     best_sl_pred_vals = []
     best_sl_measured_vals = []
@@ -181,7 +155,7 @@ def run_sequential_learning(client, view_id, dataset_id,
             print("\n---STARTING SL ITERATION #{}---".format(i+1))
 
         _wait_on_ingest(client, dataset_id, wait_time, print_output)
-        _wait_on_data_view(client, dataset_id, view_id, wait_time, print_output)
+        _wait_on_data_view(client, view_id, wait_time, print_output)
 
         # Submit a design run
         design_id = client.models.submit_design_run(
@@ -189,9 +163,7 @@ def run_sequential_learning(client, view_id, dataset_id,
                 num_candidates=num_candidates_per_iter,
                 effort=design_effort,
                 target=Target(*target),
-                constraints=[],
-                sampler="Default"
-            ).uuid
+                constraints=[]).uuid
 
         if print_output:
             print("Created design run with ID {}".format(design_id))
@@ -266,7 +238,7 @@ def run_sequential_learning(client, view_id, dataset_id,
 
         # Retrain model w/ wait times
         client.models.retrain(view_id)
-        _wait_on_data_view(client, dataset_id, view_id, wait_time, print_output)
+        _wait_on_data_view(client, view_id, wait_time, print_output)
 
     if print_output:
         print("SL finished!\n")
@@ -275,7 +247,16 @@ def run_sequential_learning(client, view_id, dataset_id,
 
 
 def _wait_on_ingest(client, dataset_id, wait_time, print_output = True):
-    # Wait for ingest to finish
+    '''
+    Utility function to check for data ingest completion.
+
+    :param client: CitrinationClient API object.
+    :param dataset_id: Integer ID for the dataset to check.
+    :param wait_time: Wait time in seconds (int) before polling API again.
+    :param print_output: Boolean flag for whether to display status messages.
+    :return: None.
+    '''
+
     sleep(wait_time)
     while (client.data.get_ingest_status(dataset_id) != "Finished"):
         if print_output:
@@ -283,37 +264,63 @@ def _wait_on_ingest(client, dataset_id, wait_time, print_output = True):
         sleep(wait_time)
 
 
-def _wait_on_data_view(client, dataset_id, view_id, wait_time, print_output = True):
-    is_view_ready = False
+def _wait_on_data_view(client, view_id, wait_time, print_output = True):
+    '''
+    Utility function to check for data view creation completion.
+
+    :param client: CitrinationClient API object.
+    :param view_id: Integer ID for the data view to check.
+    :param wait_time: Wait time in seconds (int) before polling API again.
+    :param print_output: Boolean flag for whether to display status messages.
+    :return: None.
+    '''
+
     sleep(wait_time)
-    while (not is_view_ready):
+    while True:
         sleep(wait_time)
         design_status = client.data_views.get_data_view_service_status(view_id)
         if (design_status.experimental_design.ready and
-        design_status.predict.event.normalized_progress == 1.0):
-            is_view_ready = True
+            design_status.predict.event.normalized_progress == 1.0):
             if print_output:
-                print("Design ready")
+                print("Design ready.")
+            break
         else:
             print("Waiting for design services...")
+    sleep(2)
 
 
 def _wait_on_design_run(client, design_id, view_id, wait_time, print_output = True):
-    design_processing = True
+    '''
+    Utility function to check for design run completion.
+
+    :param client: CitrinationClient API object.
+    :param design_id: Integer ID of the submitted design run.
+    :param view_id: Integer ID for the data view to check.
+    :param wait_time: Wait time in seconds (int) before polling API again.
+    :param print_output: Boolean flag for whether to display status messages.
+    :return: None.
+    '''
+
     sleep(wait_time)
-    while design_processing:
+    while True:
         status = client.models.get_design_run_status(view_id, design_id).status
         if print_output:
-            print("Design run status: {}".format(status))
-
+            print("Design run status: {}.".format(status))
         if status != "Finished":
             sleep(wait_time)
         else:
-            design_processing = False
-            
+            break
+
 
 def plot_sl_results(measured, predicted, init_best):
-#     plt.rcParams.update({'figure.figsize':(8, 6), 'font.size':18})
+    '''
+    Helper function to plot the SL results for each iteration.
+
+    :param measured: True/measured values of a property (float).
+    :param predicted: Predicted values of a property (float).
+    :param init_best: The best value of the property from the training set (float).
+    :return: None.
+    '''
 
     # Measured results
     plt.plot(
