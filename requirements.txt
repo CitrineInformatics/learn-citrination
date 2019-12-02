@@ -9,3 +9,4 @@ pandas>0.18,<=0.23
 matplotlib<=3.0
 
 jupyter<=1.0
+ase==3.17.0
